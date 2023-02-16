@@ -44,6 +44,7 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
   };
 
   const handleLogout = () => {
+    console.log("logout")
     Cookies.remove("logged");
     navigate("/login");
   };
@@ -64,15 +65,18 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
             zIndex={5}
           />
         </Link>
-        <Nav searchStatus={searchStatus} handleLogout={handleLogout} headerType={headerType} />
-        {searchStatus === true && (
 
-          <div style={{display: "flex", gap:"8px", alignItems: "center"}}>
+        <Nav searchStatus={searchStatus} handleLogout={handleLogout} headerType={headerType} />
+
+        <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+
+          {searchStatus === true && (
             <SearchBar handleSearch={handleSearch} handleSearchModal={handleSearchModal} />
-            
-            <div id={style.openSearchBtn} 
+          )}
+
+          <div id={style.openSearchBtn}
             className="d-xl-none d-xxl-none"
-            style={{width:"52px", height: "52px", display:"flex", justifyContent:"center", alignItems:"center"}} >
+            style={{ width: "52px", height: "52px", display: "flex", justifyContent: "center", alignItems: "center" }} >
             <img
               className="d-inline d-sm-inline d-md-inline d-lg-inline d-xl-none d-xxl-none"
               src="/img/hamburger2.svg"
@@ -80,12 +84,14 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
               height={20}
               onClick={() => setHamburguerStatus(true)}
             />
-            </div>
           </div>
-        )}
+        
+        </div>
+
         {searchModalStatus === true && hamburguerStatus === false(
           <SearchModal handleSearchModal={handleSearchModal} handleFilter={handleSearch} />
         )}
+
         {hamburguerStatus === true && (
           <img
             id="closeMenu"
@@ -97,10 +103,14 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
             onClick={() => setHamburguerStatus(false)}
           />
         )}
-       
+
 
         {
-          hamburguerStatus === true && (<Hamburguer />)
+          hamburguerStatus === true && (
+            <>
+              <Hamburguer handleLogout={handleLogout} />
+            </>
+          )
         }
 
       </header>
@@ -115,7 +125,7 @@ function SearchBar({ handleSearch, handleSearchModal }) {
       <button
         id={style.openSearchBtn}
         className="btn btn-primary  d-xl-none d-xxl-none btn1 btn1-t1"
-        style={{width:"52px", height: "52px", display:"flex", justifyContent:"center", alignItems:"center"}}
+        style={{ width: "52px", height: "52px", display: "flex", justifyContent: "center", alignItems: "center" }}
         type="button"
         onClick={handleSearchModal}
       >
@@ -177,7 +187,9 @@ function Nav({ searchStatus, handleLogout, headerType }) {
   )
 }
 
-function Hamburguer() {
+function Hamburguer({handleLogout}) {
+
+
   return (
 
     <div id={style["hamburguer-menu"]}>
@@ -188,10 +200,15 @@ function Hamburguer() {
       >
         <span className="margin-b-16 color-body body-regular">Menu</span>
         <div className="margin-b-24">
-          <ul id={style["nav-hamb"]} className="titulo1-regular color-neutral900">
-            <li>Inicio</li>
-            <li>About</li>
-            <li>Salir</li>
+          <ul id={style["nav-hamb"]} className="titulo1-regular color-neutral900"
+          >
+            <Link to="/">
+              <li style={{ color: "#000000", textDecoration: "none" }}>Inicio</li>
+            </Link>
+            <Link to="/about">
+              <li style={{ color: "#000000", textDecoration: "none" }}>About</li>
+            </Link>
+            <li onClick={handleLogout}>Salir</li>
           </ul>
         </div>
         <span className="color-body body-regular">Ponte en contacto</span>

@@ -3,6 +3,8 @@ import CharactersGrid from "../../componentes/masters/charactersGrid/CharactersG
 import style from "./home.module.scss";
 import { hideHeader } from "../../componentes/general/modal/Modal";
 import { Helmet } from 'react-helmet';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function Home() {
 
@@ -11,6 +13,11 @@ export default function Home() {
         hideHeader(false);
     };
 
+    const location = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [location]);
 
     return (
         <>
