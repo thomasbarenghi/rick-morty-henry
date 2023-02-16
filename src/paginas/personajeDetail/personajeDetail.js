@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCharacter } from '../../redux/actions/actions';
 import style from "./personajedetail.module.scss";
-
+import { useLocation } from 'react-router-dom';
 export default function CharacterDetail() {
 
     const dispatch = useDispatch();
@@ -13,6 +13,12 @@ export default function CharacterDetail() {
 
     const state = useSelector((state) => state?.personajes);
     useEffect(() => { dispatch(getCharacter(slug.id)); }, [slug]);
+
+    const location = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [location]);
 
     return (
         <>
