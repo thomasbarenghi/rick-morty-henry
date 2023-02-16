@@ -13,6 +13,7 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
   const dispatch = useDispatch();
   const [headerType, setHeaderType] = useState("default");
   const [searchModalStatus, setSearchModalStatus] = useState(false);
+  const [hamburguerStatus, setHamburguerStatus] = useState(false);
 
   const handleSearch = (dato) => {
     console.log(dato.target.name)
@@ -60,13 +61,45 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
             src="/img/Rectangle 1.svg"
             width={213}
             height={40}
+            zIndex={5}
           />
         </Link>
         <Nav searchStatus={searchStatus} handleLogout={handleLogout} headerType={headerType} />
-        {searchStatus === true && (<SearchBar handleSearch={handleSearch} handleSearchModal={handleSearchModal} />)}
-        {searchModalStatus === true && (
+        {searchStatus === true && (
+
+          <div style={{display: "flex", gap:"8px", alignItems: "center"}}>
+            <SearchBar handleSearch={handleSearch} handleSearchModal={handleSearchModal} />
+            <div id={style.openSearchBtn} style={{width:"52px", height: "52px", justifyContent:"center", alignItems:"center"}} >
+            <img
+              className="d-inline d-sm-inline d-md-inline d-lg-inline d-xl-none d-xxl-none"
+              src="/img/hamburger2.svg"
+              width={20}
+              height={20}
+              onClick={() => setHamburguerStatus(true)}
+            />
+            </div>
+          </div>
+        )}
+        {searchModalStatus === true && hamburguerStatus === false(
           <SearchModal handleSearchModal={handleSearchModal} handleFilter={handleSearch} />
         )}
+        {hamburguerStatus === true && (
+          <img
+            id="closeMenu"
+            className="d-lg-none d-xl-none d-xxl-none"
+            src="/img/fi-rr-cross.svg"
+            width={24}
+            height={24}
+            style={{ /*display: 'none', */ zIndex: 5 }}
+            onClick={() => setHamburguerStatus(false)}
+          />
+        )}
+       
+
+        {
+          hamburguerStatus === true && (<Hamburguer />)
+        }
+
       </header>
     </>
   );
@@ -108,8 +141,7 @@ function SearchBar({ handleSearch, handleSearchModal }) {
 
 function Nav({ searchStatus, handleLogout, headerType }) {
 
-const idLi = headerType === "alternative" ? style.navItem2 : style.navItem1;
-
+  const idLi = headerType === "alternative" ? style.navItem2 : style.navItem1;
 
   return (
     <>
@@ -124,19 +156,46 @@ const idLi = headerType === "alternative" ? style.navItem2 : style.navItem1;
         }}
       >
         <Link to="/">
-        <li id={idLi} className="list-inline-item body-regular">
-          Inicio
-        </li>
+          <li id={idLi} className="list-inline-item body-regular">
+            Inicio
+          </li>
         </Link>
         <Link to="/about">
-        <li id={idLi} className="list-inline-item body-regular">
-          About
-        </li>
+          <li id={idLi} className="list-inline-item body-regular">
+            About
+          </li>
         </Link>
         <li id={idLi} className="list-inline-item body-regular" onClick={handleLogout}>
           Cerrar sesión
         </li>
       </ul>
     </>
+  )
+}
+
+function Hamburguer() {
+  return (
+
+    <div id={style["hamburguer-menu"]}>
+      <div
+        id={style["hamburguer-box"]}
+        className="d-flex flex-column justify-content-center align-items-start"
+        style={{ zIndex: 6 }}
+      >
+        <span className="margin-b-16 color-body body-regular">Menu</span>
+        <div className="margin-b-24">
+          <ul id={style["nav-hamb"]} className="titulo1-regular color-neutral900">
+            <li>Inicio</li>
+            <li>About</li>
+            <li>Salir</li>
+          </ul>
+        </div>
+        <span className="color-body body-regular">Ponte en contacto</span>
+        <span className="body-regular" style={{ color: "#0d8f0a" }}>
+          ejemplo@ejemplo.cc
+        </span>
+      </div>
+    </div>
+
   )
 }
