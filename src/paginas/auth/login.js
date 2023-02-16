@@ -32,12 +32,15 @@ function HeroSection({ onLogin }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        const formErrors = validateForm(formData);
-        if (Object.keys(formErrors).length === 0) {
-            onLogin(formData);
-        } else {
-            setErrors(formErrors);
-        }
+        //Adaptacion siempre login
+        console.log("submit")
+        onLogin({username: "hola", password: "hola"});
+        // const formErrors = validateForm(formData);
+        // if (Object.keys(formErrors).length === 0) {
+        //     onLogin(formData);
+        // } else {
+        //     setErrors(formErrors);
+        // }
     }
 
     function handleInputChange(e) {

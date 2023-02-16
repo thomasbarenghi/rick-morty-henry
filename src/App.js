@@ -25,7 +25,10 @@ function App() {
       console.log("access: ", true);
       navigate("/");
     } else {
-      console.log("access: ", false);
+      //adaptado siempre login
+     // console.log("access: ", false);
+     Cookies.set("logged", true);
+     navigate("/");
     }
   }
 
