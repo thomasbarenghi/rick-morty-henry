@@ -69,7 +69,10 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
 
           <div style={{display: "flex", gap:"8px", alignItems: "center"}}>
             <SearchBar handleSearch={handleSearch} handleSearchModal={handleSearchModal} />
-            <div id={style.openSearchBtn} style={{width:"52px", height: "52px", justifyContent:"center", alignItems:"center"}} >
+            
+            <div id={style.openSearchBtn} 
+            className="d-xl-none d-xxl-none"
+            style={{width:"52px", height: "52px", display:"flex", justifyContent:"center", alignItems:"center"}} >
             <img
               className="d-inline d-sm-inline d-md-inline d-lg-inline d-xl-none d-xxl-none"
               src="/img/hamburger2.svg"
@@ -111,7 +114,8 @@ function SearchBar({ handleSearch, handleSearchModal }) {
     <>
       <button
         id={style.openSearchBtn}
-        className="btn btn-primary d-lg-none d-xl-none d-xxl-none btn1 btn1-t1"
+        className="btn btn-primary  d-xl-none d-xxl-none btn1 btn1-t1"
+        style={{width:"52px", height: "52px", display:"flex", justifyContent:"center", alignItems:"center"}}
         type="button"
         onClick={handleSearchModal}
       >
@@ -123,7 +127,7 @@ function SearchBar({ handleSearch, handleSearchModal }) {
       </button>
       <div
         id={style["search-div"]}
-        className="d-none d-sm-none d-md-none d-lg-flex d-xl-flex d-xxl-flex"
+        className="d-none d-sm-none d-md-none d-lg-none d-xl-flex d-xxl-flex"
       >
         <img src="/img/fi-br-search.svg" />
         <input
