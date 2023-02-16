@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import style from "./login.module.scss";
 import { useState, useEffect } from "react";
 import { validateForm } from './validation';
-
+import { Link } from "react-router-dom";
 export default function Login({ onLogin }) {
     return (
         <>
@@ -15,7 +15,21 @@ export default function Login({ onLogin }) {
                 <meta name="theme-color" content="#379c35"></meta>
             </Helmet>
             <main>
-                <HeaderDefault searchStatus={false} />
+                <header
+
+                    className="d-flex flex-row justify-content-between align-items-center padding-lr-t1 padding-tb-30 margin-b-0"
+                    style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 5, display: "flex", justifyContent: "start" }}
+                >
+                    <Link to="/">
+                        <img
+                            src="/img/Rectangle 1.svg"
+                            style={{ width: "auto" }}
+                            height={40}
+                            zIndex={5}
+                        />
+                    </Link>
+
+                </header>
                 <HeroSection onLogin={onLogin} />
             </main>
         </>
@@ -34,7 +48,7 @@ function HeroSection({ onLogin }) {
         e.preventDefault();
         //Adaptacion siempre login
         console.log("submit")
-        onLogin({username: "hola", password: "hola"});
+        onLogin({ username: "hola", password: "hola" });
         // const formErrors = validateForm(formData);
         // if (Object.keys(formErrors).length === 0) {
         //     onLogin(formData);
