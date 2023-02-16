@@ -1,0 +1,55 @@
+#seccion-personajes {
+  & a {
+    color: #379c35;
+    text-decoration: none;
+  }
+
+
+  & #componentContainer {
+    gap: var(--gap-t1);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max(15vw, 250px), 1fr));
+    grid-auto-rows: auto;
+  }
+}
+
+.modalOpen {
+  font-size: 14px !important;
+  border-radius: 1000px !important;
+  padding: 10px 20px !important;
+  line-height: 135% !important;
+  background: #379c35 !important;
+}
+
+.btn3 {
+  font-size: 14px !important;
+  border-radius: 10px !important;
+  padding: 10px 20px !important;
+  line-height: 135% !important;
+  background: #379c35 !important;
+}
+
+@media (max-width: 768px) {
+  #seccion-personajes {
+    & #optionsContainer {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      overflow-y: hidden;
+      max-width: 100%;
+      overflow-x: scroll;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #seccion-personajes {
+    & #optionsContainer {
+      display: flex;
+      gap: 8px;
+      max-width: 100%;
+    }
+  }
+}
+
+

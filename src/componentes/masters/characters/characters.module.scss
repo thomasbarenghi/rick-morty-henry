@@ -1,0 +1,83 @@
+#componente {
+  background: linear-gradient(rgba(231, 249, 253, 0.08), #e2f1e2);
+  padding: 10px;
+  gap: 40px;
+  position: relative;
+  color: #379c35;
+
+  & #personajes-img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 15px;
+  }
+
+  & #box-propiedades {
+    gap: 16px;
+    padding: 0px 10px;
+  }
+
+  & #btns-todos-box {
+    gap: 8px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+  }
+
+  & .btn-verde-blanco {
+    display: none;
+  }
+}
+
+#componente:hover {
+  & .btn-verde-blanco {
+    display: flex;
+  }
+}
+
+.visible {
+  display: flex !important;
+}
+
+.invisible {
+  display: none !important;
+}
+
+.btn-verde-blanco {
+  font-size: 14px !important;
+  background: #379c35 !important;
+  gap: 8px;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  flex-grow: 1;
+}
+
+.btn-blanco-verde {
+  font-size: 14px !important;
+  background: #fff !important;
+  gap: 8px;
+  padding: 0px !important;
+  width: 46px;
+  height: 46px;
+  border-radius: 10px !important;
+}
+
+// .btn-verde-blanco:hover {
+//     font-size: 14px !important;
+//     background: #fff !important;
+//     gap: 8px;
+//     padding: 10px 20px !important;
+//     border-radius: 10px !important;
+//     flex-grow: 1;
+//     color: #379c35;
+// }
+
+// .btn-blanco-verde:hover {
+//     font-size: 14px !important;
+//     background: #379c35 !important;
+//     gap: 8px;
+//     padding: 0px !important;
+//     width: 46px;
+//     height: 46px;
+//     border-radius: 10px !important;
+// }

@@ -1,0 +1,40 @@
+#seccion-hero {
+    background: url("../../../public/img/detail.png") center / cover no-repeat;
+    min-height: 40vh;
+    color: #ffffff;
+
+    & #titulo-hero {
+        width: max-content;
+    }
+
+    & #img-hero {
+        width: 100px;
+        height: 100px;
+        aspect-ratio: 1/1;
+        border-radius: 100%;
+    }
+}
+
+
+#seccion-tecnologias {
+    padding-left: var(--padding-lr-t4);
+    padding-right: var(--padding-lr-t4);
+
+    & #grid {
+        grid-template-columns: repeat(auto-fill, minmax(max(35vw, 250px), 1fr));
+        display: grid;
+        gap: var(--gap-t1);
+
+        & #item {
+            gap: 8px;
+            background: rgba(55, 156, 53, 0.2);
+            color: #0d8f0a;
+
+            & #item-icon {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    }
+
+}
