@@ -49,7 +49,7 @@ function HeroSection({ state }) {
                     className="text-center text-sm-center text-md-start d-flex flex-column justify-content-center align-items-center flex-sm-column flex-md-row"
                     style={{ paddingTop: 15, gap: 16 }}
                 >
-                    <img id={style["img-hero"]} src={state?.personajeDetail?.image} />
+                    <img id={style["img-hero"]} src={state?.personajeDetail?.image} />!
                     <div>
                         <h1 id={style["titulo-hero"]} className="titulo1-regular margin-b-0">
                             <strong>{state?.personajeDetail?.name}</strong>
