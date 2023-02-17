@@ -51,7 +51,7 @@ function HeroSection({ state }) {
                 >
                     <img id={style["img-hero"]} src={state?.personajeDetail?.image} />
                     <div>
-                        <h1 id={style["titulo-hero"]} className="titulo1-regular margin-b-0">
+                        <h1 id={style["titulo-hero"]} className="titulo1-regular margin-b-0" style={{display: "contents"}}>
                             <strong>{state?.personajeDetail?.name}</strong>
                         </h1>
                         <p className="body-regular margin-b-0 span-100">
