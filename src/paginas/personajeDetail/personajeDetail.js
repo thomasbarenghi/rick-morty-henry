@@ -34,6 +34,7 @@ export default function CharacterDetail() {
                 <HeroSection state={state} />
                 <DetallesSection state={state} />
             </main>
+            
         </>
     )
 }
