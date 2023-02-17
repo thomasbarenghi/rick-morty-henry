@@ -88,7 +88,7 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
         
         </div>
 
-        {searchModalStatus === true && hamburguerStatus === false(
+        {searchModalStatus === true && hamburguerStatus === false && (
           <SearchModal handleSearchModal={handleSearchModal} handleFilter={handleSearch} />
         )}
 
