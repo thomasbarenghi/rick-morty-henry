@@ -48,13 +48,13 @@ function HeroSection({ onLogin }) {
         e.preventDefault();
         //Adaptacion siempre login
         console.log("submit")
-        onLogin({ username: "hola", password: "hola" });
-        // const formErrors = validateForm(formData);
-        // if (Object.keys(formErrors).length === 0) {
-        //     onLogin(formData);
-        // } else {
-        //     setErrors(formErrors);
-        // }
+       // onLogin({ username: "hola", password: "hola" });
+         const formErrors = validateForm(formData);
+         if (Object.keys(formErrors).length === 0) {
+             onLogin(formData);
+         } else {
+             setErrors(formErrors);
+         }
     }
 
     function handleInputChange(e) {
@@ -62,6 +62,12 @@ function HeroSection({ onLogin }) {
             ...formData,
             [e.target.name]: e.target.value
         });
+    }
+
+    const handleByPass = () => {
+
+    onLogin({username: "ejemplo@ejemplo.com", password: "12345678a"})
+
     }
 
 
@@ -127,6 +133,7 @@ function HeroSection({ onLogin }) {
                         >
                             Iniciar sesión
                         </button>
+                        <p onClick={handleByPass}>Haz click para hacer ByPass e ingresar</p>
                     </form>
                 </div>
             </section>

@@ -26,9 +26,9 @@ function App() {
       navigate("/");
     } else {
       //adaptado siempre login
-     // console.log("access: ", false);
-     Cookies.set("logged", true);
-     navigate("/");
+      console.log("access: ", false);
+     //Cookies.set("logged", true);
+    // navigate("/");
     }
   }
 
