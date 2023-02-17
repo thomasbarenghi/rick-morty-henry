@@ -133,7 +133,7 @@ function HeroSection({ onLogin }) {
                         >
                             Iniciar sesión
                         </button>
-                        <p onClick={handleByPass}>Haz click para hacer ByPass e ingresar</p>
+                        <p onClick={handleByPass}>Haz click aqui para hacer ByPass e ingresar</p>
                     </form>
                 </div>
             </section>
