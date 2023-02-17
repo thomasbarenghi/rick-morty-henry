@@ -49,6 +49,7 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
     navigate("/login");
   };
 
+
   return (
     <>
       <header
@@ -66,10 +67,10 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
           />
         </Link>
 
-        <Nav searchStatus={searchStatus} handleLogout={handleLogout} headerType={headerType} />
+        
 
         <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-
+        <Nav searchStatus={searchStatus} handleLogout={handleLogout} headerType={headerType} />
           {searchStatus === true && (
             <SearchBar handleSearch={handleSearch} handleSearchModal={handleSearchModal} />
           )}
@@ -156,7 +157,7 @@ function SearchBar({ handleSearch, handleSearchModal }) {
 function Nav({ searchStatus, handleLogout, headerType }) {
 
   const idLi = headerType === "alternative" ? style.navItem2 : style.navItem1;
-
+console.log(searchStatus)
   return (
     <>
       <ul

@@ -7,7 +7,7 @@ export function selectCharacter(id) {
 }
 
 export function favoriteCharacter(id) {
-  //console.log("favorite", id);
+  console.log("favorite", id);
   return { type: FAVORITE_CHARACTER, payload: id };
 }
 
