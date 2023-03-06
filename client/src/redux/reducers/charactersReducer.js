@@ -70,6 +70,11 @@ const rootReducer = (state = initialState, action) => {
             console.log(action.payload)
             console.log(state.personajes)
             const properties = { 0: "todos", 1: "seleccionados", 2: "favoritos" };
+
+if (action.payload === 2) {
+actions.getFavorites();
+}
+
             return {
                 ...state,
                 personajes: {

@@ -19,14 +19,14 @@ export const favoriteCharacter = (character) => {
       (c) => c.id === character.id
     );
     if (isAlreadyFavorite) {
-      axios.delete(`${SERVER_URL}/api/client/favorites/${character.id}`)
+      axios.delete(`${SERVER_URL}/client/favorites/${character.id}`)
         .then((res) => {
           console.log(res);
           dispatch(getFavorites()); // actualiza los personajes favoritos en el estado de Redux
         })
         .catch((err) => console.log(err));
     } else {
-      axios.post(`${SERVER_URL}/api/client/favorites`, character)
+      axios.post(`${SERVER_URL}/client/favorites`, character)
         .then((res) => {
           console.log(res);
           dispatch(getFavorites()); // actualiza los personajes favoritos en el estado de Redux
@@ -38,7 +38,7 @@ export const favoriteCharacter = (character) => {
 
 export const getFavorites = () => {
   return (dispatch) => {
-    axios.get(`${SERVER_URL}/api/client/favorites`)
+    axios.get(`${SERVER_URL}/client/favorites`)
       .then((res) => {
         const favorites = res.data;
         dispatch({ type: "GET_FAVORITES", payload: favorites });
