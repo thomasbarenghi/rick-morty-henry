@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const charactersRoutes = require('./characters');
-const userCharactersRoutes = require('./userCharacters');
+const userCharactersRoutes = require('./favorites');
 
 // Ruta principal
 router.get('/', (req, res) => {
@@ -10,7 +10,6 @@ router.get('/', (req, res) => {
 
 //Otras rutas
 router.use("/characters", charactersRoutes);
-router.use("/userCharacters", userCharactersRoutes);
-
+router.use("/client/favorites", userCharactersRoutes);
 
 module.exports = router;

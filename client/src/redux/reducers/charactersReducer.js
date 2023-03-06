@@ -1,5 +1,7 @@
 import { SELECT_CHARACTER, FAVORITE_CHARACTER, FILTER_CHARACTERS, GET_CHARACTERS, CHANGE_FILTER } from "../actions/actionTypes";
 import fetchCharacters from "../../api/getCharacters";
+import * as actions from "../actions/actions";
+import useDispatch from "react-redux";
 
 const initialState = {
     personajes: {
@@ -16,6 +18,7 @@ const initialState = {
 
 
 const rootReducer = (state = initialState, action) => {
+
 
 
     switch (action.type) {
@@ -112,6 +115,16 @@ const rootReducer = (state = initialState, action) => {
                 };
             };
 
+            case "GET_FAVORITES":
+                return {
+                    ...state,
+                    personajes: {
+                        ...state.personajes,
+                        favoritos: action.payload
+                    }
+                };
+
+
         case "FAVORITE_CHARACTER":
             const isAlreadyFavorite = state.personajes.favoritos.find(
                 (character) => character.id === action.payload.id
@@ -134,6 +147,9 @@ const rootReducer = (state = initialState, action) => {
                 };
             };
 
+
+
+
         case "GET_CHARACTER":
             console.log(action.payload, "payload")
             return {
@@ -147,7 +163,7 @@ const rootReducer = (state = initialState, action) => {
 
         default:
             return;
-            }
     }
+}
 
-    export default rootReducer;
+export default rootReducer;
