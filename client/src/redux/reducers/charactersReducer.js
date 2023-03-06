@@ -24,7 +24,7 @@ const rootReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case "CHANGE_FILTER":
-            console.log(action.payload.genero);
+            console.log(action.payload);
             const indexActual = state.personajes.filtro.index;
             //const currentCharacters = state.personajes.activos;
             const properties1 = { 0: "todos", 1: "seleccionados", 2: "favoritos" };
@@ -41,7 +41,7 @@ const rootReducer = (state = initialState, action) => {
                 const filterBySpecies =
                     action.payload.especie && action.payload.especie !== "default"
                         ? character.species === action.payload.especie
-                        : true;
+                        : true;       
 
                 const filterByName = character.name
                     .toLowerCase()
@@ -49,7 +49,17 @@ const rootReducer = (state = initialState, action) => {
 
                 return filterByGender && filterBySpecies && filterByName;
 
-            });
+            })
+            
+            filteredCharacters.sort((a, b) => {
+                if (action.payload.orden === "A-Z") {
+                  return a.name.localeCompare(b.name);
+                } else if (action.payload.orden === "Z-A") {
+                  return b.name.localeCompare(a.name);
+                } else {
+                  return filteredCharacters;
+                }
+              });
 
             return {
                 ...state,

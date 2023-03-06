@@ -12,7 +12,7 @@ export default function CharactersGrid({ searchValue }) {
 
     const dispatch = useDispatch();
     const [index, setIndex] = useState(0);
-    const elementosFiltrado = { genero: ["Male", "Female", "unknown", "Genderless"], especie: ["Human", "Alien"], };
+    const elementosFiltrado = { genero: ["Male", "Female", "unknown", "Genderless"], especie: ["Human", "Alien"], orden: ["A-Z", "Z-A"] };
     const [filtro, setFiltro] = useState({ genero: "default", especie: "default", search: "" });
 
     const state = useSelector((state) => state?.personajes);
@@ -29,8 +29,12 @@ export default function CharactersGrid({ searchValue }) {
         setFiltro({ genero: "default", especie: "default", search: "" })
     }
 
+    const handleCloseModal = () => {
+        console.log("close");
+    }
+
     useEffect(() => { dispatch(changeFilter(filtro)) }, [filtro]);
-    useEffect(() => {dispatch(getFavorites())}, []);
+    useEffect(() => { dispatch(getFavorites()) }, []);
 
 
     return (
@@ -55,7 +59,7 @@ export default function CharactersGrid({ searchValue }) {
                         Filtrar
                     </button>
 
-                    <Modal>
+                    <Modal onClose={handleCloseModal} >
                         <div id="modalInner">
                             <Select
                                 name="genero"
@@ -66,6 +70,11 @@ export default function CharactersGrid({ searchValue }) {
                                 name="especie"
                                 handleFilter={handleFilter}
                                 data={elementosFiltrado.especie}
+                            />
+                            <Select
+                                name="orden"
+                                handleFilter={handleFilter}
+                                data={elementosFiltrado.orden}
                             />
                             <button
                                 style={{

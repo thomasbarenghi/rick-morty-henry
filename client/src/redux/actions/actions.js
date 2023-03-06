@@ -61,7 +61,7 @@ export const changeIndex = (index) => {
 
 
 export function changeFilter(filtro) {
-  //console.log("filter", filtro);
+  console.log("filter", filtro);
   return { type: CHANGE_FILTER, payload: filtro };
 }
 

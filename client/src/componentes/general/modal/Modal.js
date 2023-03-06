@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "../modal/modal.module.css";
 
 export const hideHeader = (data) => {
   Modal.handleReverse(data);
 };
 
-const Modal = ({ children }) => {
+const Modal = ({ children, onClose }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleReverse = (data) => {
@@ -14,6 +14,10 @@ const Modal = ({ children }) => {
   };
 
   Modal.handleReverse = handleReverse;
+
+useEffect(() => {
+  onClose()
+}, [showModal === false])
 
   return (
     <div
