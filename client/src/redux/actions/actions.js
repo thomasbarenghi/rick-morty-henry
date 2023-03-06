@@ -37,22 +37,28 @@ export const favoriteCharacter = (character) => {
 };
 
 export const getFavorites = () => {
-  return (dispatch) => {
-    axios.get(`${SERVER_URL}/client/favorites`)
-      .then((res) => {
-        const favorites = res.data;
-        dispatch({ type: "GET_FAVORITES", payload: favorites });
-      })
-      .catch((err) => console.log(err));
+  return function (dispatch) {
+    return fetch(`${SERVER_URL}/client/favorites`)
+      .then(res => res.json())
+      .then(res => dispatch({ type: "GET_FAVORITES", payload: res }))
   };
 };
 
 
 
-export function changeIndex(index) {
- // console.log("index", index);
-  return { type: CHANGE_INDEX, payload: index };
-}
+export const changeIndex = (index) => {
+  return (dispatch) => {
+    // Realizar alguna operación asíncrona aquí, como una llamada a la API
+    // ...
+
+    // Enviar una acción al store
+    dispatch({ type: "CHANGE_INDEX", payload: index });
+
+    // Enviar otra acción al store si es necesario
+    dispatch(getFavorites());
+  };
+};
+
 
 export function changeFilter(filtro) {
   //console.log("filter", filtro);
@@ -60,18 +66,18 @@ export function changeFilter(filtro) {
 }
 
 export const getCharacters = () => {
-  return function (dispatch){
-      return fetch (`${SERVER_URL}/characters`)
+  return function (dispatch) {
+    return fetch(`${SERVER_URL}/characters`)
       .then(res => res.json())
-      .then(res => dispatch({type: GET_CHARACTERS, payload: res} ))
+      .then(res => dispatch({ type: GET_CHARACTERS, payload: res }))
   }
 };
 
 export const getCharacter = (id) => {
-  console.log("soy id en character",id)
-  return function (dispatch){
-      return fetch (`${SERVER_URL}/characters/${id}`)
+  console.log("soy id en character", id)
+  return function (dispatch) {
+    return fetch(`${SERVER_URL}/characters/${id}`)
       .then(res => res.json())
-      .then(res => dispatch({type: GET_CHARACTER, payload: res} ))
+      .then(res => dispatch({ type: GET_CHARACTER, payload: res }))
   }
 };

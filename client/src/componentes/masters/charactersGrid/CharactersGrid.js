@@ -5,7 +5,7 @@ import Modal from "../../general/modal/Modal";
 import Select from "../../general/select/Select";
 import { hideHeader } from "../../general/modal/Modal";
 import { useState, useEffect } from "react";
-import { getCharacters, changeIndex, changeFilter } from "../../../redux/actions/actions";
+import { getCharacters, changeIndex, changeFilter, getFavorites } from "../../../redux/actions/actions";
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function CharactersGrid({ searchValue }) {
@@ -30,6 +30,7 @@ export default function CharactersGrid({ searchValue }) {
     }
 
     useEffect(() => { dispatch(changeFilter(filtro)) }, [filtro]);
+    useEffect(() => {dispatch(getFavorites())}, []);
 
 
     return (

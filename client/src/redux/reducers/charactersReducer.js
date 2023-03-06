@@ -1,6 +1,6 @@
 import { SELECT_CHARACTER, FAVORITE_CHARACTER, FILTER_CHARACTERS, GET_CHARACTERS, CHANGE_FILTER } from "../actions/actionTypes";
 import fetchCharacters from "../../api/getCharacters";
-import * as actions from "../actions/actions";
+import {getFavorites} from "../actions/actions";
 import useDispatch from "react-redux";
 
 const initialState = {
@@ -67,13 +67,10 @@ const rootReducer = (state = initialState, action) => {
 
 
         case "CHANGE_INDEX":
-            console.log(action.payload)
-            console.log(state.personajes)
             const properties = { 0: "todos", 1: "seleccionados", 2: "favoritos" };
+            //actions.getFavorites()
 
-if (action.payload === 2) {
-actions.getFavorites();
-}
+      
 
             return {
                 ...state,
@@ -88,6 +85,7 @@ actions.getFavorites();
             }
 
         case "GET_CHARACTERS":
+            console.log("hola get characters")
             return {
                 ...state,
                 personajes: {
@@ -120,14 +118,15 @@ actions.getFavorites();
                 };
             };
 
-            case "GET_FAVORITES":
-                return {
-                    ...state,
-                    personajes: {
-                        ...state.personajes,
-                        favoritos: action.payload
-                    }
-                };
+        case "GET_FAVORITES":
+            console.log("hola get favorites")
+            return {
+                ...state,
+                personajes: {
+                    ...state.personajes,
+                    favoritos: action.payload
+                }
+            };
 
 
         case "FAVORITE_CHARACTER":
