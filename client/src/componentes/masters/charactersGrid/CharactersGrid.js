@@ -16,7 +16,7 @@ export default function CharactersGrid({ searchValue }) {
     const [filtro, setFiltro] = useState({ genero: "default", especie: "default", search: "" });
 
     const state = useSelector((state) => state?.personajes);
-    useEffect(() => { dispatch(getCharacters()); }, []);
+    useEffect(() => { dispatch(getCharacters()); }, [dispatch]);
 
     const onIndexChange = (index) => { dispatch(changeIndex(index)) };
 
@@ -82,7 +82,7 @@ export default function CharactersGrid({ searchValue }) {
             </div>
             <div id={style["componentContainer"]}>
                 {
-                    state?.activos.map((character) => {
+                    state?.activos?.map((character) => {
 
                         return <Characters data={character} />
                     })

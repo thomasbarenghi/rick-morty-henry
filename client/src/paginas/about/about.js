@@ -60,15 +60,7 @@ function DescripcionAutor() {
         <br />
       </h1>
       <p className="margin-b-0 body-regular">
-        Soy Thomas Barenghi, diseñador UX/UI y desarrollador web fullstack con
-        19 años de edad. Resido en Buenos Aires y estoy estudiando Desarrollo de
-        Software en UADE. Además, complemento mi formación en el bootcamp Soy
-        Henry, donde adquirí más de
-        <strong> 800 horas de experiencia</strong> y desarrollé proyectos
-        prácticos. Me esfuerzo por combinar mis habilidades técnicas con mi
-        pasión por la creatividad para crear soluciones digitales innovadoras y
-        atractivas para el usuario.
-        <br />
+      Soy Thomas Barenghi, diseñador UX/UI y desarrollador web frontend con 19 años de edad. Resido en Buenos Aires y quiero estudiar Desarrollo de Software en UADE. Además, complemento mi formación en el bootcamp Soy Henry, donde adquiriré más de 800 horas de experiencia y desarrollaré proyectos prácticos. Me esfuerzo por combinar mis habilidades técnicas con mi pasión por la creatividad para crear soluciones digitales innovadoras y atractivas para el usuario.
       </p>
     </section>
   );
@@ -82,7 +74,7 @@ function DescripcionProyecto() {
         <br />
       </h1>
       <p className="margin-b-0 body-regular">
-      Soy Thomas Barenghi, diseñador UX/UI y desarrollador web frontend con 19 años de edad. Resido en Buenos Aires y quiero estudiar Desarrollo de Software en UADE. Además, complemento mi formación en el bootcamp Soy Henry, donde adquiriré más de 800 horas de experiencia y desarrollaré proyectos prácticos. Me esfuerzo por combinar mis habilidades técnicas con mi pasión por la creatividad para crear soluciones digitales innovadoras y atractivas para el usuario.
+      ¡Hola! Te cuento sobre mi aplicación de Rick y Morty. Es una plataforma en línea donde puedes explorar el universo de la popular serie animada. A través de mi aplicación, puedes descubrir personajes, ver sus imágenes y obtener información detallada sobre ellos. Además, puedes buscar episodios, ubicaciones y más en la base de datos de la serie. Con mi aplicación, tendrás todo lo que necesitas para explorar el universo de Rick y Morty de una manera sencilla y emocionante. ¡Espero que disfrutes explorando todo lo que tengo que ofrecer!
         <br />
       </p>
     </section>

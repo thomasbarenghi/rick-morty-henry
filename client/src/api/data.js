@@ -54,4 +54,10 @@ export const Tecnologias = [
     imagen: "/img/tecnologias/cookies.svg",
     descripcion: "JS-Cookie es una biblioteca liviana de JavaScript que proporciona una interfaz fácil de usar para trabajar con cookies. En el contexto de React, js-cookie puede ser útil para almacenar información del usuario en cookies y mantener la sesión del usuario en la aplicación, lo que es especialmente útil en aplicaciones de inicio de sesión."
   },
+  {
+    id: 10,
+    titulo: "Express.js",
+    imagen: "/img/tecnologias/express.svg",
+    descripcion: "Express.js es un framework de servidor web para Node.js que permite crear aplicaciones web y API REST de manera rápida y sencilla. Express.js se basa en el concepto de middleware, que es una función que se ejecuta entre la solicitud y la respuesta del servidor. Express.js proporciona una serie de middleware predefinidos que facilitan la creación de aplicaciones web y API REST."
+  },
 ];

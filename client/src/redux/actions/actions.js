@@ -1,5 +1,5 @@
 import { SELECT_CHARACTER, GET_CHARACTERS, GET_CHARACTER, CHANGE_INDEX, FAVORITE_CHARACTER, CHANGE_FILTER } from "./actionTypes";
-
+import { SERVER_URL } from "../../api/config";
 
 export function selectCharacter(id) {
   //console.log("select", id);
@@ -24,16 +24,16 @@ export function changeFilter(filtro) {
 
 export const getCharacters = () => {
   return function (dispatch){
-      return fetch ("https://rickandmortyapi.com/api/character")
+      return fetch (`${SERVER_URL}/characters`)
       .then(res => res.json())
-      .then(res => dispatch({type: GET_CHARACTERS, payload: res.results} ))
+      .then(res => dispatch({type: GET_CHARACTERS, payload: res} ))
   }
 };
 
 export const getCharacter = (id) => {
   console.log("soy id en character",id)
   return function (dispatch){
-      return fetch (`https://rickandmortyapi.com/api/character/${id}`)
+      return fetch (`${SERVER_URL}/characters/${id}`)
       .then(res => res.json())
       .then(res => dispatch({type: GET_CHARACTER, payload: res} ))
   }
