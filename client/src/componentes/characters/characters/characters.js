@@ -12,8 +12,8 @@ export default function Characters({ data, }) {
   const handleFavorite = () => { dispatch(favoriteCharacter(data)); }
   const handleDelete = (id) => { dispatch(deletePropio(data.id));}
 
-  const seleccionadosList = useSelector((state) => state.personajes.seleccionados);
-  const favoritosList = useSelector((state) => state.personajes.favoritos);
+  const seleccionadosList = useSelector((state) => state?.personajes?.seleccionados);
+  const favoritosList = useSelector((state) => state?.personajes?.favoritos);
   const idSeleccionado = seleccionadosList.some((obj) => obj.id === data.id);
   const idFavorito = favoritosList.some((obj) => obj.id === data.id);
 

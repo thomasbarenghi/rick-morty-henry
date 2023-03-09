@@ -22,7 +22,7 @@ const rootReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case "CHANGE_FILTER":
-            console.log(action.payload);
+        //    console.log(action.payload);
             const indexActual = state.personajes.filtro.index;
             //const currentCharacters = state.personajes.activos;
             const properties1 = { 0: "todos", 1: "seleccionados", 2: "favoritos" };
@@ -104,7 +104,7 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case "GET_CHARACTERS":
-            console.log("hola get characters")
+        //    console.log("hola get characters")
             return {
                 ...state,
                 personajes: {
@@ -115,7 +115,7 @@ const rootReducer = (state = initialState, action) => {
             };
 
         case "SELECT_CHARACTER":
-            console.log(state.personajes.seleccionados);
+        //    console.log(state.personajes.seleccionados);
             const isAlreadySelected = state.personajes.seleccionados.find(
                 (character) => character.id === action.payload.id
             );
@@ -138,7 +138,7 @@ const rootReducer = (state = initialState, action) => {
             };
 
         case "GET_FAVORITES":
-            console.log("hola get favorites")
+         //   console.log("hola get favorites")
             return {
                 ...state,
                 personajes: {
@@ -148,8 +148,8 @@ const rootReducer = (state = initialState, action) => {
             };
 
             case "GET_PROPIOS":
-                console.log("hola get PROPIOS")
-                console.log(action.payload)
+               // console.log("hola get PROPIOS")
+              //  console.log(action.payload)
                 return {
                     ...state,
                     personajes: {
@@ -159,13 +159,13 @@ const rootReducer = (state = initialState, action) => {
                 };
 
                 case "DELETE_PROPIO":
-                    console.log("hola delete PROPIO")
+                  //  console.log("hola delete PROPIO")
                     
                     const propioIsSelected = state.personajes.seleccionados.find(
                         (character) => character.id === action.payload
                     );
 
-             console.log(state.personajes.seleccionados, action.payload)
+         //    console.log(state.personajes.seleccionados, action.payload)
 
 
                     if (propioIsSelected) {
@@ -228,7 +228,7 @@ const rootReducer = (state = initialState, action) => {
 
 
         case "GET_CHARACTER":
-            console.log(action.payload, "payload")
+          //  console.log(action.payload, "payload")
             return {
                 ...state,
                 personajes: {

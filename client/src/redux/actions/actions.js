@@ -6,6 +6,8 @@ import Cookies from "js-cookie";
 const token = Cookies.get('token');
 const userId = Cookies.get('userId');
 
+
+
 //Setea los activos y agrega o quita de seleccionados
 export function selectCharacter(id) {
   return { type: SELECT_CHARACTER, payload: id };
@@ -50,33 +52,59 @@ export const favoriteCharacter = (character) => {
   };
 };
 
+
 export const getFavorites = () => {
 
-  return function (dispatch) {
-    return fetch(`${SERVER_URL}/client/favorites`, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        'userId': userId
-      }
-    })
-      .then(res => res.json())
-      .then(res => (console.log(res.result), dispatch({ type: "GET_FAVORITES", payload: res.result })))
-  };
+  return async function (dispatch) {
+
+    const token = Cookies.get('token');
+    const userId = Cookies.get('userId');
+
+    try {
+      const response = await fetch(`${SERVER_URL}/client/favorites`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          'userId': userId
+        }
+      })
+
+      const json = await response.json();
+
+      dispatch({ type: "GET_FAVORITES", payload: json.result })
+
+    } catch (error) { console.log(error); }
+
+  }
 };
+
 
 
 //Propios
 export const getPropios = () => {
-  console.log("getPropios se ejecuta")
-  return function (dispatch) {
-    return fetch(`${SERVER_URL}/characters?author=${userId}`, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        'userId': userId
-      }
-    })
-      .then(res => res.json())
-      .then(res => (console.log(res.result), dispatch({ type: "GET_PROPIOS", payload: res.result }), dispatch({ type: "CHANGE_INDEX", payload: null })))
+
+  return async function (dispatch) {
+
+    const token = Cookies.get('token');
+    const userId = Cookies.get('userId');
+
+    if (!token || !userId) { return Promise.reject(new Error('No hay token o userId en getPropios')); }
+
+    try {
+
+      const response = await fetch(`${SERVER_URL}/characters?author=${userId}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          'userId': userId
+        }
+      })
+
+      const json = await response.json();
+
+      console.log("propiosres", json.result)
+      dispatch({ type: "GET_PROPIOS", payload: json.result })
+      dispatch({ type: "CHANGE_INDEX", payload: null })
+
+    } catch (error) { console.log(error) }
 
   }
 };
@@ -115,49 +143,67 @@ export const deletePropio = (id) => {
 
 //Index
 export const changeIndex = (index) => {
-  //console.log("index", index);
-  return (dispatch) => {
-    dispatch({ type: "CHANGE_INDEX", payload: index });
-    //dispatch(getFavorites());
-    //dispatch(getPropios());
-    //dispatch(getCharacters());
-  };
+  return (dispatch) => { dispatch({ type: "CHANGE_INDEX", payload: index }); };
 };
 
 
 //Personajes
 export const getCharacters = () => {
-  return function (dispatch) {
-    return fetch(`${SERVER_URL}/characters`, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        'userId': userId
-      }
-    })
-      .then(res => res.json())
-      .then(res => dispatch({ type: GET_CHARACTERS, payload: res.result }))
-  }
-};
 
-export const getCharacter = (id) => {
-  console.log("soy id en character", id)
-  return function (dispatch) {
-    return fetch(`${SERVER_URL}/characters/${id}`,
-      {
+  return async function (dispatch) {
+
+    const token = Cookies.get('token');
+    const userId = Cookies.get('userId');
+
+    if (!token || !userId) { return Promise.reject(new Error('No hay token o userId en getCharacters')); }
+
+
+    try {
+
+      const response = await fetch(`${SERVER_URL}/characters`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           'userId': userId
         }
-      })
-      .then(res => res.json())
-      .then(res => dispatch({ type: GET_CHARACTER, payload: res.result }))
-  }
+      });
+
+      const json = await response.json();
+
+      dispatch({ type: GET_CHARACTERS, payload: json.result });
+
+
+    } catch (error) { console.log(error); }
+
+  };
 };
 
 
+export const getCharacter = (id) => {
+
+  return async function (dispatch) {
+
+    const token = Cookies.get('token');
+    const userId = Cookies.get('userId');
+
+    if (!token || !userId) { return Promise.reject(new Error('No hay token o userId')); }
+
+    try {
+      const response = await fetch(`${SERVER_URL}/characters/${id}`,
+        {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            'userId': userId
+          }
+        })
+
+      const json = await response.json();
+      dispatch({ type: GET_CHARACTER, payload: json.result })
+
+    } catch (error) { console.log(error); }
+
+  };
+};
+
 
 //Filters
-export function changeFilter(filtro) {
-  console.log("filter", filtro);
-  return { type: CHANGE_FILTER, payload: filtro };
-}
+export function changeFilter(filtro) { return { type: CHANGE_FILTER, payload: filtro }; }

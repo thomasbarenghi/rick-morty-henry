@@ -17,7 +17,7 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
   const [hamburguerStatus, setHamburguerStatus] = useState(false);
 
   const handleSearch = (dato) => {
-    console.log(dato.target.name)
+   // console.log(dato.target.name)
     const obj = {
       [dato.target.name]: dato.target.value,
     };
@@ -45,7 +45,7 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
   };
 
   const handleLogout = () => {
-    console.log("logout")
+   // console.log("logout")
     Cookies.remove("token");
     navigate("/auth/login");
   };
@@ -158,7 +158,7 @@ function SearchBar({ handleSearch, handleSearchModal }) {
 function Nav({ searchStatus, handleLogout, headerType }) {
 
   const idLi = headerType === "alternative" ? style.navItem2 : style.navItem1;
-console.log(searchStatus)
+//console.log(searchStatus)
   return (
     <>
       <ul

@@ -20,7 +20,7 @@ export default function CharactersGrid({ searchValue }) {
     useEffect(() => { dispatch(getCharacters()); }, [dispatch]);
 
     const onIndexChange = (index) => {
-        console.log("index", index)
+       // console.log("index", index)
         if (index === 0) { dispatch(getCharacters()); }
         if (index === 2) { dispatch(getFavorites()); }
         if (index === 3) { dispatch(getPropios()); }
@@ -42,7 +42,7 @@ export default function CharactersGrid({ searchValue }) {
 
     useEffect(() => { dispatch(changeFilter(filtro)) }, [filtro]);
     useEffect(() => {
-        console.log("useEffect")
+      //  console.log("useEffect")
         dispatch(getFavorites())
         dispatch(getPropios())
     }, []);
@@ -121,6 +121,7 @@ export default function CharactersGrid({ searchValue }) {
                 {
                     Array.isArray(state?.activos) && state?.activos && state?.activos?.map((character) => (
                         <Characters data={character} />
+                      // <></>
                     ))
                 }
             </div>

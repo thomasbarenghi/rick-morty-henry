@@ -10,22 +10,42 @@ import { SERVER_URL } from "../../api/config";
 
 export default function Login() {
 
+    const [logData, setLogData] = useState({
+        token: "",
+        userId: ""
+    });
+
     const navigate = useNavigate();
 
     const handleLogin = (formData) => {
 
         axios.post(`${SERVER_URL}/auth`, formData)
-        .then((res) => {
-            console.log(res.data);
-           Cookies.set("token", res.data.token);
-           Cookies.set("userId", res.data.userId);
-           navigate("/");
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+            .then((res) => {
+                Cookies.set("token", res.data.token);
+                Cookies.set("userId", res.data.userId);
+                setLogData({
+                    token: res.data.token,
+                    userId: res.data.userId
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+    
+
+    //console.log("hola", logData)
 
 
+
+    //console.log("hola", logData)
+
+    if (logData.token !== "") {
+        //console.log("Local", logData, "Cookies", Cookies.get("token"))
+       navigate("/");
+    }
+    else {
+      //  console.log("espera")
     }
 
 

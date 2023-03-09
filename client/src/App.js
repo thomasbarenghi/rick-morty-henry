@@ -7,40 +7,32 @@ import About from "./paginas/about/about"
 import CharacterDetail from "./paginas/personajeDetail/personajeDetail";
 import FooterDefault from "./componentes/masters/footer/FooterDefault";
 import Login from "./paginas/auth/login";
-import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie"
 import ScrollToTop from "./componentes/scrollToTop/scrollToTop";
 import axios from "axios";
+import { SERVER_URL } from "./api/config";
 
 function App() {
 
   const navigate = useNavigate();
-
   const token = Cookies.get('token');
+  const userId = Cookies.get('userId');
 
-  const headers = {
-    "Authorization": `Bearer ${token}`,
-  };
+  const headers = { "Authorization": `Bearer ${token}`, };
 
   useEffect(() => {
-    console.log(token)
-    
-    axios.get('http://127.0.0.1:3001/api/auth/me', { headers })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log("Error:", error);
-        navigate("/auth/login");
-      });
-    // if (Cookies.get("token") !== "true") {
-    //   navigate("/auth/login");
-    // }
-  }, [token, navigate]);
+
+    if ((!token || !userId) || (token === "" || userId === "")) { navigate("/auth/login"); return; }
+
+    axios.get(`${SERVER_URL}/auth/me`, { headers })
+      .then((response) => { console.log(response.data); })
+      .catch((error) => { console.log("Error:", error); });
+
+  }, [token, userId]);
 
 
-  
   return (
     <>
       <ScrollToTop />
@@ -49,7 +41,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="personajes/:id" element={<CharacterDetail />} />
-        <Route path="auth/login" element={<Login/>} />
+        <Route path="auth/login" element={<Login />} />
       </Routes>
       <FooterDefault />
     </>
