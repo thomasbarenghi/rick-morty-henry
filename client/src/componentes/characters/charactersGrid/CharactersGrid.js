@@ -112,7 +112,7 @@ export default function CharactersGrid({ searchValue }) {
             </div>
             <div id={style["componentContainer"]}>
                 {
-                    state?.activos && state?.activos?.map((character) => (
+                   Array.isArray(state?.activos) && state?.activos && state?.activos?.map((character) => (
                         <Characters data={character} />
                     ))
                 }
