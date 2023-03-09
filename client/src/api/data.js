@@ -60,4 +60,22 @@ export const Tecnologias = [
     imagen: "/img/tecnologias/express.svg",
     descripcion: "Express.js es un framework de servidor web para Node.js que permite crear aplicaciones web y API REST de manera rápida y sencilla. Express.js se basa en el concepto de middleware, que es una función que se ejecuta entre la solicitud y la respuesta del servidor. Express.js proporciona una serie de middleware predefinidos que facilitan la creación de aplicaciones web y API REST."
   },
+  {
+    id: 11,
+    titulo: "JWT (JSON Web Token)",
+    imagen: "/img/tecnologias/jwt.svg",
+    descripcion: "JSON Web Token (JWT) es un estándar abierto que define un formato compacto y autónomo para transmitir información de forma segura entre dos partes como un objeto JSON. Los tokens JWT se pueden firmar usando un secreto (con el algoritmo HMAC) o una clave pública / privada usando RSA o ECDSA."
+  },
+  {
+    id: 12,
+    titulo: "Sequelize",
+    imagen: "/img/tecnologias/sequelize.svg",
+    descripcion: "Sequelize es un ORM (Object Relational Mapping) para Node.js que permite a los desarrolladores trabajar con bases de datos relacionales como MySQL, PostgreSQL, SQLite y Microsoft SQL Server. Sequelize proporciona una interfaz sencilla y fácil de usar para definir modelos, realizar consultas y realizar operaciones CRUD en la base de datos."
+  },
+  {
+    id: 13,
+    titulo: "PostgreSQL",
+    imagen: "/img/tecnologias/postgresql.svg",
+    descripcion: "PostgreSQL es un sistema de gestión de bases de datos relacional (RDBMS) de código abierto que permite a los desarrolladores crear y administrar bases de datos relacionales. PostgreSQL es un sistema de gestión de bases de datos relacional (RDBMS) de código abierto que permite a los desarrolladores crear y administrar bases de datos relacionales."
+  },
 ];

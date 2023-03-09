@@ -6,14 +6,12 @@ import Cookies from "js-cookie";
 const token = Cookies.get('token');
 const userId = Cookies.get('userId');
 
-//Seleccionados
+//Setea los activos y agrega o quita de seleccionados
 export function selectCharacter(id) {
-  //console.log("select", id);
   return { type: SELECT_CHARACTER, payload: id };
 }
 
 
-//Favoritos
 export const favoriteCharacter = (character) => {
 
   return (dispatch, getState) => {
@@ -69,6 +67,7 @@ export const getFavorites = () => {
 
 //Propios
 export const getPropios = () => {
+  console.log("getPropios se ejecuta")
   return function (dispatch) {
     return fetch(`${SERVER_URL}/characters?author=${userId}`, {
       headers: {
@@ -77,7 +76,8 @@ export const getPropios = () => {
       }
     })
       .then(res => res.json())
-      .then(res => dispatch({ type: "GET_PROPIOS", payload: res.result }))
+      .then(res => (console.log(res.result), dispatch({ type: "GET_PROPIOS", payload: res.result }), dispatch({ type: "CHANGE_INDEX", payload: null })))
+
   }
 };
 
@@ -108,25 +108,21 @@ export const deletePropio = (id) => {
       }
     })
       .then(res => res.json())
-      .then(res => getPropios())
+      .then(res => (console.log("borrando", res), dispatch(getPropios()), dispatch({ type: "DELETE_PROPIO", payload: id })))
   }
 };
 
 
 //Index
 export const changeIndex = (index) => {
+  //console.log("index", index);
   return (dispatch) => {
     dispatch({ type: "CHANGE_INDEX", payload: index });
-    dispatch(getFavorites());
+    //dispatch(getFavorites());
+    //dispatch(getPropios());
+    //dispatch(getCharacters());
   };
 };
-
-
-//Filters
-export function changeFilter(filtro) {
-  console.log("filter", filtro);
-  return { type: CHANGE_FILTER, payload: filtro };
-}
 
 
 //Personajes
@@ -157,3 +153,11 @@ export const getCharacter = (id) => {
       .then(res => dispatch({ type: GET_CHARACTER, payload: res.result }))
   }
 };
+
+
+
+//Filters
+export function changeFilter(filtro) {
+  console.log("filter", filtro);
+  return { type: CHANGE_FILTER, payload: filtro };
+}

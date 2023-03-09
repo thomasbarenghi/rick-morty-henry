@@ -28,6 +28,9 @@ const rootReducer = (state = initialState, action) => {
             const properties1 = { 0: "todos", 1: "seleccionados", 2: "favoritos" };
             const currentCharacters = state.personajes[properties1[state.personajes.filtro.index]];
 
+            if(currentCharacters === undefined){
+                return
+            }
             const filteredCharacters = currentCharacters.filter((character) => {
 
                 const filterByGender =
@@ -77,9 +80,17 @@ const rootReducer = (state = initialState, action) => {
         case "CHANGE_INDEX":
             const properties = { 0: "todos", 1: "seleccionados", 2: "favoritos", 3: "propios" };
             //actions.getFavorites()
-
-
-
+            
+            if (action.payload === null) {
+                return {
+                    ...state,
+                    personajes: {
+                        ...state.personajes,
+                        activos: state.personajes[properties[state.personajes.filtro.index]]
+                    }
+                }
+            }
+                
             return {
                 ...state,
                 personajes: {
@@ -146,6 +157,46 @@ const rootReducer = (state = initialState, action) => {
                         propios: action.payload
                     }
                 };
+
+                case "DELETE_PROPIO":
+                    console.log("hola delete PROPIO")
+                    
+                    const propioIsSelected = state.personajes.seleccionados.find(
+                        (character) => character.id === action.payload
+                    );
+
+             console.log(state.personajes.seleccionados, action.payload)
+
+
+                    if (propioIsSelected) {
+                        return {
+                            ...state,
+                            personajes: {
+                                ...state.personajes,
+                                seleccionados: state.personajes.seleccionados.filter((character) => character.id !== action.payload)
+                            }
+                        };
+                    }
+                    else{
+                        console.log("no estaba seleccionado")
+                    }
+
+                        const propioIsFavorite = state.personajes.favoritos.find(
+                            (character) => character.id === action.payload
+                        );
+                        if (propioIsFavorite) {
+                            return {
+                                ...state,
+                                personajes: {
+                                    ...state.personajes,
+                                    favoritos: state.personajes.favoritos.filter((character) => character.id !== action.payload)
+                                }
+                            };
+                        }
+                        else{
+                            console.log("no estaba favorito")
+                        }
+
 
 
 

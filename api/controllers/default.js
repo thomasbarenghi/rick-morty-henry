@@ -18,9 +18,9 @@ const getCharacters = async (req, res) => {
         }
       });
 
-if(!defaultCharacter){
-  return res.status(404).json({ message: `Default character with id not found` });
-}
+      if (!defaultCharacter) {
+        return res.status(404).json({ message: `Default character with id not found` });
+      }
 
       if (userId != reqAuthor) {
         return res.status(401).json({ message: `You are not authorized to access this character ${userId}, ${reqAuthor}` });
@@ -153,7 +153,7 @@ const deleteCharacter = async (req, res) => {
       }
     });
 
-    return res.status(204).send("Borrado");
+    return res.status(200).json({ message: "Borrado" });
   } catch (error) {
     //console.error(error);
     return res.status(500).json({ error: 'Error interno del servidor' });

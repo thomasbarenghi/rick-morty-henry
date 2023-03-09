@@ -1,13 +1,16 @@
 import style from "./characters.module.scss";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectCharacter, favoriteCharacter } from "../../../redux/actions/actions";
+import { selectCharacter, favoriteCharacter, deletePropio } from "../../../redux/actions/actions";
+import Cookies from "js-cookie";
 
 export default function Characters({ data, }) {
 
+  const userId = Cookies.get('userId');
   const dispatch = useDispatch();
   const handleSelect = () => { dispatch(selectCharacter(data)); }
   const handleFavorite = () => { dispatch(favoriteCharacter(data)); }
+  const handleDelete = (id) => { dispatch(deletePropio(data.id));}
 
   const seleccionadosList = useSelector((state) => state.personajes.seleccionados);
   const favoritosList = useSelector((state) => state.personajes.favoritos);
@@ -96,7 +99,19 @@ export default function Characters({ data, }) {
                 <p className="smallText-regular margin-b-0">{data.gender} </p>
               </div>
             </div>
-          </Link>
+            </Link>
+            {
+              data.author !== 1 && data.author == userId && (
+                <button className="btn btn-primary btn1 btn1-t1" type="button"
+                onClick={() => handleDelete(data.id)}
+                >
+                Eliminar
+              </button>
+              )
+            }
+   
+          
+         
         </div>
       )}
 

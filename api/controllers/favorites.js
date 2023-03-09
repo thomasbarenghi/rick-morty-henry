@@ -21,6 +21,7 @@ const getFavorites = async (req, res) => {
                     "origin_name",
                     "location_name",
                     "image",
+                    "author",
                 ],
             },
         });

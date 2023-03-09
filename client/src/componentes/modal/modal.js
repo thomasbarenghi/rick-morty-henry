@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "../modal/modal.module.css";
 
 export const hideHeader = (data, message) => {
-  console.log("hideHeader", data, message);
+ // console.log("hideHeader", data, message);
   Modal.handleReverse(data, message);
 };
 

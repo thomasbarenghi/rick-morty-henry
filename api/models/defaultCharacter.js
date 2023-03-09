@@ -34,6 +34,10 @@ const DefaultCharacter = sequelize.define('default_characters', {
   image: {
     type: DataTypes.STRING(100)
   },
+  author: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  }
 });
 
 // Establecer la relación con el modelo de User

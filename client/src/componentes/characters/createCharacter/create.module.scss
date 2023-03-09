@@ -73,9 +73,16 @@
     margin-bottom: 15px;
     padding-right: 10px;
     padding-left: 10px;
+    word-break: break-word;
   }
 
   #form {
     gap: 8px;
     width: 100%;
+  }
+
+  #box-propiedades_item {
+max-width: 48%;
+    gap: 8px;
+    word-break: break-word;
   }

@@ -19,7 +19,13 @@ export default function CharactersGrid({ searchValue }) {
     const state = useSelector((state) => state?.personajes);
     useEffect(() => { dispatch(getCharacters()); }, [dispatch]);
 
-    const onIndexChange = (index) => { dispatch(changeIndex(index)) };
+    const onIndexChange = (index) => {
+        console.log("index", index)
+        if (index === 0) { dispatch(getCharacters()); }
+        if (index === 2) { dispatch(getFavorites()); }
+        if (index === 3) { dispatch(getPropios()); }
+        dispatch(changeIndex(index))
+    };
 
     const handleFilter = (event) => {
         const { name, value } = event.target;
@@ -36,6 +42,7 @@ export default function CharactersGrid({ searchValue }) {
 
     useEffect(() => { dispatch(changeFilter(filtro)) }, [filtro]);
     useEffect(() => {
+        console.log("useEffect")
         dispatch(getFavorites())
         dispatch(getPropios())
     }, []);
@@ -72,7 +79,7 @@ export default function CharactersGrid({ searchValue }) {
                         id="openModal"
                         onClick={() => setCreateVisibility(true)}
                         className={`${style.modalOpen} btn btn-primary btn1 btn1-t1`}
-                        style={{whiteSpace: "nowrap"}}
+                        style={{ whiteSpace: "nowrap" }}
                         type="button"
                     >
                         Crear un personaje
@@ -112,12 +119,12 @@ export default function CharactersGrid({ searchValue }) {
             </div>
             <div id={style["componentContainer"]}>
                 {
-                   Array.isArray(state?.activos) && state?.activos && state?.activos?.map((character) => (
+                    Array.isArray(state?.activos) && state?.activos && state?.activos?.map((character) => (
                         <Characters data={character} />
                     ))
                 }
             </div>
-            {state?.activos.length === 0 && (
+            {Array.isArray(state?.activos) && state?.activos.length === 0 && (
                 <div>
                     <h1
                         className="text-center titulo2-bold"
