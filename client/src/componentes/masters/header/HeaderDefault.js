@@ -77,15 +77,18 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
           )}
 
           <div id={style.openSearchBtn}
+             onClick={() => setHamburguerStatus(true)}
+             name="hamburguer"
             className="d-xl-none d-xxl-none"
             style={{ width: "52px", height: "52px", display: "flex", justifyContent: "center", alignItems: "center" }} >
+           
             <img
               className="d-inline d-sm-inline d-md-inline d-lg-inline d-xl-none d-xxl-none"
               src="/img/hamburger2.svg"
               width={20}
               height={20}
-              onClick={() => setHamburguerStatus(true)}
             />
+
           </div>
         
         </div>
@@ -110,7 +113,7 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
         {
           hamburguerStatus === true && (
             <>
-              <Hamburguer handleLogout={handleLogout} />
+              <Hamburguer handleLogout={handleLogout} setHamburguerStatus={setHamburguerStatus} />
             </>
           )
         }
@@ -189,7 +192,7 @@ function Nav({ searchStatus, handleLogout, headerType }) {
   )
 }
 
-function Hamburguer({handleLogout}) {
+function Hamburguer({handleLogout, setHamburguerStatus}) {
 
 
   return (
@@ -201,14 +204,14 @@ function Hamburguer({handleLogout}) {
         style={{ zindex: 6 }}
       >
         <span className="margin-b-16 color-body body-regular">Menu</span>
-        <div className="margin-b-24">
+        <div className="margin-b-24" style={{width:"100%"}} >
           <ul id={style["nav-hamb"]} className="titulo1-regular color-neutral900"
           >
             <Link to="/">
-              <li style={{ color: "#000000", textDecoration: "none" }}>Inicio</li>
+              <li onClick={() => setHamburguerStatus(false)} style={{ color: "#000000", textDecoration: "none" }}>Inicio</li>
             </Link>
             <Link to="/about">
-              <li style={{ color: "#000000", textDecoration: "none" }}>About</li>
+              <li  onClick={() => setHamburguerStatus(false)} style={{ color: "#000000", textDecoration: "none" }}>About</li>
             </Link>
             <li onClick={handleLogout}>Salir</li>
           </ul>

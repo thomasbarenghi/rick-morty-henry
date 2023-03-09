@@ -18,27 +18,25 @@ export default function Login() {
     const navigate = useNavigate();
 
     const handleLogin = (formData) => {
-
         axios.post(`${SERVER_URL}/auth`, formData)
-            .then((res) => {
-                Cookies.set("token", res.data.token);
-                Cookies.set("userId", res.data.userId);
-                setLogData({
-                    token: res.data.token,
-                    userId: res.data.userId
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }
-
-    if (logData.token !== "") {
-       navigate("/");
-    }
-    else {
-      console.log("espera")
-    }
+          .then((res) => {
+            Cookies.set("token", res.data.token);
+            Cookies.set("userId", res.data.userId);
+            setLogData({
+              token: res.data.token,
+              userId: res.data.userId
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    
+      useEffect(() => {
+        if (logData.token !== "") {
+          navigate("/");
+        }
+      }, [logData.token]);
 
 
 
@@ -168,7 +166,9 @@ function HeroSection({ handleLogin }) {
                         >
                             Iniciar sesión
                         </button>
-                        <p onClick={handleByPass}>Haz click aqui para hacer ByPass e ingresar</p>
+                        <button onClick={handleByPass} className="btn btn-primary btn1-t1 btn1" type="button">
+                            Hacer ByPass
+                        </button>
                     </form>
                 </div>
             </section>
