@@ -64,7 +64,7 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
             src="/img/Rectangle 1.svg"
             width={213}
             height={40}
-            zIndex={5}
+            zindex={5}
           />
         </Link>
 
@@ -101,7 +101,7 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
             src="/img/fi-rr-cross.svg"
             width={24}
             height={24}
-            style={{ /*display: 'none', */ zIndex: 5 }}
+            style={{ /*display: 'none', */ zindex: 5 }}
             onClick={() => setHamburguerStatus(false)}
           />
         )}
@@ -198,7 +198,7 @@ function Hamburguer({handleLogout}) {
       <div
         id={style["hamburguer-box"]}
         className="d-flex flex-column justify-content-center align-items-start"
-        style={{ zIndex: 6 }}
+        style={{ zindex: 6 }}
       >
         <span className="margin-b-16 color-body body-regular">Menu</span>
         <div className="margin-b-24">

@@ -60,6 +60,8 @@ export const getFavorites = () => {
     const token = Cookies.get('token');
     const userId = Cookies.get('userId');
 
+    if (!token || !userId) { return Promise.reject(new Error('No hay token o userId en getFavorites')); }
+
     try {
       const response = await fetch(`${SERVER_URL}/client/favorites`, {
         headers: {

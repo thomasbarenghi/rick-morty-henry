@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectCharacter, favoriteCharacter, deletePropio } from "../../../redux/actions/actions";
 import Cookies from "js-cookie";
 
-export default function Characters({ data, }) {
+export default function Characters({ data }) {
 
   const userId = Cookies.get('userId');
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export default function Characters({ data, }) {
     <>
       {data && (
         <div
-          key={data.id}
+        key={data.id}
           style={{ position: "relative" }}
           id={style.componente}
           className="item-t1"

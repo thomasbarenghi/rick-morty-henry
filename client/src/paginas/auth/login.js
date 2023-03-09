@@ -32,20 +32,12 @@ export default function Login() {
                 console.log(err);
             })
     }
-    
-
-    //console.log("hola", logData)
-
-
-
-    //console.log("hola", logData)
 
     if (logData.token !== "") {
-        //console.log("Local", logData, "Cookies", Cookies.get("token"))
        navigate("/");
     }
     else {
-      //  console.log("espera")
+      console.log("espera")
     }
 
 
