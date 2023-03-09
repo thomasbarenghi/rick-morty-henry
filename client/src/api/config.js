@@ -1,1 +1,1 @@
-export const SERVER_URL = 'http://127.0.0.1:3001/api';
+export const SERVER_URL = 'http://rick-morty-henry.onrender.com/api';
