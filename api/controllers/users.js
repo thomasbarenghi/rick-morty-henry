@@ -1,68 +1,60 @@
-const users = require('../data/data').users;
-
+const users = require('../models/index').userModels;
 
 // Obtener todos los usuarios
-function getAllUsers(req, res) {
-  res.json(users);
+const getAllUsers = async (req, res) => {
+  try {
+    const user = await users.findAll();
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+
 }
 
 // Obtener un usuario por ID
-function getUserById(req, res) {
+const getUserById = async (req, res) => {
   const id = parseInt(req.params.id);
-  const user = users.find((user) => user.id === id);
+  const userId = req.headers.userid;
 
-  if (user) {
-    res.json(user);
-  } else {
-    res.status(404).json({ message: 'Usuario no encontrado' });
+  try {
+    const user = await users.findByPk(id);
+
+if(user.id != userId) {
+      return res.status(401).json({ message: "You are not authorized to see this user" });
+    }
+
+    if (user) {
+      res.status(200).json({ user });
+    } else {
+      res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+  }
+  catch (error) {
+    res.status(500).json({ error: error.message });
   }
 }
 
-// Agregar un nuevo usuario
-function createUser(req, res) {
-  const { name, age } = req.body;
-  const id = users.length + 1;
-
-  if (!name || !age) {
-    return res.status(400).json({ message: 'Faltan datos' });
-  }
-
-  const newUser = { id, name, age };
-  users.push(newUser);
-  res.status(201).json(newUser);
-}
-
-//Borrar un usuario
-function deleteUser(req, res) {
+const deleteUser = async (req, res) => {
   const id = parseInt(req.params.id);
-  const user = users.find((user) => user.id === id);
+  const userId = req.headers.userid;
 
-  if (user) {
-    const index = users.indexOf(user);
-    users.splice(index, 1);
-    res.status(200).json({ message: 'Usuario eliminado' });
-  } else {
-    res.status(404).json({ message: 'Usuario no encontrado' });
+  try {
+    const customCharacter = await users.findByPk(id);
+
+if(customCharacter.id != userId) {
+      return res.status(401).json({ message: "You are not authorized to delete this user" });
+    }
+
+    if (!customCharacter) {
+      return res.status(404).json({ message: `Custom character with id ${id} not found` });
+    }
+    await customCharacter.destroy();
+    res.status(204).json({ message: `Custom character with id ${id} deleted` });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error deleting custom character" });
   }
-}
+};
 
-// Actualizar un usuario
-function updateUser(req, res) {
-  const id = parseInt(req.params.id);
-  const user = users.find((user) => user.id === id);
-  const { name, age } = req.body;
 
-  if (!name && !age) {
-    return res.status(400).json({ message: 'Faltan datos' });
-  }
-
-  if (user) {
-    user.name = name;
-    user.age = age;
-    res.status(200).json(user);
-  } else {
-    res.status(404).json({ message: 'Usuario no encontrado' });
-  }
-}
-
-module.exports = { getAllUsers, getUserById, createUser, deleteUser, updateUser };
+module.exports = { getAllUsers, getUserById, deleteUser };

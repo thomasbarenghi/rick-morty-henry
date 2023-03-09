@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCharacter } from '../../redux/actions/actions';
 import style from "./personajedetail.module.scss";
 import { useLocation } from 'react-router-dom';
+
+
 export default function CharacterDetail() {
 
     const dispatch = useDispatch();
@@ -75,12 +77,12 @@ function DetallesSection({ state }) {
             {
                 title: "Origen",
                 icon: "/img/fi-br-rocket.svg",
-                description: state?.personajeDetail?.origin?.name
+                description: state?.personajeDetail?.origin_name
             },
             {
                 title: "Ultima ubicación",
                 icon: "/img/fi-br-marker.svg",
-                description: state?.personajeDetail?.location?.name
+                description: state?.personajeDetail?.location_name
             }
         ])
     }, [state?.personajeDetail])

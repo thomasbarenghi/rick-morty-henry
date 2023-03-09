@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const routes = require('../routes/index');
+//const db = require('../data/connection');
 
 const app = express();
 

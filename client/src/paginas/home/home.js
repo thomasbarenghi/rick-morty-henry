@@ -1,23 +1,23 @@
 import HeaderDefault from "../../componentes/masters/header/HeaderDefault";
-import CharactersGrid from "../../componentes/masters/charactersGrid/CharactersGrid";
+import CharactersGrid from "../../componentes/characters/charactersGrid/CharactersGrid";
 import style from "./home.module.scss";
-import { hideHeader } from "../../componentes/general/modal/Modal";
+import { hideHeader } from "../../componentes/modal/modal";
 import { Helmet } from 'react-helmet';
-import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+
 
 export default function Home() {
 
     const cerrarModal = (e) => {
         if (e.target.id === "openModal" || e.target.closest("#modalInner")) { return; }
-        hideHeader(false);
+        hideHeader(false, "all");
     };
 
     const location = useLocation();
 
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, [location]);
+    // useEffect(() => {
+    //   window.scrollTo(0, 0);
+    // }, [location]);
 
     return (
         <>

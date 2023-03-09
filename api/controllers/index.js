@@ -1,8 +1,11 @@
-
-const charactersController = require('./characters');
+const usersController = require('./users');
 const favoritesController = require('./favorites');
+const defaultCharactersController = require('./default');
+const authController = require('./auth');
 
 module.exports = {
-  charactersController,
-  favoritesController
+  favoritesController,
+  usersController,
+  defaultCharactersController,
+  authController,
 };

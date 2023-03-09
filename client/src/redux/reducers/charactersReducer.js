@@ -1,7 +1,4 @@
 import { SELECT_CHARACTER, FAVORITE_CHARACTER, FILTER_CHARACTERS, GET_CHARACTERS, CHANGE_FILTER } from "../actions/actionTypes";
-import fetchCharacters from "../../api/getCharacters";
-import {getFavorites} from "../actions/actions";
-import useDispatch from "react-redux";
 
 const initialState = {
     personajes: {
@@ -9,6 +6,7 @@ const initialState = {
         seleccionados: [],
         favoritos: [],
         todos: [],
+        propios : [],
         filtro: { index: 0, genero: "default", especie: "default", search: "" },
         personajeDetail: null
     }
@@ -41,7 +39,7 @@ const rootReducer = (state = initialState, action) => {
                 const filterBySpecies =
                     action.payload.especie && action.payload.especie !== "default"
                         ? character.species === action.payload.especie
-                        : true;       
+                        : true;
 
                 const filterByName = character.name
                     .toLowerCase()
@@ -50,16 +48,16 @@ const rootReducer = (state = initialState, action) => {
                 return filterByGender && filterBySpecies && filterByName;
 
             })
-            
+
             filteredCharacters.sort((a, b) => {
                 if (action.payload.orden === "A-Z") {
-                  return a.name.localeCompare(b.name);
+                    return a.name.localeCompare(b.name);
                 } else if (action.payload.orden === "Z-A") {
-                  return b.name.localeCompare(a.name);
+                    return b.name.localeCompare(a.name);
                 } else {
-                  return filteredCharacters;
+                    return filteredCharacters;
                 }
-              });
+            });
 
             return {
                 ...state,
@@ -77,10 +75,10 @@ const rootReducer = (state = initialState, action) => {
 
 
         case "CHANGE_INDEX":
-            const properties = { 0: "todos", 1: "seleccionados", 2: "favoritos" };
+            const properties = { 0: "todos", 1: "seleccionados", 2: "favoritos", 3: "propios" };
             //actions.getFavorites()
 
-      
+
 
             return {
                 ...state,
@@ -137,6 +135,20 @@ const rootReducer = (state = initialState, action) => {
                     favoritos: action.payload
                 }
             };
+
+            case "GET_PROPIOS":
+                console.log("hola get PROPIOS")
+                console.log(action.payload)
+                return {
+                    ...state,
+                    personajes: {
+                        ...state.personajes,
+                        propios: action.payload
+                    }
+                };
+
+
+
 
 
         case "FAVORITE_CHARACTER":

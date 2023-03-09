@@ -1,4 +1,19 @@
-let favorites = [  {
+let users = [{
+  "id": 1,
+  "name": "Rick Sanchez",
+  "password": "1234",
+  "email": "rick@épico.com",
+  "role": "admin"
+}, {
+  "id": 2,
+  "name": "Morty Smith",
+  "password": "1234",
+  "email": "morty@épico.com",
+  "role": "user"
+}
+];
+
+let favorites = [{
   "id": 1,
   "name": "Rick Sanchez",
   "status": "Alive",
@@ -736,4 +751,4 @@ let characters = [
   }
 ]
 
-module.exports = { characters, favorites };
+module.exports = { characters, favorites, users };

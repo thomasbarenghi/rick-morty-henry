@@ -1,10 +1,35 @@
-import HeaderDefault from "../../componentes/masters/header/HeaderDefault";
 import { Helmet } from "react-helmet";
 import style from "./login.module.scss";
 import { useState, useEffect } from "react";
 import { validateForm } from './validation';
 import { Link } from "react-router-dom";
-export default function Login({ onLogin }) {
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { SERVER_URL } from "../../api/config";
+
+export default function Login() {
+
+    const navigate = useNavigate();
+
+    const handleLogin = (formData) => {
+
+        axios.post(`${SERVER_URL}/auth`, formData)
+        .then((res) => {
+            console.log(res.data);
+           Cookies.set("token", res.data.token);
+           Cookies.set("userId", res.data.userId);
+           navigate("/");
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+
+
+    }
+
+
+
     return (
         <>
             <Helmet>
@@ -16,7 +41,6 @@ export default function Login({ onLogin }) {
             </Helmet>
             <main>
                 <header
-
                     className="d-flex flex-row justify-content-between align-items-center padding-lr-t1 padding-tb-30 margin-b-0"
                     style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 5, display: "flex", justifyContent: "start" }}
                 >
@@ -28,33 +52,32 @@ export default function Login({ onLogin }) {
                             zIndex={5}
                         />
                     </Link>
-
                 </header>
-                <HeroSection onLogin={onLogin} />
+                <HeroSection handleLogin={handleLogin} />
             </main>
         </>
     );
 }
 
-function HeroSection({ onLogin }) {
+function HeroSection({ handleLogin }) {
 
     const [formData, setFormData] = useState({
-        username: '',
+        email: '',
         password: ''
     });
     const [errors, setErrors] = useState({});
 
     function handleSubmit(e) {
         e.preventDefault();
-        //Adaptacion siempre login
         console.log("submit")
-       // onLogin({ username: "hola", password: "hola" });
-         const formErrors = validateForm(formData);
-         if (Object.keys(formErrors).length === 0) {
-             onLogin(formData);
-         } else {
-             setErrors(formErrors);
-         }
+        const formErrors = validateForm(formData);
+        if (Object.keys(formErrors).length === 0) {
+            handleLogin(formData);
+            console.log("no hay errores")
+        } else {
+            setErrors(formErrors);
+            console.log("hay errores")
+        }
     }
 
     function handleInputChange(e) {
@@ -66,7 +89,7 @@ function HeroSection({ onLogin }) {
 
     const handleByPass = () => {
 
-    onLogin({username: "ejemplo@ejemplo.com", password: "12345678a"})
+        handleLogin({ email: "ejemplo@client.com", password: "12345678" })
 
     }
 
@@ -103,11 +126,11 @@ function HeroSection({ onLogin }) {
                                 id={style["input"]}
                                 className="form-control smallText-regular"
                                 type="text"
-                                name="username"
-                                value={formData.username}
+                                name="email"
+                                value={formData.email}
                                 onChange={handleInputChange}
                             />
-                            {errors.username && <div className="error">{errors.username}</div>}
+                            {errors.email && <div className="error">{errors.email}</div>}
                         </label>
 
                         <label

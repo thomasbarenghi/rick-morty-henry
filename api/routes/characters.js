@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const authMiddleware = require('../middleware/auth');
 
-const { charactersController } = require('../controllers');
+const { defaultCharactersController } = require('../controllers');
 
-router.get('/', charactersController.getAllCharacters);
-router.get('/:id', charactersController.getCharacterById);
+router.get('/', authMiddleware, defaultCharactersController.getCharacters);
+router.get('/:id',authMiddleware,  defaultCharactersController.getCharactersById);
+router.post('/', authMiddleware, defaultCharactersController.addCharacter);
+router.delete('/:id', authMiddleware, defaultCharactersController.deleteCharacter);
 
 module.exports = router;

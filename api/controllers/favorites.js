@@ -1,49 +1,108 @@
-const characters = require('../data/data.js').favorites;
+const Favorite = require('../models/index').favoriteCharacterModels;
+const DefaultCharacter = require('../models/index').defaultCharacterModels;
+const CustomCharacter = require('../models/index').customCharacterModels;
 
-function getAllCharacters(req, res) {
-    res.json(characters);
-}
-
-// Obtener un usuario por ID
-function getCharacterById(req, res) {
-    const id = parseInt(req.params.id);
-    const user = characters.find((user) => user.id === id);
-
-    if (user) {
-        res.json(user);
-    } else {
-        res.status(404).json({ message: 'Usuario no encontrado' });
+//Example: ?postId=1&postType=custom
+const getFavorites = async (req, res) => {
+    const userId = req.user.id;
+    console.log("soy user id", req.headers)
+    try {
+        const favorites = await Favorite.findAll({
+            where: { userId: userId },
+            include: {
+                model: DefaultCharacter,
+                attributes: [
+                    "id",
+                    "name",
+                    "status",
+                    "species",
+                    "type",
+                    "gender",
+                    "origin_name",
+                    "location_name",
+                    "image",
+                ],
+            },
+        });
+        const defaultCharacters = favorites.map((favorite) => favorite.default_character);
+        return res.status(200).json({ "result": defaultCharacters });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Error interno del servidor" });
     }
-}
+};
 
-function postCharacter(req, res) {
+const deleteFavorite = async (req, res) => {
+    const userId = req.user.id;
+    const favoriteId = req.params.id;
 
-    const { id, name, status, gender, species, image } = req.body;
 
-    if (!id || !name || !status || !gender || !species || !image) {
-        res.status(400).json({ message: 'Faltan datos' });
-        return;
+
+    if (!userId) {
+        return res.status(400).json({ error: 'Falta el id del usuario en el header' });
     }
-    characters.push(req.body);
-    res.json(characters);
-}
 
-function deleteCharacter(req, res) {
-    const id = parseInt(req.params.id);
-    const user = characters.find((user) => user.id === id);
 
-    if (user) {
-        const index = characters.indexOf(user);
-        characters.splice(index, 1);
-        res.status(200).json({ message: 'Usuario eliminado' });
-    } else {
-        res.status(404).json({ message: 'Usuario no encontrado' });
+    try {
+        const favorite = await Favorite.findOne({
+            where: { defaultCharacterId: favoriteId, userId: userId },
+        });
+
+
+        if (!favorite) {
+            return res.status(404).json({ error: "Favorito no encontrado" });
+        }
+
+        await favorite.destroy();
+
+        return res.status(200).json({ message: "Favorito eliminado exitosamente" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Error interno del servidor" });
     }
-}
+};
+
+
+
+const addFavorite = async (req, res) => {
+    const userId = req.user.id;
+    //console.log(req.body)
+
+    if (!userId) {
+        return res.status(400).json({ error: 'Falta el id del usuario en el header' });
+    }
+
+    const { defaultCharacterId } = req.body;
+
+    if (!defaultCharacterId) {
+        return res.status(400).json({ error: 'Falta el id del personaje' });
+    }
+
+    try {
+
+        const isAlreadyFavorite = await Favorite.findOne({
+            where: { defaultCharacterId: defaultCharacterId, userId: userId },
+        });
+
+        if (isAlreadyFavorite) {
+            return res.status(400).json({ error: 'El personaje ya está en favoritos' });
+        }
+
+        const favorite = await Favorite.create({
+            defaultCharacterId,
+            userId: userId,
+        });
+
+        return res.status(201).json(favorite);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Error interno del servidor' });
+    }
+};
+
 
 module.exports = {
-    getAllCharacters,
-    getCharacterById,
-    postCharacter,
-    deleteCharacter
-};
+    getFavorites,
+    deleteFavorite,
+    addFavorite
+}

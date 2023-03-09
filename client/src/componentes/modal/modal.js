@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import style from "../modal/modal.module.css";
 
-export const hideHeader = (data) => {
-  Modal.handleReverse(data);
+export const hideHeader = (data, message) => {
+  console.log("hideHeader", data, message);
+  Modal.handleReverse(data, message);
 };
 
-const Modal = ({ children, onClose }) => {
+const Modal = ({ children, onClose, name }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleReverse = (data) => {
-    setShowModal(data);
+  const handleReverse = (data, message) => {
+    if(message == name || message== "all") {setShowModal(data);}
+    return
+    
    // console.log(showModal);
   };
 

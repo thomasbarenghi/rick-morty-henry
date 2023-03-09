@@ -1,17 +1,18 @@
 import Characters from "../characters/characters";
 import style from "./charactersgrid.module.scss";
-import SwitcherBotones from "../../general/switcherBotones/SwitcherBotones";
-import Modal from "../../general/modal/Modal";
-import Select from "../../general/select/Select";
-import { hideHeader } from "../../general/modal/Modal";
+import SwitcherBotones from "../../switcherBotones/SwitcherBotones";
+import Modal from "../../modal/modal";
+import Select from "../../select/Select";
+import { hideHeader } from "../../modal/modal";
 import { useState, useEffect } from "react";
-import { getCharacters, changeIndex, changeFilter, getFavorites } from "../../../redux/actions/actions";
+import { getCharacters, changeIndex, changeFilter, getFavorites, getPropios } from "../../../redux/actions/actions";
 import { useSelector, useDispatch } from 'react-redux';
+import Create from "../createCharacter/create";
+
 
 export default function CharactersGrid({ searchValue }) {
 
     const dispatch = useDispatch();
-    const [index, setIndex] = useState(0);
     const elementosFiltrado = { genero: ["Male", "Female", "unknown", "Genderless"], especie: ["Human", "Alien"], orden: ["A-Z", "Z-A"] };
     const [filtro, setFiltro] = useState({ genero: "default", especie: "default", search: "" });
 
@@ -30,11 +31,20 @@ export default function CharactersGrid({ searchValue }) {
     }
 
     const handleCloseModal = () => {
-        console.log("close");
+        //  console.log("close");
     }
 
     useEffect(() => { dispatch(changeFilter(filtro)) }, [filtro]);
-    useEffect(() => { dispatch(getFavorites()) }, []);
+    useEffect(() => {
+        dispatch(getFavorites())
+        dispatch(getPropios())
+    }, []);
+
+    const [createVisibility, setCreateVisibility] = useState(false);
+
+    const handleCreateVisibility = (e) => {
+        setCreateVisibility(!createVisibility);
+    }
 
 
     return (
@@ -47,19 +57,28 @@ export default function CharactersGrid({ searchValue }) {
 
                 <div id={style["optionsContainer"]}>
                     <SwitcherBotones
-                        datos={["Todos", "Seleccionados", "Favoritos"]}
+                        datos={["Todos", "Seleccionados", "Favoritos", "Propios"]}
                         onIndexChange={onIndexChange}
                     />
                     <button
                         id="openModal"
-                        onClick={() => hideHeader(true)}
+                        onClick={() => hideHeader(true, "filters")}
                         className={`${style.modalOpen} btn btn-primary btn1 btn1-t1`}
                         type="button"
                     >
                         Filtrar
                     </button>
+                    <button
+                        id="openModal"
+                        onClick={() => setCreateVisibility(true)}
+                        className={`${style.modalOpen} btn btn-primary btn1 btn1-t1`}
+                        style={{whiteSpace: "nowrap"}}
+                        type="button"
+                    >
+                        Crear un personaje
+                    </button>
 
-                    <Modal onClose={handleCloseModal} >
+                    <Modal onClose={handleCloseModal} name={"filters"} >
                         <div id="modalInner">
                             <Select
                                 name="genero"
@@ -88,14 +107,14 @@ export default function CharactersGrid({ searchValue }) {
                             </button>
                         </div>
                     </Modal>
+                    {createVisibility && <Create handleCreateVisibility={handleCreateVisibility} />}
                 </div>
             </div>
             <div id={style["componentContainer"]}>
                 {
-                    state?.activos?.map((character) => {
-
-                        return <Characters data={character} />
-                    })
+                    state?.activos && state?.activos?.map((character) => (
+                        <Characters data={character} />
+                    ))
                 }
             </div>
             {state?.activos.length === 0 && (

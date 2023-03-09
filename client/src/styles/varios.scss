@@ -92,3 +92,24 @@
 .container-fluid {
   padding: 0px !important;
 }
+
+#form {
+  width: 100%;
+  gap: 8px;
+
+  & #label {
+      width: 100%;
+      gap: 8px;
+  }
+
+  & #input {
+      padding: 12px !important;
+      font-weight: 300;
+      border-radius: 20px;
+  }
+
+  & #submit {
+      background: #0d8f0a !important;
+      margin-top: 20px;
+  }
+}

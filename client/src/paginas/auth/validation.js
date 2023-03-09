@@ -1,11 +1,11 @@
 function validateForm(formData) {
     const errors = {};
-    if (!formData.username) {
-      errors.username = 'El nombre de usuario es obligatorio';
-    } else if (!isValidEmail(formData.username)) {
-      errors.username = 'Ingrese un correo electrónico válido';
-    } else if (formData.username.length > 35) {
-      errors.username = 'El nombre de usuario no debe tener más de 35 caracteres';
+    if (!formData.email) {
+      errors.email = 'El nombre de usuario es obligatorio';
+    } else if (!isValidEmail(formData.email)) {
+      errors.email = 'Ingrese un correo electrónico válido';
+    } else if (formData.email.length > 35) {
+      errors.email = 'El nombre de usuario no debe tener más de 35 caracteres';
     }
   
     if (!formData.password) {
