@@ -24,14 +24,14 @@ function App() {
   const headers = { "Authorization": `Bearer ${token}`, };
 
   useEffect(() => {
-
+console.log("hola")
     if ((!token || !userId) || (token === "" || userId === "")) { navigate("/auth/login"); return; }
     //if (!token || !userId) { return Promise.reject(new Error('No hay token o userId en getFavorites')); }
     axios.get(`${SERVER_URL}/auth/me`, { headers })
       .then((response) => { console.log(response.data); })
       .catch((error) => { console.log("Error:", error); });
 
-  }, [ ]);
+  }, [navigate, ]);
 
 
   return (
