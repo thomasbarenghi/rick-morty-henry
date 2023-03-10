@@ -1,26 +1,19 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import React, { useEffect, useState } from 'react';
-import HeaderDefault from '../../componentes/masters/header/HeaderDefault';
-import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCharacter } from '../../redux/actions/actions';
+import { Helmet } from 'react-helmet';
+import { getCharacter } from '../../redux/actions/general';
+import HeaderDefault from '../../componentes/masters/header/HeaderDefault';
 import style from "./personajedetail.module.scss";
-import { useLocation } from 'react-router-dom';
+
 
 
 export default function CharacterDetail() {
 
     const dispatch = useDispatch();
     const slug = useParams();
-
     const state = useSelector((state) => state?.personajes);
     useEffect(() => { dispatch(getCharacter(slug.id)); }, [slug]);
-
-    const location = useLocation();
-
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, [location]);
 
     return (
         <>
@@ -36,10 +29,11 @@ export default function CharacterDetail() {
                 <HeroSection state={state} />
                 <DetallesSection state={state} />
             </main>
-            
+
         </>
     )
 }
+
 
 function HeroSection({ state }) {
     return (
@@ -54,7 +48,7 @@ function HeroSection({ state }) {
                 >
                     <img id={style["img-hero"]} src={state?.personajeDetail?.image} />
                     <div>
-                        <h1 id={style["titulo-hero"]} className="titulo1-regular margin-b-0" style={{display: "contents"}}>
+                        <h1 id={style["titulo-hero"]} className="titulo1-regular margin-b-0" style={{ display: "contents" }}>
                             <strong>{state?.personajeDetail?.name}</strong>
                         </h1>
                         <p className="body-regular margin-b-0 span-100">
@@ -67,6 +61,7 @@ function HeroSection({ state }) {
         </>
     )
 }
+
 
 function DetallesSection({ state }) {
 
@@ -123,8 +118,6 @@ function DetallesSection({ state }) {
                             }
                         </>
                     }
-
-
                 </div>
             </section>
         </>

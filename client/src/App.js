@@ -1,18 +1,19 @@
 import "./styles/global.scss"
 import "./styles/varios.scss"
 import "./styles/bootstrap.min.css"
-import { Routes, Route } from "react-router-dom";
+import { useEffect } from 'react';
+import { Routes, Route, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie"
+import axios from "axios";
+import { SERVER_URL } from "./api/config";
 import Home from "./paginas/home/home"
 import About from "./paginas/about/about"
 import CharacterDetail from "./paginas/personajeDetail/personajeDetail";
 import FooterDefault from "./componentes/masters/footer/FooterDefault";
 import Login from "./paginas/auth/login";
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Cookies from "js-cookie"
 import ScrollToTop from "./componentes/scrollToTop/scrollToTop";
-import axios from "axios";
-import { SERVER_URL } from "./api/config";
+
+
 
 function App() {
 
@@ -47,7 +48,5 @@ function App() {
     </>
   );
 }
-
-
 
 export default App;

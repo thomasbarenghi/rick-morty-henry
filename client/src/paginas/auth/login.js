@@ -10,33 +10,28 @@ import { SERVER_URL } from "../../api/config";
 
 export default function Login() {
 
-    const [logData, setLogData] = useState({
-        token: "",
-        userId: ""
-    });
+    const [logData, setLogData] = useState({ token: "", userId: "" });
 
     const navigate = useNavigate();
 
     const handleLogin = (formData) => {
         axios.post(`${SERVER_URL}/auth`, formData)
-          .then((res) => {
-            Cookies.set("token", res.data.token);
-            Cookies.set("userId", res.data.userId);
-            setLogData({
-              token: res.data.token,
-              userId: res.data.userId
+            .then((res) => {
+                Cookies.set("token", res.data.token);
+                Cookies.set("userId", res.data.userId);
+                setLogData({
+                    token: res.data.token,
+                    userId: res.data.userId
+                });
+            })
+            .catch((err) => {
+                console.log(err);
             });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    
-      useEffect(() => {
-        if (logData.token !== "") {
-          navigate("/");
-        }
-      }, [logData.token]);
+    }
+
+    useEffect(() => {
+        if (logData.token !== "") { navigate("/"); }
+    }, [logData.token]);
 
 
 

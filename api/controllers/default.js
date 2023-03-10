@@ -91,7 +91,7 @@ const addCharacter = async (req, res) => {
   const user = req.user.id;
   //const user = 2;
 
-  console.log(req.body)
+  console.log("body:", req.body)
 
   if (
     !name ||

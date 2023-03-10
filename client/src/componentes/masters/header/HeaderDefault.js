@@ -1,7 +1,7 @@
 import style from "./header.module.scss";
 import { useEffect, useState } from "react";
 import SearchModal from "../../searchModal/SearchModal";
-import { changeFilter } from "../../../redux/actions/actions";
+import { changeFilter } from "../../../redux/actions/general";
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";

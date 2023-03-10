@@ -3,25 +3,13 @@ import CharactersGrid from "../../componentes/characters/charactersGrid/Characte
 import style from "./home.module.scss";
 import { hideHeader } from "../../componentes/modal/modal";
 import { Helmet } from 'react-helmet';
-import { useLocation } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 export default function Home() {
 
-    const cerrarModal = (e) => {
-        if (e.target.id === "openModal" || e.target.closest("#modalInner")) { return; }
-        hideHeader(false, "all");
-    };
-
-    const location = useLocation();
+    const cerrarModal = (e) => { if (e.target.id === "openModal" || e.target.closest("#modalInner")) { return }; hideHeader(false, "all"); };
     const sectionRef = useRef(null);
-    const scrollToSection = () => {
-        sectionRef.current.scrollIntoView({ behavior: "smooth" });
-      };
-
-    // useEffect(() => {
-    //   window.scrollTo(0, 0);
-    // }, [location]);
+    const scrollToSection = () => { sectionRef.current.scrollIntoView({ behavior: "smooth" }); };
 
     return (
         <>
@@ -44,7 +32,7 @@ export default function Home() {
     );
 }
 
-function HeroSection({scrollToSection}) {
+function HeroSection({ scrollToSection }) {
     return (
         <section
             id={style["seccion-hero"]}
@@ -62,7 +50,7 @@ function HeroSection({scrollToSection}) {
                     <br />
                 </p>
                 <button className="btn btn-primary btn1 btn1-t1" type="button"
-                onClick={scrollToSection}
+                    onClick={scrollToSection}
                 >
                     Conoce a los personajes
                     <br />

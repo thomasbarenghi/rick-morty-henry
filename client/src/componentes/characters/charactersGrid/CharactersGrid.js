@@ -5,7 +5,9 @@ import Modal from "../../modal/modal";
 import Select from "../../select/Select";
 import { hideHeader } from "../../modal/modal";
 import { useState, useEffect } from "react";
-import { getCharacters, changeIndex, changeFilter, getFavorites, getPropios } from "../../../redux/actions/actions";
+import { getCharacters, changeIndex, changeFilter } from "../../../redux/actions/general";
+import { getPropios } from "../../../redux/actions/propios";
+import { getFavorites } from "../../../redux/actions/favorites";
 import { useSelector, useDispatch } from 'react-redux';
 import Create from "../createCharacter/create";
 

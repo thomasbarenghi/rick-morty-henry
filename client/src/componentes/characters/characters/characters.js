@@ -1,7 +1,9 @@
 import style from "./characters.module.scss";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectCharacter, favoriteCharacter, deletePropio } from "../../../redux/actions/actions";
+import { selectCharacter } from "../../../redux/actions/general";
+import { deletePropio } from "../../../redux/actions/propios";
+import {favoriteCharacter } from "../../../redux/actions/favorites";
 import Cookies from "js-cookie";
 
 export default function Characters({ data }) {

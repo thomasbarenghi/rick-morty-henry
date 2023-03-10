@@ -5,5 +5,8 @@ export const GET_CHARACTERS = "GET_CHARACTERS";
 export const CHANGE_INDEX = "CHANGE_INDEX";
 export const CHANGE_FILTER = "CHANGE_FILTER";
 export const GET_CHARACTER = "GET_CHARACTER";
+export const GET_FAVORITES = "GET_FAVORITES";
+export const GET_PROPIOS = "GET_PROPIOS";
+export const DELETE_PROPIO = "DELETE_PROPIO";
 
 

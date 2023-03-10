@@ -1,14 +1,9 @@
 import HeaderDefault from "../../componentes/masters/header/HeaderDefault";
-import FooterDefault from "../../componentes/masters/footer/FooterDefault";
 import { Tecnologias } from "../../api/data";
 import styles from "./about.module.scss";
 import { Helmet } from "react-helmet";
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
 
 export default function About() {
-
-
   return (
     <>
       <Helmet>

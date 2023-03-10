@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "./create.module.scss";
 import { useDispatch } from "react-redux";
-import { createPropio, getPropios } from "../../../redux/actions/actions";
+import { createPropio, getPropios } from "../../../redux/actions/propios";
 
 export default function Create({ handleCreateVisibility }) {
 
