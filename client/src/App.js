@@ -12,13 +12,11 @@ import CharacterDetail from "./paginas/personajeDetail/personajeDetail";
 import FooterDefault from "./componentes/masters/footer/FooterDefault";
 import Login from "./paginas/auth/login";
 import ScrollToTop from "./componentes/scrollToTop/scrollToTop";
-import { useLocation } from "react-router-dom";
 
 
 function App() {
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const { token, userId } = Cookies.get();
   const headers = { "Authorization": `Bearer ${token}`, };

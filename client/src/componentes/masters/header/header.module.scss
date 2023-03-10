@@ -62,10 +62,7 @@
       background: #ffffff;
     }
 
-    & #closeMenu {
-      width: 24px;
-      height: 24px;
-    }
+    
 
     & #nav-hamb {
       display: flex;
@@ -106,4 +103,10 @@
 
 #header a {
   text-decoration: none;
+}
+
+#closeMenu {
+  width: 24px;
+  height: 24px;
+  z-index: 20;
 }

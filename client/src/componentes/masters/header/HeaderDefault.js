@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import SearchModal from "../../searchModal/SearchModal";
 import { changeFilter } from "../../../redux/actions/general";
 import { useDispatch } from 'react-redux';
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
@@ -65,6 +65,7 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
             width={213}
             height={40}
             zindex={5}
+            alt="logo"
           />
         </Link>
 
@@ -85,6 +86,7 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
             <img
               className="d-inline d-sm-inline d-md-inline d-lg-inline d-xl-none d-xxl-none"
               src="/img/hamburger2.svg"
+              alt="hamburguer"
               width={20}
               height={20}
             />
@@ -99,13 +101,15 @@ export default function HeaderDefault({ handleFilter, searchStatus }) {
 
         {hamburguerStatus === true && (
           <img
-            id="closeMenu"
+            id={style["closeMenu"]}
             className="d-lg-none d-xl-none d-xxl-none"
             src="/img/fi-rr-cross.svg"
+            alt="close"
             width={24}
             height={24}
             style={{ /*display: 'none', */ zindex: 5 }}
             onClick={() => setHamburguerStatus(false)}
+            zindex={20}
           />
         )}
 
@@ -136,6 +140,7 @@ function SearchBar({ handleSearch, handleSearchModal }) {
       >
         <img
           src="/img/fi-br-search.svg"
+          alt="search"
 
           style={{ width: 20, height: 20 }}
         />
@@ -144,7 +149,7 @@ function SearchBar({ handleSearch, handleSearchModal }) {
         id={style["search-div"]}
         className="d-none d-sm-none d-md-none d-lg-none d-xl-flex d-xxl-flex"
       >
-        <img src="/img/fi-br-search.svg" />
+        <img src="/img/fi-br-search.svg" alt="search" />
         <input
           id={style["search-input"]}
           className="body-regular margin-b-0"
@@ -218,7 +223,7 @@ function Hamburguer({handleLogout, setHamburguerStatus}) {
         </div>
         <span className="color-body body-regular">Ponte en contacto</span>
         <span className="body-regular" style={{ color: "#0d8f0a" }}>
-          ejemplo@ejemplo.cc
+          thomasbarenghi@gmail.com
         </span>
       </div>
     </div>
