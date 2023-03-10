@@ -25,13 +25,7 @@
   }
 
   & .btn-verde-blanco {
-    display: none;
-  }
-}
-
-#componente:hover {
-  & .btn-verde-blanco {
-    display: flex;
+   // display: none;
   }
 }
 
@@ -42,6 +36,7 @@
 .invisible {
   display: none !important;
 }
+
 
 .btn-verde-blanco {
   font-size: 14px !important;
@@ -81,3 +76,25 @@
 //     height: 46px;
 //     border-radius: 10px !important;
 // }
+
+@media (min-width: 1023px) {
+  #componente {
+    & .btn-verde-blanco {
+      display: none;
+      }
+  }
+
+  #componente:hover {
+    & .btn-verde-blanco {
+      display: flex;
+      }
+  }
+
+}
+
+@media (max-width: 1023px) {
+
+  .btn-verde-blanco {
+    display: flex;
+  }
+}
