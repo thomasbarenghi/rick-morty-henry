@@ -1,12 +1,12 @@
 @media (max-width: 767.98px) {
   .span-100 {
-      width: 100% !important;
+    width: 100% !important;
   }
 }
 
 @media (min-width: 767.98px) and (max-width: 1024.98px) {
   .span-100 {
-      width: 90% !important;
+    width: 90% !important;
   }
 }
 
@@ -16,28 +16,22 @@
   border-radius: 20px;
 }
 
-.gap-t1{
-  gap: var(--gap-t1)
+.gap-t1 {
+  gap: var(--gap-t1);
 }
-
-
 
 @media (max-width: 767px) {
   #cajaComponentes {
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
-   
-      & .componenteScroll {
-        min-width: 75vw;
-        max-width: 75vw;
-      }
+
+    & .componenteScroll {
+      min-width: 75vw;
+      max-width: 75vw;
+    }
   }
 }
-
-
-
-
 
 .infoTag {
   background: #2b00d5;
@@ -69,7 +63,7 @@
 
 .form-input2 {
   border-color: #4c23e8;
-  background: rgba(0,0,178,0.05);
+  background: rgba(0, 0, 178, 0.05);
   border-style: solid;
   border-radius: 20px;
   padding: 15px 20px;
@@ -98,18 +92,18 @@
   gap: 8px;
 
   & #label {
-      width: 100%;
-      gap: 8px;
+    width: 100%;
+    gap: 8px;
   }
 
   & #input {
-      padding: 12px !important;
-      font-weight: 300;
-      border-radius: 20px;
+    padding: 12px !important;
+    font-weight: 300;
+    border-radius: 20px;
   }
 
   & #submit {
-      background: #0d8f0a !important;
-      margin-top: 20px;
+    background: #0d8f0a !important;
+    margin-top: 20px;
   }
 }

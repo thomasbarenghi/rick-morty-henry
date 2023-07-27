@@ -1,202 +1,225 @@
-import { SELECT_CHARACTER, FAVORITE_CHARACTER, GET_CHARACTERS, CHANGE_FILTER, CHANGE_INDEX, GET_FAVORITES, GET_PROPIOS, DELETE_PROPIO, GET_CHARACTER } from "../actions/actionTypes";
+import {
+  SELECT_CHARACTER,
+  FAVORITE_CHARACTER,
+  GET_CHARACTERS,
+  CHANGE_FILTER,
+  CHANGE_INDEX,
+  GET_FAVORITES,
+  GET_PROPIOS,
+  DELETE_PROPIO,
+  GET_CHARACTER,
+} from "../actions/actionTypes";
 
 const initialState = {
-    personajes: {
-        activos: [],
-        seleccionados: [],
-        favoritos: [],
-        todos: [],
-        propios: [],
-        filtro: { index: 0, genero: "default", especie: "default", search: "" },
-        personajeDetail: null
-    }
+  personajes: {
+    activos: [],
+    seleccionados: [],
+    favoritos: [],
+    todos: [],
+    propios: [],
+    filtro: { index: 0, genero: "default", especie: "default", search: "" },
+    personajeDetail: null,
+  },
 };
 
-
 const rootReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case CHANGE_FILTER:
+      const properties1 = { 0: "todos", 1: "seleccionados", 2: "favoritos" };
+      const currentCharacters =
+        state.personajes[properties1[state.personajes.filtro.index]];
 
-    switch (action.type) {
+      if (currentCharacters === undefined) {
+        return;
+      }
 
+      const filteredCharacters = currentCharacters.filter((character) => {
+        const filterByGender =
+          action.payload.genero && action.payload.genero !== "default"
+            ? character.gender === action.payload.genero
+            : true;
 
-        case CHANGE_FILTER:
+        const filterBySpecies =
+          action.payload.especie && action.payload.especie !== "default"
+            ? character.species === action.payload.especie
+            : true;
 
-            const properties1 = { 0: "todos", 1: "seleccionados", 2: "favoritos" };
-            const currentCharacters = state.personajes[properties1[state.personajes.filtro.index]];
+        const filterByName = character.name
+          .toLowerCase()
+          .includes(action.payload.search.toLowerCase());
 
-            if (currentCharacters === undefined) { return }
+        return filterByGender && filterBySpecies && filterByName;
+      });
 
-            const filteredCharacters = currentCharacters.filter((character) => {
+      filteredCharacters.sort((a, b) => {
+        if (action.payload.orden === "A-Z") {
+          return a.name.localeCompare(b.name);
+        } else if (action.payload.orden === "Z-A") {
+          return b.name.localeCompare(a.name);
+        } else {
+          return filteredCharacters;
+        }
+      });
 
-                const filterByGender =
-                    action.payload.genero && action.payload.genero !== "default"
-                        ? character.gender === action.payload.genero
-                        : true;
+      return {
+        ...state,
+        personajes: {
+          ...state.personajes,
+          filtro: {
+            ...state.personajes.filtro,
+            genero: action.payload.genero,
+            especie: action.payload.especie,
+            search: action.payload.search,
+          },
+          activos: filteredCharacters,
+        },
+      };
 
-                const filterBySpecies =
-                    action.payload.especie && action.payload.especie !== "default"
-                        ? character.species === action.payload.especie
-                        : true;
+    case CHANGE_INDEX:
+      const properties = {
+        0: "todos",
+        1: "seleccionados",
+        2: "favoritos",
+        3: "propios",
+      };
 
-                const filterByName = character.name
-                    .toLowerCase()
-                    .includes(action.payload.search.toLowerCase());
+      if (action.payload === null) {
+        return {
+          ...state,
+          personajes: {
+            ...state.personajes,
+            activos:
+              state.personajes[properties[state.personajes.filtro.index]],
+          },
+        };
+      }
 
-                return filterByGender && filterBySpecies && filterByName;
+      return {
+        ...state,
+        personajes: {
+          ...state.personajes,
+          filtro: { ...state.personajes.filtro, index: action.payload },
+          activos: state.personajes[properties[action.payload]],
+        },
+      };
 
-            })
+    case GET_CHARACTERS:
+      return {
+        ...state,
+        personajes: {
+          ...state.personajes,
+          activos: action.payload,
+          todos: action.payload,
+        },
+      };
 
-            filteredCharacters.sort((a, b) => {
-                if (action.payload.orden === "A-Z") { return a.name.localeCompare(b.name); }
-                else if (action.payload.orden === "Z-A") { return b.name.localeCompare(a.name); }
-                else { return filteredCharacters; }
-            });
+    case SELECT_CHARACTER:
+      const isAlreadySelected = state.personajes.seleccionados.find(
+        (character) => character.id === action.payload.id,
+      );
+      if (isAlreadySelected) {
+        return {
+          ...state,
+          personajes: {
+            ...state.personajes,
+            seleccionados: state.personajes.seleccionados.filter(
+              (character) => character.id !== action.payload.id,
+            ),
+          },
+        };
+      } else {
+        return {
+          ...state,
+          personajes: {
+            ...state.personajes,
+            seleccionados: [...state.personajes.seleccionados, action.payload],
+          },
+        };
+      }
 
-            return {
-                ...state,
-                personajes: {
-                    ...state.personajes,
-                    filtro: {
-                        ...state.personajes.filtro, genero: action.payload.genero, especie: action.payload.especie, search: action.payload.search
-                    },
-                    activos: filteredCharacters
-                }
-            }
+    case GET_FAVORITES:
+      return {
+        ...state,
+        personajes: { ...state.personajes, favoritos: action.payload },
+      };
 
+    case GET_PROPIOS:
+      return {
+        ...state,
+        personajes: { ...state.personajes, propios: action.payload },
+      };
 
-        case CHANGE_INDEX:
+    case DELETE_PROPIO:
+      const propioIsSelected = state.personajes.seleccionados.find(
+        (character) => character.id === action.payload,
+      );
 
-            const properties = { 0: "todos", 1: "seleccionados", 2: "favoritos", 3: "propios" };
+      if (propioIsSelected) {
+        return {
+          ...state,
+          personajes: {
+            ...state.personajes,
+            seleccionados: state.personajes.seleccionados.filter(
+              (character) => character.id !== action.payload,
+            ),
+          },
+        };
+      } else {
+        console.log("no estaba seleccionado");
+      }
 
-            if (action.payload === null) {
-                return {
-                    ...state,
-                    personajes: {
-                        ...state.personajes, activos: state.personajes[properties[state.personajes.filtro.index]]
-                    }
-                }
-            }
+      const propioIsFavorite = state.personajes.favoritos.find(
+        (character) => character.id === action.payload,
+      );
+      if (propioIsFavorite) {
+        return {
+          ...state,
+          personajes: {
+            ...state.personajes,
+            favoritos: state.personajes.favoritos.filter(
+              (character) => character.id !== action.payload,
+            ),
+          },
+        };
+      } else {
+        console.log("no estaba favorito");
+      }
 
-            return {
-                ...state,
-                personajes: {
-                    ...state.personajes,
-                    filtro: { ...state.personajes.filtro, index: action.payload },
-                    activos: state.personajes[properties[action.payload]]
-                }
-            }
+    case FAVORITE_CHARACTER:
+      const isAlreadyFavorite = state.personajes.favoritos.find(
+        (character) => character.id === action.payload.id,
+      );
 
+      if (isAlreadyFavorite) {
+        return {
+          ...state,
+          personajes: {
+            ...state.personajes,
+            favoritos: state.personajes.favoritos.filter(
+              (character) => character.id !== action.payload.id,
+            ),
+          },
+        };
+      } else {
+        return {
+          ...state,
+          personajes: {
+            ...state.personajes,
+            favoritos: [...state.personajes.favoritos, action.payload],
+          },
+        };
+      }
 
-        case GET_CHARACTERS:
+    case GET_CHARACTER:
+      //  console.log(action.payload, "payload")
+      return {
+        ...state,
+        personajes: { ...state.personajes, personajeDetail: action.payload },
+      };
 
-            return {
-                ...state,
-                personajes: { ...state.personajes, activos: action.payload, todos: action.payload, },
-            };
-
-        case SELECT_CHARACTER:
-
-            const isAlreadySelected = state.personajes.seleccionados.find((character) => character.id === action.payload.id
-            );
-            if (isAlreadySelected) {
-                return {
-                    ...state,
-                    personajes: {
-                        ...state.personajes,
-                        seleccionados: state.personajes.seleccionados.filter((character) => character.id !== action.payload.id)
-                    }
-                };
-            }
-
-            else {
-                return {
-                    ...state,
-                    personajes: {
-                        ...state.personajes, seleccionados: [...state.personajes.seleccionados, action.payload]
-                    }
-                };
-            };
-
-
-        case GET_FAVORITES:
-
-            return {
-                ...state,
-                personajes: { ...state.personajes, favoritos: action.payload }
-            };
-
-
-        case GET_PROPIOS:
-
-            return {
-                ...state,
-                personajes: { ...state.personajes, propios: action.payload }
-            };
-
-
-        case DELETE_PROPIO:
-
-            const propioIsSelected = state.personajes.seleccionados.find((character) => character.id === action.payload);
-
-            if (propioIsSelected) {
-                return {
-                    ...state,
-                    personajes: {
-                        ...state.personajes,
-                        seleccionados: state.personajes.seleccionados.filter((character) => character.id !== action.payload)
-                    }
-                };
-            }
-
-            else { console.log("no estaba seleccionado") }
-
-            const propioIsFavorite = state.personajes.favoritos.find((character) => character.id === action.payload
-            );
-            if (propioIsFavorite) {
-                return {
-                    ...state,
-                    personajes: {
-                        ...state.personajes,
-                        favoritos: state.personajes.favoritos.filter((character) => character.id !== action.payload)
-                    }
-                };
-            }
-            else { console.log("no estaba favorito") }
-
-
-        case FAVORITE_CHARACTER:
-
-            const isAlreadyFavorite = state.personajes.favoritos.find((character) => character.id === action.payload.id);
-
-            if (isAlreadyFavorite) {
-                return {
-                    ...state,
-                    personajes: {
-                        ...state.personajes,
-                        favoritos: state.personajes.favoritos.filter((character) => character.id !== action.payload.id)
-                    }
-                };
-            }
-
-            else {
-                return {
-                    ...state,
-                    personajes: {
-                        ...state.personajes, favoritos: [...state.personajes.favoritos, action.payload]
-                    }
-                };
-            };
-
-
-        case GET_CHARACTER:
-            //  console.log(action.payload, "payload")
-            return {
-                ...state,
-                personajes: { ...state.personajes, personajeDetail: action.payload }
-            };
-
-        default:
-            return;
-    }
-}
+    default:
+      return;
+  }
+};
 
 export default rootReducer;

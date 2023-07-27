@@ -1,63 +1,64 @@
-import { SELECT_CHARACTER, GET_CHARACTERS, GET_CHARACTER, CHANGE_INDEX, CHANGE_FILTER } from "./actionTypes";
+import {
+  SELECT_CHARACTER,
+  GET_CHARACTERS,
+  GET_CHARACTER,
+  CHANGE_INDEX,
+  CHANGE_FILTER,
+} from "./actionTypes";
 import { SERVER_URL } from "../../api/config";
 import Cookies from "js-cookie";
 
-
 export const getCharacters = () => async (dispatch) => {
-
   const { token, userId } = Cookies.get();
-  if (!token || !userId) { return Promise.reject(new Error('No hay token o userId en getCharacters')); }
+  if (!token || !userId) {
+    return Promise.reject(new Error("No hay token o userId en getCharacters"));
+  }
 
   try {
-
     const response = await fetch(`${SERVER_URL}/characters`, {
-      headers: { "Authorization": `Bearer ${token}`, }
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     const json = await response.json();
     dispatch({ type: GET_CHARACTERS, payload: json.result });
-
-  } catch (error) { console.log(error); }
-
+  } catch (error) {
+    console.log(error);
+  }
 };
-
 
 export const getCharacter = (id) => async (dispatch) => {
-
   const { token, userId } = Cookies.get();
-  if (!token || !userId) { return Promise.reject(new Error('No hay token o userId')); }
+  if (!token || !userId) {
+    return Promise.reject(new Error("No hay token o userId"));
+  }
 
   try {
-
-    const response = await fetch(`${SERVER_URL}/characters/${id}`,
-      {
-        headers: { "Authorization": `Bearer ${token}`, }
-      })
+    const response = await fetch(`${SERVER_URL}/characters/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
     const json = await response.json();
-    dispatch({ type: GET_CHARACTER, payload: json.result })
-
-  } catch (error) { console.log(error); }
-
+    dispatch({ type: GET_CHARACTER, payload: json.result });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-
 //Setea los activos y agrega o quita de seleccionados
-export const selectCharacter = (id) => ({ type: SELECT_CHARACTER, payload: id })
-
+export const selectCharacter = (id) => ({
+  type: SELECT_CHARACTER,
+  payload: id,
+});
 
 //Index
-export const changeIndex = (index) => (dispatch) => dispatch({ type: CHANGE_INDEX, payload: index });
-
+export const changeIndex = (index) => (dispatch) =>
+  dispatch({ type: CHANGE_INDEX, payload: index });
 
 //Filters
-export const changeFilter = (filtro) => ({ type: CHANGE_FILTER, payload: filtro });
-
-
-
-
-
-
+export const changeFilter = (filtro) => ({
+  type: CHANGE_FILTER,
+  payload: filtro,
+});
 
 // export const favoriteCharacter = (character) => {
 
@@ -97,7 +98,6 @@ export const changeFilter = (filtro) => ({ type: CHANGE_FILTER, payload: filtro 
 //   };
 // };
 
-
 // export const getFavorites = () => {
 
 //   return async function (dispatch) {
@@ -123,8 +123,6 @@ export const changeFilter = (filtro) => ({ type: CHANGE_FILTER, payload: filtro 
 
 //   }
 // };
-
-
 
 //Propios
 // export const getPropios = () => {
@@ -186,6 +184,5 @@ export const changeFilter = (filtro) => ({ type: CHANGE_FILTER, payload: filtro 
 //       .then(res => (console.log("borrando", res), dispatch(getPropios()), dispatch({ type: "DELETE_PROPIO", payload: id })))
 //   }
 // };
-
 
 //Personajes

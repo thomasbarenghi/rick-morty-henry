@@ -10,7 +10,7 @@ const SwitcherBotones = ({ datos, onIndexChange }) => {
   };
 
   return (
-    <div key={datos} id={styles.switcherContainer} style={{display: "flex"}} >
+    <div key={datos} id={styles.switcherContainer} style={{ display: "flex" }}>
       {datos.map((dato, index) => (
         <button
           key={index}

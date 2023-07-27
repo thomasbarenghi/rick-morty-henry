@@ -1,6 +1,4 @@
 export default function Select({ name, data, handleFilter }) {
-
-
   return (
     <label
       className="form-label d-flex flex-column margin-b-0"
@@ -8,9 +6,9 @@ export default function Select({ name, data, handleFilter }) {
     >
       {name}
       <select
-      defaultValue={"default"}
-      onChange={handleFilter}
-      name={name}
+        defaultValue={"default"}
+        onChange={handleFilter}
+        name={name}
         style={{
           padding: 12,
           borderStyle: "solid",

@@ -1,6 +1,6 @@
 import styles from "../searchModal/searchmodal.module.scss";
 
-export default function SearchModal({handleSearchModal, handleFilter}) {
+export default function SearchModal({ handleSearchModal, handleFilter }) {
   return (
     <div
       id={styles.searchModalBox}
@@ -22,7 +22,11 @@ export default function SearchModal({handleSearchModal, handleFilter}) {
           />
         </div>
       </div>
-      <img id={styles.closeModal} onClick={handleSearchModal} src="/img/fi-br-cross-white.svg" />
+      <img
+        id={styles.closeModal}
+        onClick={handleSearchModal}
+        src="/img/fi-br-cross-white.svg"
+      />
     </div>
   );
 }

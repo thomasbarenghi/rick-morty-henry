@@ -8,5 +8,3 @@ export const GET_CHARACTER = "GET_CHARACTER";
 export const GET_FAVORITES = "GET_FAVORITES";
 export const GET_PROPIOS = "GET_PROPIOS";
 export const DELETE_PROPIO = "DELETE_PROPIO";
-
-
