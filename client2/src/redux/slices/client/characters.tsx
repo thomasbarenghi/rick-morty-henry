@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPoster, axiosDeleter, axiosGetter } from "@/utils/requests";
 import { setCharacters } from "./favorites";
 import { toast } from "sonner";
-
+const userId = "a2da0526-8cf1-454e-b4b4-56dd61e80a9e";
 const initialState = {
   characters: [] as any[],
   ownedCharacters: [] as any[],
@@ -33,7 +33,7 @@ export const getCharacters = createAsyncThunk(
       console.error(error);
       throw error;
     }
-  },
+  }
 );
 
 export const getCharacterById = createAsyncThunk(
@@ -55,7 +55,30 @@ export const getCharacterById = createAsyncThunk(
       console.error(error);
       throw error;
     }
-  },
+  }
+);
+
+export const createCharacter = createAsyncThunk(
+  "characters/createCharacter",
+  async (character: any, { dispatch, getState }) => {
+    try {
+      const state = getState() as any;
+      character.userId = userId;
+      //const userId = state.client.session.current.userId;
+      const res = await axiosPoster({
+        url: `/characters`,
+        body: character,
+      });
+
+      console.log("data redux", res);
+      return {
+        character: res,
+      };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 );
 
 const charactersSlice = createSlice({
@@ -99,6 +122,21 @@ const charactersSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         toast.error("Error getting character");
+      })
+      .addCase(createCharacter.pending, (state, action) => {
+        state.isLoading = true;
+        state.isError = false;
+      } )
+      .addCase(createCharacter.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.currentCharacter = action.payload.character;
+        toast.success("Character created");
+      })
+      .addCase(createCharacter.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        toast.error("Error creating character");
       });
   },
 });

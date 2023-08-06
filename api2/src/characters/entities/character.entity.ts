@@ -16,9 +16,6 @@ export class Character {
   species: string;
 
   @Column()
-  type: string;
-
-  @Column()
   gender: string;
 
   @Column()

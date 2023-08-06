@@ -17,8 +17,9 @@ export class CharactersController {
   constructor(private readonly charactersService: CharactersService) {}
 
   @Post()
-  create(@Body() createCharacterDto: CreateCharacterDto) {
-    return this.charactersService.create(createCharacterDto);
+  create(@Body() body: CreateCharacterDto) {
+    console.log("createCharacterDto", body);
+    return this.charactersService.create(body);
   }
 
   //Recibimos el id del usuario

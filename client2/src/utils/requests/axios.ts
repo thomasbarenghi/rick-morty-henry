@@ -11,10 +11,12 @@ export const axiosPutter = async (url: string, data: any, cType: any) => {
   return res;
 };
 
-export const axiosPoster = async (url: string, data: any) => {
-  const { data: res } = await axios.post(serverUrl + url, data, {
-    headers: headersAuth,
-  });
+type axiosPoster = {
+  url: any;
+  body?: any;
+};
+export const axiosPoster = async ({ url, body }: axiosPoster) => {
+  const { data: res } = await axios.post(serverUrl + url, body || {});
 
   return res;
 };

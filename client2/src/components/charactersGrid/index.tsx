@@ -1,5 +1,5 @@
 import style from "./index.module.scss";
-import { Select, Modal, SwitcherButtons, CharacterItem } from "@/components";
+import { Select, Modal, SwitcherButtons, CharacterItem, CreateCharacter, ChatactersFilter } from "@/components";
 import { useState, useEffect } from "react";
 import { setIndex } from "@/redux/slices/client/characters";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -9,6 +9,7 @@ import { selectorIndexCharacters } from "@/redux/selectors/characters";
 export default function CharactersGrid({ searchValue }: any) {
   const dispatch = useAppDispatch();
   const [createVisibility, setCreateVisibility] = useState(false);
+  const [filterVisibility, setFilterVisibility] = useState(false);
   const characters = useAppSelector(selectorIndexCharacters);
   console.log("characters", characters);
   const elementosFiltrado = {
@@ -54,12 +55,13 @@ export default function CharactersGrid({ searchValue }: any) {
 
         <div id={style["optionsContainer"]}>
           <SwitcherButtons
-            datos={["Todos", "Seleccionados", "Favoritos", "Propios"]}
+            datos={["Todos", "Favoritos", "Propios"]}
             onIndexChange={onIndexChange}
           />
           <button
             id="openModal"
             className={`${style.modalOpen} btn btn-primary btn1 btn1-t1`}
+            onClick={() => setFilterVisibility(true)}
             type="button"
           >
             Filtrar
@@ -104,9 +106,13 @@ export default function CharactersGrid({ searchValue }: any) {
             </div>
           </Modal>
           {createVisibility && (
-            // <Create handleCreateVisibility={handleCreateVisibility} />
-            <></>
+            <CreateCharacter handleCreateVisibility={setCreateVisibility} />
           )}
+          {
+            filterVisibility && (
+              <ChatactersFilter handleVisibility={setFilterVisibility} />
+            )
+          }
         </div>
       </div>
       <div id={style["componentContainer"]}>
