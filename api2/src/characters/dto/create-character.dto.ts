@@ -7,5 +7,5 @@ export class CreateCharacterDto {
   origin_name: string;
   location_name: string;
   image: string;
-userId: string;
+  userId: string;
 }

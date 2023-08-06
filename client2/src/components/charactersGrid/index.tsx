@@ -1,27 +1,30 @@
 import style from "./index.module.scss";
 import { Select, Modal, SwitcherButtons, CharacterItem } from "@/components";
 import { useState, useEffect } from "react";
-import { changeIndex, changeFilter } from "../../../redux/actions/general";
+import { setIndex } from "@/redux/slices/client/characters";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { selectorIndexCharacters } from "@/redux/selectors/characters";
 //import Create from "../createCharacter/create";
 
 export default function CharactersGrid({ searchValue }: any) {
   const dispatch = useAppDispatch();
+  const [createVisibility, setCreateVisibility] = useState(false);
+  const characters = useAppSelector(selectorIndexCharacters);
+  console.log("characters", characters);
   const elementosFiltrado = {
     genero: ["Male", "Female", "unknown", "Genderless"],
     especie: ["Human", "Alien"],
     orden: ["A-Z", "Z-A"],
   };
+
   const [filtro, setFiltro] = useState({
     genero: "default",
     especie: "default",
     search: "",
   });
 
-  const state = useSelector((state: any) => state?.personajes);
-
   const onIndexChange = (index: number) => {
-    dispatch(changeIndex(index));
+    dispatch(setIndex(index));
   };
 
   const handleFilter = (event: any) => {
@@ -37,15 +40,9 @@ export default function CharactersGrid({ searchValue }: any) {
     //  console.log("close");
   };
 
-  useEffect(() => {
-    dispatch(changeFilter(filtro));
-  }, [filtro]);
-
-  const [createVisibility, setCreateVisibility] = useState(false);
-
-  const handleCreateVisibility = (e: any) => {
-    setCreateVisibility(!createVisibility);
-  };
+  // useEffect(() => {
+  //   dispatch(changeFilter(filtro));
+  // }, [filtro]);
 
   return (
     <section id={style["seccion-personajes"]} className="padding-t1">
@@ -113,14 +110,13 @@ export default function CharactersGrid({ searchValue }: any) {
         </div>
       </div>
       <div id={style["componentContainer"]}>
-        {Array.isArray(state?.activos) &&
-          state?.activos &&
-          state?.activos?.map((character: any) => (
+        {Array.isArray(characters) &&
+          characters &&
+          characters?.map((character: any) => (
             <CharacterItem data={character} key={character} />
-            // <></>
           ))}
       </div>
-      {Array.isArray(state?.activos) && state?.activos.length === 0 && (
+      {Array.isArray(characters) && characters?.length === 0 && (
         <div>
           <h1
             className="text-center titulo2-bold"

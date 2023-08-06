@@ -1,4 +1,5 @@
 #componente {
+  cursor: pointer !important;
   background: linear-gradient(rgba(231, 249, 253, 0.08), #e2f1e2);
   padding: 10px;
   gap: 40px;
@@ -6,6 +7,7 @@
   color: #379c35;
 
   & #personajes-img {
+    cursor: pointer;
     width: 100%;
     aspect-ratio: 1/1;
     border-radius: 15px;
@@ -78,12 +80,14 @@
 
 @media (min-width: 1023px) {
   #componente {
+    cursor: pointer;
     & .btn-verde-blanco {
       display: none;
     }
   }
 
   #componente:hover {
+    cursor: pointer;
     & .btn-verde-blanco {
       display: flex;
     }

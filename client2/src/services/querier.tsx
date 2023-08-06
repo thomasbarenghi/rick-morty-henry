@@ -1,8 +1,8 @@
 "use client";
 import { ReactNode, useEffect } from "react";
 import { usePathname, useParams, useRouter } from "next/navigation";
-import { useAppDispatch } from "@/redux/hooks";
-import { getGames, getGameById } from "@/redux/slices/client/favorites";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { getCharacters, getCharacterById } from "@/redux/slices/client/characters";
 type Props = {
   children: ReactNode;
 };
@@ -14,16 +14,16 @@ export default function Querier({ children }: Props) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (pathname === "/games") {
-      dispatch(getGames());
+    if (pathname === "/") {
+      dispatch(getCharacters());
     }
 
     console.log("pathname", pathname, params.gameId, router);
 
-    if (params?.gameId) {
-      dispatch(getGameById(params?.gameId.toString()));
+    if (params?.characterId) {
+      dispatch(getCharacterById(params?.characterId.toString()));
     }
-  }, [pathname, dispatch, params.gameId, router]);
+  }, [pathname, dispatch, params.characterId, router]);
 
   return <div>{children}</div>;
 }

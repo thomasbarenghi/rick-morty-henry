@@ -1,7 +1,7 @@
-
 import { Metadata } from "next";
 //import { HeaderDefault } from "@/components";
 import style from "./page.module.scss";
+import { CharactersGrid } from "@/components";
 
 export const metadata: Metadata = {
   title: "Rick y Morty | Thomas Barenghi",
@@ -17,21 +17,17 @@ export default function Home() {
     //hideHeader(false, "all");
   };
 
-  const scrollToSection = () => {};
-
   return (
     <>
-      <main >
-        <HeroSection  />
-
+      <main>
+        <HeroSection />
+        <CharactersGrid />
       </main>
     </>
   );
 }
 
-
-
-function HeroSection({  }) {
+function HeroSection({}) {
   return (
     <section
       id={style["seccion-hero"]}
@@ -48,11 +44,7 @@ function HeroSection({  }) {
           Rick y Morty.
           <br />
         </p>
-        <button
-          className="btn btn-primary btn1 btn1-t1"
-          type="button"
-       
-        >
+        <button className="btn btn-primary btn1 btn1-t1" type="button">
           Conoce a los personajes
           <br />
         </button>

@@ -21,7 +21,7 @@ export const axiosPoster = async (url: string, data: any) => {
 
 type axiosGetter = {
   url: any;
-  body: any;
+  body?: any;
 };
 
 export const axiosGetter = async ({ url, body }: axiosGetter) => {
