@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import style from "./index.module.scss";
 
 type ModalProps = {
-    children: React.ReactNode;
-    onClose: () => void;
-    name: string;
+  children: React.ReactNode;
+  onClose: () => void;
+  name: string;
 };
 
 const Modal = ({ children, onClose, name }: ModalProps) => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleReverse = (data:any, message:string) => {
+  const handleReverse = (data: any, message: string) => {
     if (message == name || message == "all") {
       setShowModal(data);
     }
@@ -18,8 +18,6 @@ const Modal = ({ children, onClose, name }: ModalProps) => {
 
     // console.log(showModal);
   };
-
-
 
   useEffect(() => {
     onClose();
@@ -43,7 +41,7 @@ const Modal = ({ children, onClose, name }: ModalProps) => {
             Filtros
           </h1>
           <img
-         //   onClick={() => handleReverse(false)}
+            //   onClick={() => handleReverse(false)}
             id="close-button"
             src="/img/fi-br-cross-green.svg"
             style={{ width: 15, height: 15 }}

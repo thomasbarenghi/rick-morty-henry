@@ -16,5 +16,5 @@ export const selectorIndexCharacters = createSelector(
   (index, characters, favorites, ownedCharacters) => {
     const allCharacters = [characters, favorites, ownedCharacters];
     return allCharacters[0];
-  }
+  },
 );

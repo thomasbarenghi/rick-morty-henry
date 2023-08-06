@@ -4,7 +4,10 @@ type SearchModalProps = {
   handleSearchModal: () => void;
   handleFilter: any;
 };
-export default function SearchModal({ handleSearchModal, handleFilter }: SearchModalProps) {
+export default function SearchModal({
+  handleSearchModal,
+  handleFilter,
+}: SearchModalProps) {
   return (
     <div
       id={styles.searchModalBox}

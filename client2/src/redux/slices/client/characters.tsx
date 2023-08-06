@@ -33,7 +33,7 @@ export const getCharacters = createAsyncThunk(
       console.error(error);
       throw error;
     }
-  }
+  },
 );
 
 export const getCharacterById = createAsyncThunk(
@@ -55,7 +55,7 @@ export const getCharacterById = createAsyncThunk(
       console.error(error);
       throw error;
     }
-  }
+  },
 );
 
 const charactersSlice = createSlice({

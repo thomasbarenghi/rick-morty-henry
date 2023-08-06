@@ -1,13 +1,13 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "@/redux/hooks";
 import style from "./page.module.scss";
 
 export default function CharacterDetail() {
   const state = useAppSelector(
-    (state) => state?.client?.characters?.currentCharacter
+    (state) => state?.client?.characters?.currentCharacter,
   );
-console.log("state",state)
+  console.log("state", state);
   return (
     <>
       <HeroSection state={state} />
@@ -16,8 +16,8 @@ console.log("state",state)
   );
 }
 
-function HeroSection({ state }:any) {
-    console.log("state HeroSection",state)
+function HeroSection({ state }: any) {
+  console.log("state HeroSection", state);
   return (
     <>
       <section
@@ -38,9 +38,7 @@ function HeroSection({ state }:any) {
               <strong>{state?.name}</strong>
             </h1>
             <p className="body-regular margin-b-0 span-100">
-              {state?.gender} |{" "}
-              {state?.species} |{" "}
-              {state?.status}
+              {state?.gender} | {state?.species} | {state?.status}
               <br />
             </p>
           </div>
@@ -50,9 +48,9 @@ function HeroSection({ state }:any) {
   );
 }
 
-function DetallesSection({ state }:any) {
+function DetallesSection({ state }: any) {
   const [about, setAbout] = useState([] as any);
-console.log("state DetallesSection",state)
+  console.log("state DetallesSection", state);
   useEffect(() => {
     setAbout([
       {
@@ -83,7 +81,7 @@ console.log("state DetallesSection",state)
         <div id={style["grid"]} style={{ width: "100%" }}>
           {about.length > 0 && (
             <>
-              {about.map((item:any) => {
+              {about.map((item: any) => {
                 return (
                   <div
                     key={item?.title}

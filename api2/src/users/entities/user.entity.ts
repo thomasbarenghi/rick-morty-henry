@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { Character } from 'src/characters/entities/character.entity';
 
 @Entity()
@@ -22,7 +29,6 @@ export class User {
     cascade: true,
   })
   characters: Character[];
-
 
   @ManyToMany(() => Character, { onDelete: 'CASCADE', onUpdate: 'NO ACTION' })
   @JoinTable({

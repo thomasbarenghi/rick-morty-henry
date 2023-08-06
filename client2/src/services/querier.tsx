@@ -2,7 +2,10 @@
 import { ReactNode, useEffect } from "react";
 import { usePathname, useParams, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { getCharacters, getCharacterById } from "@/redux/slices/client/characters";
+import {
+  getCharacters,
+  getCharacterById,
+} from "@/redux/slices/client/characters";
 type Props = {
   children: ReactNode;
 };

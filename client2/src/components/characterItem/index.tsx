@@ -7,11 +7,10 @@ type CharacterItemProps = {
   data: any;
 };
 
-
 export default function Characters({ data }: CharacterItemProps) {
   const dispatch = useAppDispatch();
   const favoritosList = useAppSelector(
-    (state) => state?.client?.favorites?.characters
+    (state) => state?.client?.favorites?.characters,
   );
   const idFavorito = favoritosList.some((obj) => obj.id === data.id);
   const [touchStartTime, setTouchStartTime] = useState<number>(0);
@@ -28,7 +27,7 @@ export default function Characters({ data }: CharacterItemProps) {
   };
 
   useEffect(() => {
-    function handleClickOutside(event:any) {
+    function handleClickOutside(event: any) {
       if (isSelected === true) {
         setShowSelect(true);
         console.log("esta seleccionado");
@@ -77,7 +76,7 @@ export default function Characters({ data }: CharacterItemProps) {
     }
   }
   //console.log(window.innerWidth);
-console.log("data:", data);
+  console.log("data:", data);
   return (
     <>
       {data && (

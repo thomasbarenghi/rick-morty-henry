@@ -16,12 +16,12 @@ export const manageFavoriteCharacter = createAsyncThunk(
       const state = getState() as RootState;
       const userId = state.client.session.current.userId;
       const isAlreadyFavorite = state.client.favorites.characters.find(
-        (c: any) => c.id === character.id
+        (c: any) => c.id === character.id,
       );
 
       if (isAlreadyFavorite) {
         const response = await axiosDeleter(
-          `/client/favorites/${character.id}`
+          `/client/favorites/${character.id}`,
         );
         return response;
       } else {
@@ -37,7 +37,7 @@ export const manageFavoriteCharacter = createAsyncThunk(
       console.error(error);
       throw error;
     }
-  }
+  },
 );
 
 const favoritesSlice = createSlice({
@@ -56,7 +56,7 @@ const favoritesSlice = createSlice({
           state.characters.push(data as any);
         } else {
           state.characters = state.characters.filter(
-            (c: any) => c.id !== data.id
+            (c: any) => c.id !== data.id,
           );
         }
       })

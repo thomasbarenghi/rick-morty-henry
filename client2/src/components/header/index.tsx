@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import style from "./index.module.scss";
 import { useEffect, useState } from "react";
 //import { changeFilter } from "../../../redux/actions/general";
@@ -7,11 +7,14 @@ import Link from "next/link";
 import { SearchModal } from "@/components";
 
 type HeaderDefaultProps = {
-    handleFilter?: () => void;
-    searchStatus: boolean;
-}
+  handleFilter?: () => void;
+  searchStatus: boolean;
+};
 
-export default function HeaderDefault({ handleFilter, searchStatus }: HeaderDefaultProps) {
+export default function HeaderDefault({
+  handleFilter,
+  searchStatus,
+}: HeaderDefaultProps) {
   const dispatch = useAppDispatch();
   const [headerType, setHeaderType] = useState("default");
   const [searchModalStatus, setSearchModalStatus] = useState(false);
