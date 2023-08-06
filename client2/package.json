@@ -1,0 +1,32 @@
+{
+  "name": "client2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "@types/lodash": "^4.14.196",
+    "@types/node": "20.4.8",
+    "@types/react": "18.2.18",
+    "@types/react-dom": "18.2.7",
+    "axios": "^1.4.0",
+    "eslint": "8.46.0",
+    "eslint-config-next": "13.4.12",
+    "lodash": "^4.17.21",
+    "next": "13.4.12",
+    "prettier": "^3.0.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-redux": "^8.1.2",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.2",
+    "sass": "^1.64.2",
+    "sonner": "^0.6.2",
+    "typescript": "5.1.6"
+  }
+}
