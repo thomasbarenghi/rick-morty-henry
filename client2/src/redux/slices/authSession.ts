@@ -55,6 +55,7 @@ export const login = createAsyncThunk(
           `/?id=${res.User.userId}&status=ok&session=${res.SessionID}&loginMethod=local`
         )
       );
+
       return res;
     } catch (err: any) {
       throw new Error("Error al loguear el usuario", err);

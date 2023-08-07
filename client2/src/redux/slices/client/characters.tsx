@@ -2,7 +2,8 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPoster, axiosDeleter, axiosGetter } from "@/utils/requests";
 import { setCharacters } from "./favorites";
 import { toast } from "sonner";
-const userId = "a2da0526-8cf1-454e-b4b4-56dd61e80a9e";
+import { RootState } from "@/redux/store/store";
+
 const initialState = {
   characters: [] as any[],
   ownedCharacters: [] as any[],
@@ -16,11 +17,12 @@ export const getCharacters = createAsyncThunk(
   "characters/getCharacters",
   async (_, { dispatch, getState }) => {
     try {
-      const state = getState() as any;
-      //   const userId = state.client.session.current.userId || "";
+      const state = getState() as RootState;
+      const userId = state.authSession.session.current.id || null;
+      console.log("axiosGetter headers", userId);
       const res = await axiosGetter({
         url: `/characters`,
-        //   body: { userId },
+        headers: { userId: userId },
       });
       console.log("res", res);
       await dispatch(setCharacters(res.userFavorites));
@@ -40,11 +42,11 @@ export const getCharacterById = createAsyncThunk(
   "characters/getCharacterById",
   async (characterId: string, { dispatch, getState }) => {
     try {
-      const state = getState() as any;
-      //const userId = state.client.session.current.userId;
+      const state = getState() as RootState;
+      const userId = state.authSession.session.current.id || null;
       const res = await axiosGetter({
         url: `/characters/${characterId}`,
-        //   body: { userId },
+        headers: { userId: userId },
       });
 
       console.log("data redux", res);
@@ -62,7 +64,8 @@ export const createCharacter = createAsyncThunk(
   "characters/createCharacter",
   async (character: any, { dispatch, getState }) => {
     try {
-      const state = getState() as any;
+      const state = getState() as RootState;
+      const userId = state.authSession.session.current.id || null;
       character.userId = userId;
       //const userId = state.client.session.current.userId;
       const res = await axiosPoster({
@@ -73,6 +76,29 @@ export const createCharacter = createAsyncThunk(
       console.log("data redux", res);
       return {
         character: res,
+      };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+);
+
+export const deleteCharacter = createAsyncThunk(
+  "characters/deleteCharacter",
+  async (characterId: string, { dispatch, getState }) => {
+    try {
+      const state = getState() as RootState;
+      const userId = state.authSession.session.current.id || null;
+      const res = await axiosDeleter({
+        url: `/characters/${characterId}`,
+        headers: { userId: userId },
+      });
+
+      console.log("data redux", res);
+      return {
+        character: res,
+        characterId: characterId,
       };
     } catch (error) {
       console.error(error);
@@ -106,7 +132,7 @@ const charactersSlice = createSlice({
       .addCase(getCharacters.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        console.error("error", action);
+        console.error("error", action.error);
         toast.error("Error getting characters");
       })
       .addCase(getCharacterById.pending, (state, action) => {
@@ -126,17 +152,38 @@ const charactersSlice = createSlice({
       .addCase(createCharacter.pending, (state, action) => {
         state.isLoading = true;
         state.isError = false;
-      } )
+      })
       .addCase(createCharacter.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.currentCharacter = action.payload.character;
+        state.ownedCharacters.push(action.payload.character);
+        console.log("action.payload.character", action.payload.character);
         toast.success("Character created");
       })
       .addCase(createCharacter.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         toast.error("Error creating character");
+      })
+      .addCase(deleteCharacter.pending, (state, action) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(deleteCharacter.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        console.log("action.payload.character", action.payload);
+        state.currentCharacter = action.payload.character;
+        state.ownedCharacters = state.ownedCharacters.filter(
+          (character) => character.id !== action.payload.characterId
+        );
+        toast.success("Character deleted");
+      })
+      .addCase(deleteCharacter.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        toast.error("Error deleting character");
       });
   },
 });

@@ -20,15 +20,16 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  console.log("searchParams", searchParams);
   const {
     session: { current: sSession },
     auth: sAuth,
   } = useAppSelector((state) => state.authSession);
 
-  const loginMethodQy = searchParams.get("loginMethod");
-  const userIdQy = searchParams.get("id");
-  const statusQy = searchParams.get("status");
-  const sessionQy = searchParams.get("session");
+  const loginMethodQy = searchParams.get("loginMethod") ?? "";
+  const userIdQy = searchParams.get("id") ?? "";
+  const statusQy = searchParams.get("status") ?? "";
+  const sessionQy = searchParams.get("session") ?? "";
 
   const session = UserClass.deserialize(sSession);
   const auth = AuthClass.deserialize(sAuth);
@@ -45,7 +46,6 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
           return true;
         } else {
           console.log("Sesión no válida");
-          await dispatch(logout());
           return false;
         }
       } else {
@@ -53,7 +53,6 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
       }
     } catch (error) {
       console.error(error);
-      dispatch(logout());
     }
   };
 

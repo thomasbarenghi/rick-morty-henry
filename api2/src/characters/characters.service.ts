@@ -29,7 +29,8 @@ export class CharactersService {
 
   async findAll(req: any): Promise<any> {
     try {
-      const userId = req.body.userId;
+      const userId = req.userid;
+     console.log('userId', userId)
       let userCharacters = [];
       let favorites = [];
 
@@ -40,6 +41,7 @@ export class CharactersService {
           },
         });
         favorites = await this.userService.findFavorites(userId);
+        console.log('userCharacters', userCharacters, favorites)
       }
 
       const rickApi = this.configService.get<string>('RICK_API_URL');

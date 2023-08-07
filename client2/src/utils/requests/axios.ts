@@ -16,6 +16,7 @@ type axiosPoster = {
   body?: any;
 };
 export const axiosPoster = async ({ url, body }: axiosPoster) => {
+  console.log("axiosPoster body", body);
   const { data: res } = await axios.post(serverUrl + url, body || {});
 
   return res;
@@ -23,21 +24,27 @@ export const axiosPoster = async ({ url, body }: axiosPoster) => {
 
 type axiosGetter = {
   url: any;
-  params?: any;
+  headers?: any;
 };
 
-export const axiosGetter = async ({ url, params }: axiosGetter) => {
+export const axiosGetter = async ({ url, headers }: axiosGetter) => {
+  console.log("axiosGetter headers", headers);
   const { data: res } = await axios.get(serverUrl + url, {
-    headers: headersAuth,
-    params: params,
-  });
+    headers: headers || {},
+  }
+  );
 
   return res;
 };
 
-export const axiosDeleter = async (url: string) => {
+type axiosDeleter = {
+  url: any;
+  headers?: any;
+};
+
+export const axiosDeleter = async ({ url, headers }: axiosDeleter) => {
   const { data: res } = await axios.delete(serverUrl + url, {
-    headers: headersAuth,
+    headers: headers,
   });
 
   return res;

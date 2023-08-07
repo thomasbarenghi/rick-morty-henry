@@ -18,14 +18,14 @@ export class CharactersController {
 
   @Post()
   create(@Body() body: CreateCharacterDto) {
-    console.log("createCharacterDto", body);
+    console.log('createCharacterDto', body);
     return this.charactersService.create(body);
   }
 
   //Recibimos el id del usuario
   @Get()
   findAll(@Req() req) {
-    return this.charactersService.findAll(req);
+    return this.charactersService.findAll(req.headers);
   }
 
   @Get(':id')

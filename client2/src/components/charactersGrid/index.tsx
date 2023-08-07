@@ -1,5 +1,12 @@
 import style from "./index.module.scss";
-import { Select, Modal, SwitcherButtons, CharacterItem, CreateCharacter, ChatactersFilter } from "@/components";
+import {
+  Select,
+  Modal,
+  SwitcherButtons,
+  CharacterItem,
+  CreateCharacter,
+  ChatactersFilter,
+} from "@/components";
 import { useState, useEffect } from "react";
 import { setIndex } from "@/redux/slices/client/characters";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -11,6 +18,7 @@ export default function CharactersGrid({ searchValue }: any) {
   const [createVisibility, setCreateVisibility] = useState(false);
   const [filterVisibility, setFilterVisibility] = useState(false);
   const characters = useAppSelector(selectorIndexCharacters);
+  const auth = useAppSelector((state) => state?.authSession?.auth);
   console.log("characters", characters);
   const elementosFiltrado = {
     genero: ["Male", "Female", "unknown", "Genderless"],
@@ -66,16 +74,17 @@ export default function CharactersGrid({ searchValue }: any) {
           >
             Filtrar
           </button>
-          <button
-            id="openModal"
-            onClick={() => setCreateVisibility(true)}
-            className={`${style.modalOpen} btn btn-primary btn1 btn1-t1`}
-            style={{ whiteSpace: "nowrap" }}
-            type="button"
-          >
-            Crear un personaje
-          </button>
-
+          {auth.isLogged && (
+            <button
+              id="openModal"
+              onClick={() => setCreateVisibility(true)}
+              className={`${style.modalOpen} btn btn-primary btn1 btn1-t1`}
+              style={{ whiteSpace: "nowrap" }}
+              type="button"
+            >
+              Crear un personaje
+            </button>
+          )}
           <Modal onClose={handleCloseModal} name={"filters"}>
             <div id="modalInner">
               <Select
@@ -108,11 +117,9 @@ export default function CharactersGrid({ searchValue }: any) {
           {createVisibility && (
             <CreateCharacter handleCreateVisibility={setCreateVisibility} />
           )}
-          {
-            filterVisibility && (
-              <ChatactersFilter handleVisibility={setFilterVisibility} />
-            )
-          }
+          {filterVisibility && (
+            <ChatactersFilter handleVisibility={setFilterVisibility} />
+          )}
         </div>
       </div>
       <div id={style["componentContainer"]}>
@@ -128,7 +135,9 @@ export default function CharactersGrid({ searchValue }: any) {
             className="text-center titulo2-bold"
             style={{ marginTop: 80, color: "#379c35" }}
           >
-            Hey, parece que no hay ningun personaje por aquí&nbsp;
+            {auth.isLogged
+              ? "Hey, parece que no hay nada por aquí"
+              : "¿Quieres crear un personaje, agregar a favoritos o ver tus personajes? Inicia sesión o regístrate 😎"}
           </h1>
         </div>
       )}
