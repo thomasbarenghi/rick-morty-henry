@@ -13,14 +13,15 @@ export default function Characters({ data }: CharacterItemProps) {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const favoritosList = useAppSelector(
-    (state) => state?.client?.favorites?.characters
+    (state) => state?.client?.favorites?.characters,
   );
-  const {auth, session} = useAppSelector((state) => state?.authSession);
-  const idFavorito = favoritosList?.some((obj) => obj?.id === data?.id) || false;
+  const { auth, session } = useAppSelector((state) => state?.authSession);
+  const idFavorito =
+    favoritosList?.some((obj) => obj?.id === data?.id) || false;
   const [touchStartTime, setTouchStartTime] = useState<number>(0);
   const [showSelect, setShowSelect] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
-  
+
   const ref = useRef<HTMLDivElement>(null);
 
   const handleFavorite = (data: any) => {
@@ -28,7 +29,7 @@ export default function Characters({ data }: CharacterItemProps) {
   };
 
   const handleDelete = (id: any) => {
-   dispatch(deleteCharacter(data));
+    dispatch(deleteCharacter(data));
   };
 
   function handleClick() {
@@ -102,15 +103,17 @@ export default function Characters({ data }: CharacterItemProps) {
               </div>
             </div>
           </div>
-          {data?.userId !== 1 && data?.userId == session?.current?.id && auth?.isLogged && (
-            <button
-              className="btn btn-primary btn1 btn1-t1"
-              type="button"
-              onClick={() => handleDelete(data.id)}
-            >
-              Eliminar
-            </button>
-          )}
+          {data?.userId !== 1 &&
+            data?.userId == session?.current?.id &&
+            auth?.isLogged && (
+              <button
+                className="btn btn-primary btn1 btn1-t1"
+                type="button"
+                onClick={() => handleDelete(data.id)}
+              >
+                Eliminar
+              </button>
+            )}
         </div>
       )}
     </>

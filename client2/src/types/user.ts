@@ -36,7 +36,7 @@ export class UserClass {
       input.id,
       input.firstName,
       input.lastName,
-      input.email
+      input.email,
     );
   }
 }

@@ -36,7 +36,7 @@ export const getCharacters = createAsyncThunk(
       console.error(error);
       throw error;
     }
-  }
+  },
 );
 
 export const getCharacterById = createAsyncThunk(
@@ -58,7 +58,7 @@ export const getCharacterById = createAsyncThunk(
       console.error(error);
       throw error;
     }
-  }
+  },
 );
 
 export const createCharacter = createAsyncThunk(
@@ -82,7 +82,7 @@ export const createCharacter = createAsyncThunk(
       console.error(error);
       throw error;
     }
-  }
+  },
 );
 
 export const deleteCharacter = createAsyncThunk(
@@ -105,7 +105,7 @@ export const deleteCharacter = createAsyncThunk(
       console.error(error);
       throw error;
     }
-  }
+  },
 );
 
 const charactersSlice = createSlice({
@@ -177,7 +177,7 @@ const charactersSlice = createSlice({
         console.log("action.payload.character", action.payload);
         state.currentCharacter = action.payload.character;
         state.ownedCharacters = state.ownedCharacters.filter(
-          (character) => character.id !== action.payload.characterId
+          (character) => character.id !== action.payload.characterId,
         );
         toast.success("Character deleted");
       })

@@ -137,7 +137,7 @@ export class UsersService {
       console.log('deleteFav Service', headers);
       const userId = headers.userId;
       const characterId = headers.characterid;
-console.log('deleteFav userId', userId, 'characterId', characterId);
+      console.log('deleteFav userId', userId, 'characterId', characterId);
       const user = await this.userRepository.findOne({
         where: { id: userId },
         relations: ['favorites'],
@@ -145,10 +145,12 @@ console.log('deleteFav userId', userId, 'characterId', characterId);
 
       const character = await this.charactersService.findOne(characterId);
 
-      user.favorites = user.favorites.filter((fav) => fav?.id !== character?.id);
+      user.favorites = user.favorites.filter(
+        (fav) => fav?.id !== character?.id,
+      );
 
-   await this.userRepository.save(user);
-   return character;
+      await this.userRepository.save(user);
+      return character;
     } catch (error) {
       console.log(error);
       throw new InternalServerErrorException({

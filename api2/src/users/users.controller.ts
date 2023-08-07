@@ -20,7 +20,9 @@ export class UsersController {
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     console.log('createUserDto', createUserDto);
-    const existingUser = await this.usersService.findByEmail(createUserDto.email)
+    const existingUser = await this.usersService.findByEmail(
+      createUserDto.email,
+    );
     console.log('existingUser', existingUser);
     if (existingUser) {
       throw new NotAcceptableException();

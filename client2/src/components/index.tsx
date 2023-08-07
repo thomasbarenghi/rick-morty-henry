@@ -11,6 +11,3 @@ export { default as CreateCharacter } from "./createCharacter";
 export { default as SimpleSelect } from "./simpleSelect";
 export { default as Input } from "./input";
 export { default as ChatactersFilter } from "./charactersFilter";
-
-
-

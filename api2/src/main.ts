@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { ConfigModule } from '@nestjs/config';
 import * as passport from 'passport';
 import * as session from 'express-session';
-const MongoDBStore = require("connect-mongodb-session")(session);
+const MongoDBStore = require('connect-mongodb-session')(session);
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 

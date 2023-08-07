@@ -7,7 +7,7 @@ import {
   Logger,
   Session,
   UnauthorizedException,
-  Res 
+  Res,
 } from '@nestjs/common';
 import { LocalAuthGuard } from 'src/auth/local.auth.guard';
 import { UsersService } from '../users/users.service';
@@ -48,8 +48,8 @@ export class AuthController {
     if (session) {
       return res.status(200).json({ verified: true });
     } else {
-     //devolvemos 401
-     throw new UnauthorizedException();
+      //devolvemos 401
+      throw new UnauthorizedException();
     }
   }
 }

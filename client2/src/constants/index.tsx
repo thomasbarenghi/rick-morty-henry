@@ -1,11 +1,10 @@
 export const DEFAULT = "Default";
 
-
 export const orderOptions = {
   name: [
     { value: "A-Z", label: "A-Z" },
     { value: "Z-A", label: "Z-A" },
-  ]
+  ],
 };
 export const characterOptions = {
   status: [

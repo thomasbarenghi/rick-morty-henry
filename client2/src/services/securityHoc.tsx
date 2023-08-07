@@ -64,7 +64,7 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
     const authObj = new AuthClass(
       statusQy === "ok" ? true : false,
       loginMethodQy as string,
-      sessionQy as string
+      sessionQy as string,
     );
     await dispatch(setAuth(authObj));
     return authObj;
@@ -106,7 +106,7 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
       statusQy,
       searchParams,
       session?.getId(),
-    ]
+    ],
   );
 
   useEffect(() => {

@@ -4,10 +4,14 @@ import { UsersController } from './users.controller';
 import { User } from './entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HttpModule } from '@nestjs/axios';
-import { CharactersModule } from 'src/characters/characters.module'; 
+import { CharactersModule } from 'src/characters/characters.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), HttpModule,  forwardRef(() => CharactersModule)],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    HttpModule,
+    forwardRef(() => CharactersModule),
+  ],
   controllers: [UsersController],
   providers: [UsersService],
   exports: [UsersService],

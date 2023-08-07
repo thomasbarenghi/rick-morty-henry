@@ -31,8 +31,7 @@ export const axiosGetter = async ({ url, headers }: axiosGetter) => {
   console.log("axiosGetter headers", headers);
   const { data: res } = await axios.get(serverUrl + url, {
     headers: headers || {},
-  }
-  );
+  });
 
   return res;
 };

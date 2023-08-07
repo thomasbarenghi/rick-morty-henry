@@ -6,13 +6,13 @@ import SecurityHOC from "@/services/securityHoc";
 export default function RootLayout(props: any) {
   return (
     <>
-    <SecurityHOC>
-      <Querier>
-        <HeaderDefault />
-        <main>{props.children}</main>
-        <Footer />
-      </Querier>
-    </SecurityHOC>
+      <SecurityHOC>
+        <Querier>
+          <HeaderDefault />
+          <main>{props.children}</main>
+          <Footer />
+        </Querier>
+      </SecurityHOC>
     </>
   );
 }

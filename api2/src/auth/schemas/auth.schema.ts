@@ -3,7 +3,6 @@ import { HydratedDocument } from 'mongoose';
 
 export type SessionDocument = HydratedDocument<Session>;
 
-
 @Schema()
 class SessionData {
   @Prop({ required: true })

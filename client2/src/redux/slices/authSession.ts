@@ -25,7 +25,7 @@ export const verifySession = createAsyncThunk(
     } catch (err: any) {
       throw new Error("Error al verificar la sesión", err);
     }
-  }
+  },
 );
 
 export const setSession = createAsyncThunk(
@@ -39,7 +39,7 @@ export const setSession = createAsyncThunk(
     } catch (err: any) {
       throw new Error("Error al loguear el usuario", err);
     }
-  }
+  },
 );
 
 export const login = createAsyncThunk(
@@ -53,15 +53,15 @@ export const login = createAsyncThunk(
       await dispatch(setSession(res.User.userId));
       await dispatch(
         setCurrentRoute(
-          `/?id=${res.User.userId}&status=ok&session=${res.SessionID}&loginMethod=local`
-        )
+          `/?id=${res.User.userId}&status=ok&session=${res.SessionID}&loginMethod=local`,
+        ),
       );
 
       return res;
     } catch (err: any) {
       throw new Error("Error al loguear el usuario", err);
     }
-  }
+  },
 );
 
 export const register = createAsyncThunk(
@@ -74,7 +74,7 @@ export const register = createAsyncThunk(
       console.error("Error al crear el usuario", err);
       throw new Error("Error al crear el usuario", err);
     }
-  }
+  },
 );
 
 const authSessionSlice = createSlice({

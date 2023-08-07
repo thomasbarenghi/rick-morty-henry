@@ -44,7 +44,7 @@ export default function Input({
         />
       ) : (
         <SimpleSelect
-        customClass={customClass}
+          customClass={customClass}
           options={selectOptions}
           handleChange={handleChange}
           name={name}

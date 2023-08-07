@@ -13,36 +13,36 @@ export const manageFavoriteCharacter = createAsyncThunk(
   "favorites/manageFavoriteCharacter",
   async (character: any, { dispatch, getState }) => {
     try {
-
       const state = getState() as RootState;
       const userId = state.authSession.session.current.id;
-      const isAlreadyFavorite = Boolean(state?.client?.favorites?.characters?.find(
-        (c: any) => c.id === character?.id
-      ));
+      const isAlreadyFavorite = Boolean(
+        state?.client?.favorites?.characters?.find(
+          (c: any) => c.id === character?.id,
+        ),
+      );
 
       console.log("isAlreadyFavorite", isAlreadyFavorite, character);
-let response;
+      let response;
       if (isAlreadyFavorite) {
-         response = await axiosDeleter({
+        response = await axiosDeleter({
           url: `/users/${userId}/favorites`,
           headers: { characterId: character?.id },
         });
       } else {
-         response = await axiosPoster({
+        response = await axiosPoster({
           url: `/users/${userId}/favorites`,
           body: { characterId: character?.id },
         });
       }
-        return {
-          data: response,
-          operation: isAlreadyFavorite ? "delete" : "add",
-        };
-    
+      return {
+        data: response,
+        operation: isAlreadyFavorite ? "delete" : "add",
+      };
     } catch (error) {
       console.error(error);
       throw error;
     }
-  }
+  },
 );
 
 const favoritesSlice = createSlice({
@@ -62,7 +62,7 @@ const favoritesSlice = createSlice({
           state.characters.push(data as any);
         } else {
           state.characters = state.characters.filter(
-            (c: any) => c?.id !== data?.id
+            (c: any) => c?.id !== data?.id,
           );
         }
       })
