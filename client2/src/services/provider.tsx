@@ -14,7 +14,7 @@ export default function AppProvider({ children }: Props) {
     <>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <RedirectProvider>
+          {/* <RedirectProvider> */}
             <Toaster
               richColors
               position="bottom-left"
@@ -23,7 +23,7 @@ export default function AppProvider({ children }: Props) {
               }}
             />
             {children}
-          </RedirectProvider>
+          {/* </RedirectProvider> */}
         </PersistGate>
       </Provider>
     </>

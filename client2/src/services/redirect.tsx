@@ -7,11 +7,12 @@ type Props = {
 
 export default function RedirectProvider({ children }: Props) {
   const router = useRouter();
-  const currentRoute = useAppSelector((state) => state.system.currentRoute);
+  const { currentRoute } = useAppSelector((state) => state.system);
 
   useEffect(() => {
+    console.log("RedirectProvider", currentRoute);
     router.push(currentRoute);
-  }, [currentRoute, router]);
+  }, [currentRoute]);
 
   return <div>{children}</div>;
 }

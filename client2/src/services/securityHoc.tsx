@@ -118,11 +118,12 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
   }, [delayedSystemStart]);
 
   useEffect(() => {
+    console.log("pathname", pathname)
     //Si estamos en la página de login y estamos logueados, redirigimos a la página de inicio
-    if (pathname === "/login" && auth?.getIsLogged()) {
+    if ((pathname === "/auth" || pathname === "/auth/register")  && auth?.getIsLogged()) {
       router.push("/");
     }
-  }, [pathname, auth?.getIsLogged()]);
+  }, [pathname, auth?.getIsLogged(), router]);
 
   // Rutas protegidas
   //   console.log(auth?.getIsLogged(), userId, auth);

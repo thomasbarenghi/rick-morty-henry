@@ -16,6 +16,7 @@ export const verifySession = createAsyncThunk(
   "auth/verifySession",
   async (SessionID: string) => {
     try {
+      console.log("verifySession SessionID", SessionID);
       const res = await axiosPoster({
         url: "/auth/verify",
         body: { SessionID: SessionID },
@@ -66,9 +67,10 @@ export const login = createAsyncThunk(
 
 export const register = createAsyncThunk(
   "auth/register",
-  async (userData: any) => {
+  async (userData: any, {dispatch}) => {
     try {
-      const res = await axiosPoster({ url: "/auth/register", body: userData });
+      const res = await axiosPoster({ url: "/users", body: userData });
+     await dispatch(setCurrentRoute(`/auth`));
       return res;
     } catch (err: any) {
       console.error("Error al crear el usuario", err);
@@ -103,8 +105,7 @@ const authSessionSlice = createSlice({
     });
     builder.addCase(register.pending, (state) => {});
     builder.addCase(register.fulfilled, (state, action) => {
-      state.auth = action.payload;
-      state.session.current = sessionBuilder(action.payload);
+toast.success("Usuario creado con éxito");
     });
     builder.addCase(register.rejected, (state) => {
       toast.error("Error al crear el usuario");
