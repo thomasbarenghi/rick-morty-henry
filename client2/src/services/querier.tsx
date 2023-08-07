@@ -26,7 +26,7 @@ export default function Querier({ children }: Props) {
     if (params?.characterId) {
       dispatch(getCharacterById(params?.characterId.toString()));
     }
-  }, [pathname, dispatch, params.characterId, router]);
+  }, [pathname]);
 
   return <div>{children}</div>;
 }

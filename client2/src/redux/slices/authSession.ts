@@ -50,6 +50,7 @@ export const login = createAsyncThunk(
     try {
       const res = await axiosPoster({ url: "/auth/login", body: credentials });
       console.log("res login", res);
+      await dispatch(setSession(res.User.userId));
       await dispatch(
         setCurrentRoute(
           `/?id=${res.User.userId}&status=ok&session=${res.SessionID}&loginMethod=local`
@@ -88,12 +89,14 @@ const authSessionSlice = createSlice({
       state.session = initialState.session;
       state.auth = initialState.auth;
     },
+    setSessionRed: (state, action: PayloadAction<any>) => {
+      state.session.current = sessionBuilder(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {});
     builder.addCase(login.fulfilled, (state, action) => {
       state.auth = action.payload;
-      state.session.current = sessionBuilder(action.payload);
     });
     builder.addCase(login.rejected, (state) => {
       toast.error("Error al loguear el usuario");
@@ -121,10 +124,10 @@ const authSessionSlice = createSlice({
     builder.addCase(verifySession.rejected, (state) => {
       toast.error("Error al verificar el usuario");
       console.log("verifySession.rejected", state);
-    } );
+    });
   },
 });
 
-export const { logout, setAuth } = authSessionSlice.actions;
+export const { logout, setAuth, setSessionRed } = authSessionSlice.actions;
 
 export default authSessionSlice.reducer;

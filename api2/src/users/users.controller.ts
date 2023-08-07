@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   NotAcceptableException,
+  Headers,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -17,13 +18,13 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    const existingUser = this.usersService.findByEmail(createUserDto.email);
-
+  async create(@Body() createUserDto: CreateUserDto) {
+    console.log('createUserDto', createUserDto);
+    const existingUser = await this.usersService.findByEmail(createUserDto.email)
+    console.log('existingUser', existingUser);
     if (existingUser) {
       throw new NotAcceptableException();
     }
-
     return this.usersService.create(createUserDto);
   }
 
@@ -40,5 +41,21 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
+  }
+
+  //Post favs
+  @Post(':id/favorites')
+  addFav(@Body() body: any, @Param('id') id: string) {
+    console.log('addFav', body);
+    body.userId = id;
+    return this.usersService.addFav(body);
+  }
+
+  //Delete favs
+  @Delete(':id/favorites')
+  deleteFav(@Headers() headers: any, @Param('id') id: string) {
+    console.log('deleteFav', headers);
+    headers.userId = id;
+    return this.usersService.deleteFav(headers);
   }
 }

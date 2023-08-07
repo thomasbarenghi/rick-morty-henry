@@ -18,8 +18,9 @@ export const getCharacters = createAsyncThunk(
   async (_, { dispatch, getState }) => {
     try {
       const state = getState() as RootState;
-      const userId = state.authSession.session.current.id || null;
-      console.log("axiosGetter headers", userId);
+      console.log("state getCharacters", state);
+      const userId = state?.authSession?.session?.current?.id;
+      console.log("axiosGetter headers getCharacters", userId);
       const res = await axiosGetter({
         url: `/characters`,
         headers: { userId: userId },

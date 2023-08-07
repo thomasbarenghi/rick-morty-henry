@@ -1,6 +1,11 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  Inject,
+  forwardRef,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { User } from 'src/users/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { HttpService } from '@nestjs/axios/dist';
 import { ConfigService } from '@nestjs/config';
@@ -15,6 +20,7 @@ export class CharactersService {
     private characterRepository: Repository<Character>,
     private readonly httpService: HttpService,
     private configService: ConfigService,
+    @Inject(forwardRef(() => UsersService))
     private userService: UsersService,
   ) {}
   async create(createCharacterDto: CreateCharacterDto) {
@@ -23,16 +29,23 @@ export class CharactersService {
       return await this.characterRepository.save(newCharacter);
     } catch (error) {
       Logger.error(error);
-      return { error: 'Error al crear el personaje.' };
+      throw new InternalServerErrorException({
+        error: 'Error al crear el personaje.',
+      });
     }
   }
 
   async findAll(req: any): Promise<any> {
     try {
       const userId = req.userid;
-     console.log('userId', userId)
       let userCharacters = [];
       let favorites = [];
+      let apiFavorites = [];
+
+      const rickApi = this.configService.get<string>('RICK_API_URL');
+      const rickObservable = this.httpService.get(`${rickApi}`);
+      const rickCharactersResponse = await rickObservable.toPromise();
+      const rickCharacters = rickCharactersResponse.data.results;
 
       if (userId) {
         userCharacters = await this.characterRepository.find({
@@ -40,14 +53,17 @@ export class CharactersService {
             userId: userId,
           },
         });
-        favorites = await this.userService.findFavorites(userId);
-        console.log('userCharacters', userCharacters, favorites)
-      }
 
-      const rickApi = this.configService.get<string>('RICK_API_URL');
-      const rickObservable = this.httpService.get(`${rickApi}`);
-      const rickCharactersResponse = await rickObservable.toPromise();
-      const rickCharacters = rickCharactersResponse.data.results;
+        const response = await this.userService.findFavorites(userId);
+        favorites = response.favorites;
+
+        apiFavorites = rickCharacters.filter((character) => {
+          return response.apiFavorites.includes(character.id.toString());
+        });
+
+        favorites = favorites.concat(apiFavorites);
+        console.log('userCharacters', userCharacters, favorites);
+      }
 
       return {
         apiCharacters: rickCharacters,
@@ -56,16 +72,19 @@ export class CharactersService {
       };
     } catch (error) {
       Logger.error(error);
-      return { error: 'Error al obtener los personajes.' };
+      throw new InternalServerErrorException({
+        error: 'Error al obtener los personajes.',
+      });
     }
   }
 
   async findOne(id: string) {
+    console.log('id findOne', id);
     try {
       const hasLetter = /[a-zA-Z]/;
       if (hasLetter.test(id)) {
         return await this.characterRepository.findOne({
-          where: { name: id },
+          where: { id: id },
         });
       } else {
         const rickApi = this.configService.get<string>('RICK_API_URL');
@@ -77,7 +96,9 @@ export class CharactersService {
       }
     } catch (error) {
       Logger.error(error);
-      return { error: 'Error al obtener el personaje.' };
+      throw new InternalServerErrorException({
+        error: 'Error al obtener el personaje.',
+      });
     }
   }
 
@@ -89,7 +110,9 @@ export class CharactersService {
       return await this.characterRepository.remove(character);
     } catch (error) {
       Logger.error(error);
-      return { error: 'Error al eliminar el personaje.' };
+      throw new InternalServerErrorException({
+        error: 'Error al eliminar el personaje.',
+      });
     }
   }
 }

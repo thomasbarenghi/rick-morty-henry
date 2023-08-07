@@ -16,7 +16,7 @@ export default function Characters({ data }: CharacterItemProps) {
     (state) => state?.client?.favorites?.characters
   );
   const {auth, session} = useAppSelector((state) => state?.authSession);
-  const idFavorito = favoritosList?.some((obj) => obj.id === data.id) || false;
+  const idFavorito = favoritosList?.some((obj) => obj?.id === data?.id) || false;
   const [touchStartTime, setTouchStartTime] = useState<number>(0);
   const [showSelect, setShowSelect] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
@@ -28,7 +28,7 @@ export default function Characters({ data }: CharacterItemProps) {
   };
 
   const handleDelete = (id: any) => {
-   dispatch(deleteCharacter(data.id));
+   dispatch(deleteCharacter(data));
   };
 
   function handleClick() {
@@ -102,7 +102,7 @@ export default function Characters({ data }: CharacterItemProps) {
               </div>
             </div>
           </div>
-          {data?.userId !== 1 && data?.userId == session?.current?.id && (
+          {data?.userId !== 1 && data?.userId == session?.current?.id && auth?.isLogged && (
             <button
               className="btn btn-primary btn1 btn1-t1"
               type="button"

@@ -5,8 +5,10 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
+  IsNull,
 } from 'typeorm';
 import { Character } from 'src/characters/entities/character.entity';
+import { isNull } from 'util';
 
 @Entity()
 export class User {
@@ -24,6 +26,9 @@ export class User {
 
   @Column()
   password: string;
+
+  @Column({ type: 'varchar', array: true, default: [] })
+  apiFavorites: string[];
 
   @OneToMany(() => Character, (character) => character.userId, {
     cascade: true,
@@ -43,4 +48,6 @@ export class User {
     },
   })
   favorites: Character[];
+
+  //array de strings
 }

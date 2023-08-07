@@ -67,7 +67,6 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
       sessionQy as string
     );
     await dispatch(setAuth(authObj));
-    verifySession(authObj);
     return authObj;
   };
 
