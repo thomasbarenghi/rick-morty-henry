@@ -4,7 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-
+import { encryptPassword } from '../utils/bcrypt.utils';
 @Injectable()
 export class UsersService {
   constructor(
@@ -14,6 +14,7 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     try {
+      createUserDto.password = await encryptPassword(createUserDto.password);
       const newUser = this.userRepository.create(createUserDto);
       return await this.userRepository.save(newUser);
     } catch (error) {
@@ -57,4 +58,14 @@ export class UsersService {
       console.log(error);
     }
   }
-}
+
+  async findByEmail(email: string) {
+    try {
+    return await this.userRepository.findOne({ where: { email } });
+  } catch (error) {
+    console.log(error);
+  }
+
+}}
+
+

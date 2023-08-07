@@ -23,13 +23,13 @@ export const axiosPoster = async ({ url, body }: axiosPoster) => {
 
 type axiosGetter = {
   url: any;
-  body?: any;
+  params?: any;
 };
 
-export const axiosGetter = async ({ url, body }: axiosGetter) => {
+export const axiosGetter = async ({ url, params }: axiosGetter) => {
   const { data: res } = await axios.get(serverUrl + url, {
     headers: headersAuth,
-    params: body,
+    params: params,
   });
 
   return res;

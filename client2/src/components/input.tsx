@@ -6,7 +6,7 @@ type SimpleSelectProps = {
   label: string;
   name: string;
   handleChange: any;
-  value: string;
+  value?: string;
   required?: boolean;
   type?: string;
   placeholder?: string;

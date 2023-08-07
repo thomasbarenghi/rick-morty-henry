@@ -3,10 +3,13 @@ import { UsersModule } from './users/users.module';
 import { CharactersModule } from './characters/characters.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    MongooseModule.forRoot(process.env.MONGO_URI),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -18,6 +21,7 @@ import { ConfigModule } from '@nestjs/config';
     }),
     UsersModule,
     CharactersModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

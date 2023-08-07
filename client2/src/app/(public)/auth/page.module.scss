@@ -1,0 +1,52 @@
+@media (max-width: 1200px) {
+    #seccion-hero {
+      grid-template-columns: 50% 50% !important;
+  
+      & #col2 {
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+      }
+    }
+  }
+  
+  #seccion-hero {
+    min-height: 100vh;
+    /*color: #ffffff;*/
+    grid-template-columns: 65% 35%;
+  
+    & #col1 {
+      background: url("../../../../public/img/wallpapersden.com_rick-and-morty-into-the-space-hd_2000x1125.webp")
+        center / cover no-repeat;
+      height: 100%;
+      min-height: 40vh;
+      width: 100%;
+    }
+  
+    & #col2 {
+      height: 100%;
+      /*width: 100%;*/
+      padding: var(--padding-lr-t2);
+    }
+  
+    & #form {
+      width: 100%;
+      gap: 16px;
+  
+      & #label {
+        width: 100%;
+        gap: 8px;
+      }
+  
+      & #input {
+        padding: 12px !important;
+        font-weight: 300;
+        border-radius: 20px;
+      }
+  
+      & #submit {
+        background: #0d8f0a !important;
+        margin-top: 20px;
+      }
+    }
+  }
+  
