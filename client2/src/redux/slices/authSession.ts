@@ -12,10 +12,27 @@ const initialState = {
   },
 };
 
+export const verifySession = createAsyncThunk(
+  "auth/verifySession",
+  async (SessionID: string) => {
+    try {
+      const res = await axiosPoster({
+        url: "/auth/verify",
+        body: { SessionID: SessionID },
+      });
+      console.log("res verifySession", res);
+      return res;
+    } catch (err: any) {
+      throw new Error("Error al verificar la sesión", err);
+    }
+  }
+);
+
 export const setSession = createAsyncThunk(
   "auth/setSession",
   async (userId: string) => {
     try {
+      console.log("setSession userId", userId);
       const res = await axiosGetter({ url: `/users/${userId}` });
       console.log("res setSession", res);
       return res;
@@ -63,6 +80,7 @@ const authSessionSlice = createSlice({
   initialState,
   reducers: {
     setAuth: (state, action: PayloadAction<AuthClass>) => {
+      console.log("setAuth", action.payload);
       state.auth = action.payload;
     },
     logout: (state) => {
@@ -87,6 +105,22 @@ const authSessionSlice = createSlice({
     builder.addCase(register.rejected, (state) => {
       toast.error("Error al crear el usuario");
     });
+    builder.addCase(setSession.pending, (state) => {});
+    builder.addCase(setSession.fulfilled, (state, action) => {
+      state.session.current = action.payload as UserClass;
+    });
+    builder.addCase(setSession.rejected, (state) => {
+      toast.error("Error al verificar el usuario");
+      state.session = initialState.session;
+      state.auth = {} as AuthClass;
+      console.log("setSession.rejected", state);
+    });
+    builder.addCase(verifySession.pending, (state) => {});
+    builder.addCase(verifySession.fulfilled, (state, action) => {});
+    builder.addCase(verifySession.rejected, (state) => {
+      toast.error("Error al verificar el usuario");
+      console.log("verifySession.rejected", state);
+    } );
   },
 });
 

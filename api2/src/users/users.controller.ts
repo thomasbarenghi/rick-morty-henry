@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  NotAcceptableException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -17,6 +18,12 @@ export class UsersController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
+    const existingUser = this.usersService.findByEmail(createUserDto.email);
+
+    if (existingUser) {
+      throw new NotAcceptableException();
+    }
+
     return this.usersService.create(createUserDto);
   }
 

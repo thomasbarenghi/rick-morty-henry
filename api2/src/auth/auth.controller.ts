@@ -46,7 +46,7 @@ export class AuthController {
     console.log('SessionID', SessionID);
     const session = await this.sessionEs.findOne({ _id: SessionID });
     if (session) {
-      return res.status(200).json({ msg: 'Session is valid' });
+      return res.status(200).json({ verified: true });
     } else {
      //devolvemos 401
      throw new UnauthorizedException();

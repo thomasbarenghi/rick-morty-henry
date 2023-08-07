@@ -3,9 +3,13 @@ import { ReactNode, useEffect, useMemo } from "react";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { debounce } from "lodash";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { setAuth, setSession, logout } from "@/redux/slices/authSession";
+import {
+  setAuth,
+  setSession,
+  logout,
+  verifySession as verifySessionX,
+} from "@/redux/slices/authSession";
 import { AuthClass, UserClass } from "@/types";
-import {} 
 
 type Props = {
   children: ReactNode;
@@ -29,23 +33,20 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
   const session = UserClass.deserialize(sSession);
   const auth = AuthClass.deserialize(sAuth);
   const userId = session?.getId() || (userIdQy ?? "");
+  const SessionID = auth?.getSessionId() || (sessionQy ?? "");
 
   const verifySession = async (data: AuthClass) => {
     try {
       if (data.isLogged && userId) {
-        const { data: verifData, errors } = await clientQuerier(
-          VERIFY_SESSION,
-          {
-            userId: userId,
-          },
-        );
-
-        if (verifData.verifySession === true) {
-          dispatch(setAuth(data));
-          await dispatch(setSession(userId as string));
+        const verifData = await dispatch(verifySessionX(SessionID));
+        if (verifData.meta.requestStatus === "fulfilled") {
+          console.log("Sesión válida");
+          await setSessionFn();
+          return true;
         } else {
-          console.log("Debes iniciar sesión primero");
-          dispatch(logout());
+          console.log("Sesión no válida");
+          await dispatch(logout());
+          return false;
         }
       } else {
         console.log("Debes iniciar sesión primero");
@@ -53,24 +54,30 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
     } catch (error) {
       console.error(error);
       dispatch(logout());
-      alert("Error al verificar la sesión");
-      router.push("/");
     }
+  };
+
+  const setSessionFn = async () => {
+    await dispatch(setSession(userId as string));
   };
 
   const setAuthFn = async () => {
     const authObj = new AuthClass(
       statusQy === "ok" ? true : false,
       loginMethodQy as string,
-      sessionQy as string,
+      sessionQy as string
     );
-
+    await dispatch(setAuth(authObj));
     verifySession(authObj);
+    return authObj;
   };
 
-  const systemHoc = () => {
+  const systemHoc = async () => {
     if (auth?.getIsLogged()) {
-      verifySession(auth);
+      const sessionOk = await verifySession(auth);
+      if (!sessionOk) {
+        await dispatch(logout());
+      }
     } else if (
       !auth?.isLogged &&
       loginMethodQy &&
@@ -78,9 +85,15 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
       statusQy &&
       sessionQy
     ) {
-      setAuthFn();
+      const authData = await setAuthFn();
+      const sessionOk = await verifySession(authData);
+      if (!sessionOk) {
+        if (!sessionOk) {
+          await dispatch(logout());
+        }
+      }
     } else {
-      router.push("/");
+      console.log("No hay datos de autenticación");
     }
   };
 
@@ -89,13 +102,13 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
     [
       pathname,
       userId,
-      auth?.getIsLogged(),
+      //  auth?.getIsLogged() === true,
       loginMethodQy,
       userIdQy,
       statusQy,
       searchParams,
       session?.getId(),
-    ],
+    ]
   );
 
   useEffect(() => {
@@ -106,13 +119,22 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
     return cancelDebounce;
   }, [delayedSystemStart]);
 
+  useEffect(() => {
+    //Si estamos en la página de login y estamos logueados, redirigimos a la página de inicio
+    if (pathname === "/login" && auth?.getIsLogged()) {
+      router.push("/");
+    }
+  }, [pathname, auth?.getIsLogged()]);
+
   // Rutas protegidas
-  console.log(auth?.getIsLogged(), userId, auth);
-  if (!auth?.getIsLogged() || auth?.getIsLogged() == undefined || !userId) {
-    return null;
-  } else {
-    return <main>{children}</main>;
-  }
+  //   console.log(auth?.getIsLogged(), userId, auth);
+  //   if (!auth?.getIsLogged() || auth?.getIsLogged() == undefined || !userId) {
+  //     return null;
+  //   } else {
+  //     return <main>{children}</main>;
+  //   }
+
+  return <main>{children}</main>;
 };
 
 export default SecurityHOC;
