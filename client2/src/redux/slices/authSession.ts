@@ -1,9 +1,12 @@
+"use client"
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 import { AuthClass, UserClass } from "@/types";
 import { axiosPoster, axiosGetter } from "@/utils/requests";
 import { sessionBuilder } from "@/utils/state";
 import { setCurrentRoute } from "./system";
+// import Router from "next/router";
+import { useRouter } from "next/navigation";
 
 const initialState = {
   auth: {} as AuthClass,
@@ -51,13 +54,8 @@ export const login = createAsyncThunk(
     try {
       const res = await axiosPoster({ url: "/auth/login", body: credentials });
       console.log("res login", res);
-      await dispatch(setSession(res.User.userId));
-      await dispatch(
-        setCurrentRoute(
-          `/?id=${res.User.userId}&status=ok&session=${res.SessionID}&loginMethod=local`,
-        ),
-      );
-
+      await dispatch(setSession(res.User.userId));      
+//Router.push(`/?id=${res.User.userId}&status=ok&session=${res.SessionID}&loginMethod=local`);
       return res;
     } catch (err: any) {
       throw new Error("Error al loguear el usuario", err);
@@ -101,6 +99,7 @@ const authSessionSlice = createSlice({
       state.auth = action.payload;
     });
     builder.addCase(login.rejected, (state) => {
+      console.log("login.rejected", state);
       toast.error("Error al loguear el usuario");
     });
     builder.addCase(register.pending, (state) => {});

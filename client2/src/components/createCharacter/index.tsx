@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./index.module.scss";
 import { useAppDispatch } from "@/redux/hooks";
 import { createCharacter } from "@/redux/slices/client/characters";
 import Preview from "./characterPreview";
 import { Input } from "@/components";
 import { characterOptions as options } from "@/constants";
+import { changeManager, submitManager } from "@/utils/forms/validateAndSend";
+import { toast } from "sonner";
+import useValidate from "@/hooks/useValidate";
+import { useRouter } from "next/navigation";
 
 type CreateProps = {
   handleCreateVisibility: (e: boolean) => void;
@@ -13,30 +17,55 @@ type CreateProps = {
 export default function CreateCharacter({
   handleCreateVisibility,
 }: CreateProps) {
-  const dispatch = useAppDispatch();
-
-  const [formData, setFormData] = useState({
-    name: "",
-    status: "",
-    species: "",
-    type: "Generic",
-    gender: "",
-    origin_name: "",
-    location_name: "",
-    image: "",
-  });
-
   const [visibility, setVisibility] = useState(false);
 
-  console.log(formData);
+  const router = useRouter();
+  const [visible, setVisible] = useState(false);
+  const validate = useValidate();
+  const [formValues, setFormValues] = useState({
+    name: null,
+    species: null,
+    gender : null,
+    origin_name: null,
+    location_name: null,
+    image: null,
+    status: null,
+  });
+  const [errors, setErrors] = useState<any>({});
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    console.log("formData", formData);
-    dispatch(createCharacter(formData));
-    e.target.reset();
-    setVisibility(false);
-    handleCreateVisibility(false);
+  const dispatch = useAppDispatch();
+
+  const handleChange = (e: any) => {
+    console.log("handleChange.target", e.target);
+    changeManager({
+      e,
+      setFormValues,
+      setErrors,
+      validate,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement | any>) => {
+    try {
+      const { payload, meta } = await submitManager({
+        e,
+        formRef,
+        formValues,
+        errors,
+        dispatch,
+        actionToDispatch: createCharacter,
+        setFormValues,
+      });
+      // router.push(
+      //   `/?id=${payload?.User?.userId}&status=ok&session=${payload?.SessionID}&loginMethod=local`
+      // );
+      setVisibility(false);
+      handleCreateVisibility(false);
+    } catch (error) {
+      console.error(error);
+      toast.error("Verifica los campos del formulario");
+    }
   };
 
   return (
@@ -59,6 +88,7 @@ export default function CreateCharacter({
               id="form"
               className="d-flex flex-column"
               style={{ gap: "8px !important" }}
+              ref={formRef}
             >
               <div
                 className="d-flex flex-column flex-sm-column flex-md-row form-group"
@@ -68,24 +98,28 @@ export default function CreateCharacter({
                   renderType="input"
                   label="Nombre del personaje"
                   name="name"
-                  handleChange={(e: any) => {
-                    setFormData({ ...formData, name: e.target.value });
-                  }}
-                  value={formData.name}
+                  handleChange={handleChange}
                   required={true}
                   type="text"
+                  error={errors.name}
                 />
                 <Input
                   renderType="select"
                   selectOptions={options.species}
                   label="Especie"
                   name="species"
-                  handleChange={(e: any) => {
-                    setFormData({ ...formData, species: e.value });
-                  }}
-                  value={formData.species}
+                  handleChange={(e: any) =>
+                    handleChange({
+                      target: {
+                        name: "species",
+                        value: e.value,
+                        type: "text",
+                      },
+                    })
+                  }
                   required={true}
                   type="text"
+                  error={errors.species}
                 />
               </div>
               <div
@@ -97,25 +131,32 @@ export default function CreateCharacter({
                   selectOptions={options.gender}
                   label="Genero"
                   name="gender"
-                  handleChange={(e: any) => {
-                    setFormData({ ...formData, gender: e.value });
-                  }}
-                  value={formData.gender}
+                  handleChange={(e: any) =>
+                    handleChange({
+                      target: {
+                        name: "gender",
+                        value: e.value,
+                        type: "text",
+                      },
+                    })
+                  }
                   required={true}
                   type="text"
+                  error={errors.gender}
                 />
                 <Input
                   renderType="select"
                   selectOptions={options.origin}
                   label="Origen"
                   name="origin_name"
+                  
                   handleChange={(e: any) => {
                     console.log(e);
-                    setFormData({ ...formData, origin_name: e.value });
+                    setFormValues({ ...formValues, origin_name: e.value });
                   }}
-                  value={formData.origin_name}
                   required={true}
                   type="text"
+                  error={errors.origin_name}
                 />
               </div>
               <div
@@ -128,22 +169,20 @@ export default function CreateCharacter({
                   label="Ultima ubicacion"
                   name="location_name"
                   handleChange={(e: any) => {
-                    setFormData({ ...formData, location_name: e.value });
+                    setFormValues({ ...formValues, location_name: e.value });
                   }}
-                  value={formData.location_name}
                   required={true}
                   type="text"
+                  error={errors.location_name}
                 />
                 <Input
                   renderType="input"
                   label="Link imagen"
-                  name="linkimagen"
-                  handleChange={(e: any) => {
-                    setFormData({ ...formData, image: e.target.value });
-                  }}
-                  value={formData.image}
+                  name="image"
+                  handleChange={handleChange}
                   required={true}
                   type="text"
+                  error={errors.image}
                 />
               </div>
               <div
@@ -153,14 +192,14 @@ export default function CreateCharacter({
                 <Input
                   renderType="select"
                   selectOptions={options.status}
-                  label="Tipo"
+                  label="Estatus"
                   name="status"
                   handleChange={(e: any) => {
-                    setFormData({ ...formData, status: e.value });
+                    setFormValues({ ...formValues, status: e.value });
                   }}
-                  value={formData.status}
                   required={true}
                   type="text"
+                  error={errors.status}
                 />
               </div>
 
@@ -177,7 +216,7 @@ export default function CreateCharacter({
             id={styles["grid_col2"]}
             className="d-none d-xl-flex d-xxl-flex justify-content-center align-items-center align-items-lg-center"
           >
-            <Preview formData={formData} />
+            <Preview formData={formValues} />
           </div>
         </div>
         <img

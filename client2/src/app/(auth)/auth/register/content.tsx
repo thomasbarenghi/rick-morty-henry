@@ -11,7 +11,12 @@ import { register } from "@/redux/slices/authSession";
 export default function HeroSection() {
   const [visible, setVisible] = useState(false);
   const validate = useValidate();
-  const [formValues, setFormValues] = useState({});
+  const [formValues, setFormValues] = useState({
+    firstName: null,
+    lastName: null,
+    email: null,
+    password: null,
+  });
   const [errors, setErrors] = useState<any>({});
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -56,13 +61,14 @@ export default function HeroSection() {
           <br />
         </p>
       </div>
-      <form onSubmit={handleSubmit} id="form" className="d-flex flex-column">
+      <form onSubmit={handleSubmit} id="form" className="d-flex flex-column" ref={formRef}>
         <Input
           renderType="input"
           label="Nombre"
           name="firstName"
           type="text"
           handleChange={handleChange}
+          error={errors.firstName}
         />
         <Input
           renderType="input"
@@ -70,6 +76,7 @@ export default function HeroSection() {
           name="lastName"
           type="text"
           handleChange={handleChange}
+          error={errors.lastName}
         />
         <Input
           renderType="input"
@@ -77,6 +84,7 @@ export default function HeroSection() {
           name="email"
           type="text"
           handleChange={handleChange}
+          error={errors.email}
         />
         <Input
           renderType="input"
@@ -84,6 +92,7 @@ export default function HeroSection() {
           label="Contraseña"
           name="password"
           handleChange={handleChange}
+          error={errors.password}
         />
         <button
           id={style["submit"]}

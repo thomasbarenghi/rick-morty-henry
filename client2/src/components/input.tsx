@@ -12,6 +12,7 @@ type SimpleSelectProps = {
   placeholder?: string;
   options?: any;
   customClass?: string;
+  error: string;
 };
 
 export default function Input({
@@ -26,6 +27,7 @@ export default function Input({
   type,
   placeholder,
   options,
+  error,
 }: SimpleSelectProps) {
   return (
     <label
@@ -49,6 +51,11 @@ export default function Input({
           handleChange={handleChange}
           name={name}
         />
+      )}
+      {error && (
+        <p className="text-danger mb-0">
+          {error}
+        </p>
       )}
     </label>
   );

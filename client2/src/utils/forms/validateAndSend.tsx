@@ -77,10 +77,11 @@ export const submitManager = async ({
 }: handleSubmitProps) => {
   e.preventDefault();
 
-  //si errors tiene alguna propiedad diferente de null, no se envia el formulario
+
+  //si algun valor de form values es null, no se envia el formulario
   if (
     !Object.values(errors).every((error) => error === null) ||
-    Object.keys(formValues).length <= 0
+    Object.keys(formValues).length <= 0 ||  Object.values(formValues).some((value) => value === null)
   ) {
     console.log("errors", errors);
     throw new Error("Formulario invalido");
@@ -94,4 +95,6 @@ export const submitManager = async ({
   //e.currentTarget.reset();
   setFormValues({});
   formRef.current?.reset();
+
+  return resolve;
 };

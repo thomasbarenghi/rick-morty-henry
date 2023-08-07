@@ -13,7 +13,10 @@ export default function HeroSection() {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
   const validate = useValidate();
-  const [formValues, setFormValues] = useState({});
+  const [formValues, setFormValues] = useState({
+    email: null,
+    password: null,
+  });
   const [errors, setErrors] = useState<any>({});
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -31,7 +34,7 @@ export default function HeroSection() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
-      await submitManager({
+      const { payload, meta } = await submitManager({
         e,
         formRef,
         formValues,
@@ -40,7 +43,9 @@ export default function HeroSection() {
         actionToDispatch: login,
         setFormValues,
       });
-      router.push("/");
+      // router.push(
+      //   `/?id=${payload?.User?.userId}&status=ok&session=${payload?.SessionID}&loginMethod=local`
+      // );
     } catch (error) {
       console.error(error);
       toast.error("Verifica los campos del formulario");
@@ -59,13 +64,19 @@ export default function HeroSection() {
           <br />
         </p>
       </div>
-      <form onSubmit={handleSubmit} id="form" className="d-flex flex-column">
+      <form
+        onSubmit={handleSubmit}
+        id="form"
+        className="d-flex flex-column"
+        ref={formRef}
+      >
         <Input
           renderType="input"
           label="Correo electrónico"
           name="email"
           type="text"
           handleChange={handleChange}
+          error={errors.email}
         />
         <Input
           renderType="input"
@@ -73,6 +84,7 @@ export default function HeroSection() {
           label="Contraseña"
           name="password"
           handleChange={handleChange}
+          error={errors.password}
         />
         <button
           id={style["submit"]}
