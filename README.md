@@ -2,9 +2,11 @@
 
 I created a web application based on the popular TV series "Rick and Morty". I created my own api based on the Rick and Morty API, I was able to obtain information and create an immersive experience for users, with web design and development tools to achieve a high quality result.
 
-Front: React, Bootstrap, CSS, SASS, JS-Cookie
-Back: ExpressJS, Sequelize
-DB: PostgreSQL
+Front: NextJS, Bootstrap, SASS, Redux Toolkit
+
+Back: NestJS
+
+DB: PostgreSQL, MongoDB
 
 ## Deployment
 
