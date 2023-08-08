@@ -8,9 +8,7 @@ type HamburguerProps = {
   setHamburguerStatus: (status: boolean) => void;
 };
 
-export default function Hamburguer({
-  setHamburguerStatus,
-}: HamburguerProps) {
+export default function Hamburguer({ setHamburguerStatus }: HamburguerProps) {
   return (
     <div id={style["hamburguer-menu"]}>
       <div

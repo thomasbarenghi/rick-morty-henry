@@ -13,7 +13,7 @@ export default function Characters({ data }: CharacterItemProps) {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const favoritosList = useAppSelector(
-    (state) => state?.client?.favorites?.characters
+    (state) => state?.client?.favorites?.characters,
   );
   const { auth, session } = useAppSelector((state) => state?.authSession);
   const idFavorito =

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 import { AuthClass, UserClass } from "@/types";
@@ -54,8 +54,8 @@ export const login = createAsyncThunk(
     try {
       const res = await axiosPoster({ url: "/auth/login", body: credentials });
       console.log("res login", res);
-      await dispatch(setSession(res.User.userId));      
-//Router.push(`/?id=${res.User.userId}&status=ok&session=${res.SessionID}&loginMethod=local`);
+      await dispatch(setSession(res.User.userId));
+      //Router.push(`/?id=${res.User.userId}&status=ok&session=${res.SessionID}&loginMethod=local`);
       return res;
     } catch (err: any) {
       throw new Error("Error al loguear el usuario", err);
@@ -65,10 +65,10 @@ export const login = createAsyncThunk(
 
 export const register = createAsyncThunk(
   "auth/register",
-  async (userData: any, {dispatch}) => {
+  async (userData: any, { dispatch }) => {
     try {
       const res = await axiosPoster({ url: "/users", body: userData });
-     await dispatch(setCurrentRoute(`/auth`));
+      await dispatch(setCurrentRoute(`/auth`));
       return res;
     } catch (err: any) {
       console.error("Error al crear el usuario", err);
@@ -104,7 +104,7 @@ const authSessionSlice = createSlice({
     });
     builder.addCase(register.pending, (state) => {});
     builder.addCase(register.fulfilled, (state, action) => {
-toast.success("Usuario creado con éxito");
+      toast.success("Usuario creado con éxito");
     });
     builder.addCase(register.rejected, (state) => {
       toast.error("Error al crear el usuario");

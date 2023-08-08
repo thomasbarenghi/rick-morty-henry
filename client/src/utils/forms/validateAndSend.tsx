@@ -27,7 +27,7 @@ export const changeManager = ({
       ? value
       : file,
     name,
-    type
+    type,
   );
 
   if (e.target.type === "file") {

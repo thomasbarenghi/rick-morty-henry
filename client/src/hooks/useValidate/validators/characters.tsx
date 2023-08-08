@@ -121,6 +121,4 @@ export const isValidStatus = (value: string): validResponse => {
     isValid: true,
     error: "",
   };
-}
-
-
+};

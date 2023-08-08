@@ -91,8 +91,8 @@ export class CharactersService {
         const rickObservable = this.httpService.get(`${rickApi}/${id}`);
         const rickCharactersResponse = await rickObservable.toPromise();
         const rickCharacter = rickCharactersResponse.data;
-rickCharacter.location_name = rickCharacter.location.name;
-rickCharacter.origin_name = rickCharacter.origin.name;
+        rickCharacter.location_name = rickCharacter.location.name;
+        rickCharacter.origin_name = rickCharacter.origin.name;
         return rickCharacter;
       }
     } catch (error) {

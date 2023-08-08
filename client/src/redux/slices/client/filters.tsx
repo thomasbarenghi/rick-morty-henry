@@ -29,16 +29,21 @@ const filtersSlice = createSlice({
     },
     resetFilters: (state) => {
       console.log("resetFilters.payload", initialState);
-      state.search = ""
-      state.gender = ""
-      state.species = ""
-      state.order = ""
+      state.search = "";
+      state.gender = "";
+      state.species = "";
+      state.order = "";
     },
   },
   extraReducers: (builder) => {},
 });
 
-export const { setFilterGender, setFilterOrder, setFilterSpecies, setSearch, resetFilters } =
-  filtersSlice.actions;
+export const {
+  setFilterGender,
+  setFilterOrder,
+  setFilterSpecies,
+  setSearch,
+  resetFilters,
+} = filtersSlice.actions;
 
 export default filtersSlice.reducer;

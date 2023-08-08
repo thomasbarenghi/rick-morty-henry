@@ -14,7 +14,6 @@ export default function SimpleSelect({
   customClass,
   value,
 }: SimpleSelectProps) {
-
   return (
     <Select
       name={name}

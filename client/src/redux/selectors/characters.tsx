@@ -50,5 +50,5 @@ export const selectorIndexCharacters = createSelector(
     });
 
     return filteredCharacters;
-  }
+  },
 );

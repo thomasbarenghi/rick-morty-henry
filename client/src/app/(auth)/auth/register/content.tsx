@@ -12,7 +12,7 @@ export default function HeroSection() {
   const dispatch = useAppDispatch();
   const validate = useValidate();
   const [visible, setVisible] = useState(false);
-    const [formValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState({
     firstName: null,
     lastName: null,
     email: null,
@@ -20,8 +20,6 @@ export default function HeroSection() {
   });
   const [errors, setErrors] = useState<any>({});
   const formRef = useRef<HTMLFormElement>(null);
-
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("e", e.target);
@@ -62,7 +60,12 @@ export default function HeroSection() {
           <br />
         </p>
       </div>
-      <form onSubmit={handleSubmit} id="form" className="d-flex flex-column" ref={formRef}>
+      <form
+        onSubmit={handleSubmit}
+        id="form"
+        className="d-flex flex-column"
+        ref={formRef}
+      >
         <Input
           renderType="input"
           label="Nombre"

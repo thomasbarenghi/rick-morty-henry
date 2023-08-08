@@ -32,5 +32,4 @@ export const validationRules: ValidationRules = {
   origin_name: (value: string): validResponse => isValidOrigin(value),
   location_name: (value: string): validResponse => isValidOrigin(value),
   status: (value: string): validResponse => isValidStatus(value),
-
 };

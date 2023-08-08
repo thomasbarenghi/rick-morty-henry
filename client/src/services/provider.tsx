@@ -15,14 +15,14 @@ export default function AppProvider({ children }: Props) {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           {/* <RedirectProvider> */}
-            <Toaster
-              richColors
-              position="bottom-left"
-              toastOptions={{
-                className: "max-w-[85vw] xs:max-w-none z-50 ",
-              }}
-            />
-            {children}
+          <Toaster
+            richColors
+            position="bottom-left"
+            toastOptions={{
+              className: "max-w-[85vw] xs:max-w-none z-50 ",
+            }}
+          />
+          {children}
           {/* </RedirectProvider> */}
         </PersistGate>
       </Provider>

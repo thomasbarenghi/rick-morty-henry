@@ -26,7 +26,7 @@ const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
       : null;
   };
 
-  const handleRestoreFilter = async() => {
+  const handleRestoreFilter = async () => {
     await dispatch(resetFilters());
     handleVisibility(false);
   };
@@ -64,7 +64,7 @@ const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
             selectOptions={characterOptions.gender}
             label="Genero"
             selectValue={characterOptions.gender.find(
-              (e: any) => e.value === filters.gender
+              (e: any) => e.value === filters.gender,
             )}
             customClass="mt-1"
             error={""}
@@ -78,7 +78,7 @@ const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
             }}
             selectOptions={characterOptions.species}
             selectValue={characterOptions.species.find(
-              (e: any) => e.value === filters.species
+              (e: any) => e.value === filters.species,
             )}
             label="Especie"
             value="default"
@@ -89,7 +89,7 @@ const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
             renderType="select"
             name="order"
             selectValue={orderOptions.name.find(
-              (e: any) => e.value === filters.order
+              (e: any) => e.value === filters.order,
             )}
             handleChange={(e: any) => {
               e.name = "order";
