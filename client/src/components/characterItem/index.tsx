@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { manageFavoriteCharacter } from "@/redux/slices/client/favorites";
 import { deleteCharacter } from "@/redux/slices/client/characters";
 import { useRouter } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 type CharacterItemProps = {
   data: any;
@@ -13,15 +13,11 @@ export default function Characters({ data }: CharacterItemProps) {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const favoritosList = useAppSelector(
-    (state) => state?.client?.favorites?.characters,
+    (state) => state?.client?.favorites?.characters
   );
   const { auth, session } = useAppSelector((state) => state?.authSession);
   const idFavorito =
     favoritosList?.some((obj) => obj?.id === data?.id) || false;
-  const [touchStartTime, setTouchStartTime] = useState<number>(0);
-  const [showSelect, setShowSelect] = useState(false);
-  const [isSelected, setIsSelected] = useState(false);
-
   const ref = useRef<HTMLDivElement>(null);
 
   const handleFavorite = (data: any) => {

@@ -27,7 +27,7 @@ export const changeManager = ({
       ? value
       : file,
     name,
-    type,
+    type
   );
 
   if (e.target.type === "file") {
@@ -77,11 +77,11 @@ export const submitManager = async ({
 }: handleSubmitProps) => {
   e.preventDefault();
 
-
   //si algun valor de form values es null, no se envia el formulario
   if (
     !Object.values(errors).every((error) => error === null) ||
-    Object.keys(formValues).length <= 0 ||  Object.values(formValues).some((value) => value === null)
+    Object.keys(formValues).length <= 0 ||
+    Object.values(formValues).some((value) => value === null)
   ) {
     console.log("errors", errors);
     throw new Error("Formulario invalido");

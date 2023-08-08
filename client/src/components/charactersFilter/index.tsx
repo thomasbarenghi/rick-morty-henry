@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import style from "./index.module.scss";
 import { Input } from "@/components";
 import { characterOptions, orderOptions } from "@/constants";

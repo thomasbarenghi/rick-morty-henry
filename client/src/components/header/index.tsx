@@ -6,11 +6,7 @@ import { Routes } from "@/constants";
 import Hamburguer from "./hamburguer";
 import Nav from "./nav";
 
-type HeaderDefaultProps = {
-  searchStatus: boolean;
-};
-
-export default function HeaderDefault({ searchStatus }: HeaderDefaultProps) {
+export default function HeaderDefault() {
   const [headerType, setHeaderType] = useState("default");
   const [searchModalStatus, setSearchModalStatus] = useState(false);
   const [hamburguerStatus, setHamburguerStatus] = useState(false);
@@ -53,9 +49,8 @@ export default function HeaderDefault({ searchStatus }: HeaderDefaultProps) {
           alt="logo"
         />
       </Link>
-
       <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-        <Nav searchStatus={searchStatus} headerType={headerType} />
+        <Nav headerType={headerType} />
         <div
           id={style.openSearchBtn}
           onClick={() => setHamburguerStatus(true)}

@@ -9,9 +9,10 @@ import { changeManager, submitManager } from "@/utils/forms/validateAndSend";
 import { register } from "@/redux/slices/authSession";
 
 export default function HeroSection() {
-  const [visible, setVisible] = useState(false);
+  const dispatch = useAppDispatch();
   const validate = useValidate();
-  const [formValues, setFormValues] = useState({
+  const [visible, setVisible] = useState(false);
+    const [formValues, setFormValues] = useState({
     firstName: null,
     lastName: null,
     email: null,
@@ -20,7 +21,7 @@ export default function HeroSection() {
   const [errors, setErrors] = useState<any>({});
   const formRef = useRef<HTMLFormElement>(null);
 
-  const dispatch = useAppDispatch();
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("e", e.target);

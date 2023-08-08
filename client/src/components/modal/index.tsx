@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import style from "./index.module.scss";
 
 type ModalProps = {
@@ -7,30 +6,11 @@ type ModalProps = {
   name: string;
 };
 
-const Modal = ({ children, onClose, name }: ModalProps) => {
-  const [showModal, setShowModal] = useState(false);
-
-  const handleReverse = (data: any, message: string) => {
-    if (message == name || message == "all") {
-      setShowModal(data);
-    }
-    return;
-
-    // console.log(showModal);
-  };
-
-  useEffect(() => {
-    onClose();
-  }, [showModal === false]);
-
+const Modal = ({ children }: ModalProps) => {
   return (
     <div
       id={style.modal}
-      className={
-        showModal === false
-          ? `${style["invisible"]} d-flex flex-column item-t1`
-          : `${style["visible"]} d-flex flex-column item-t1`
-      }
+      className={`${style["invisible"]} d-flex flex-column item-t1`}
     >
       <div id={style.modalInner} className="d-flex flex-column item-t1">
         <div className="d-flex flex-row justify-content-between align-items-center align-content-center">
@@ -41,7 +21,6 @@ const Modal = ({ children, onClose, name }: ModalProps) => {
             Filtros
           </h1>
           <img
-            //   onClick={() => handleReverse(false)}
             id="close-button"
             src="/img/fi-br-cross-green.svg"
             style={{ width: 15, height: 15 }}

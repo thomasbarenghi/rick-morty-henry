@@ -11,16 +11,14 @@ import { useRouter } from "next/navigation";
 
 export default function HeroSection() {
   const router = useRouter();
-  const [visible, setVisible] = useState(false);
   const validate = useValidate();
+  const dispatch = useAppDispatch();
   const [formValues, setFormValues] = useState({
     email: null,
     password: null,
   });
   const [errors, setErrors] = useState<any>({});
   const formRef = useRef<HTMLFormElement>(null);
-
-  const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("e", e.target);

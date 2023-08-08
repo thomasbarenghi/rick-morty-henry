@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-//import { HeaderDefault } from "@/components";
 import style from "./page.module.scss";
 import { CharactersGrid } from "@/components";
 
@@ -10,20 +9,11 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const cerrarModal = (e: any) => {
-    if (e.target.id === "openModal" || e.target.closest("#modalInner")) {
-      return;
-    }
-    //hideHeader(false, "all");
-  };
-
   return (
-    <>
-      <main>
-        <HeroSection />
-        <CharactersGrid />
-      </main>
-    </>
+    <main>
+      <HeroSection />
+      <CharactersGrid />
+    </main>
   );
 }
 

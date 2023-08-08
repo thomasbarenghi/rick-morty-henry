@@ -1,8 +1,6 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import { Tecnologias } from "@/data";
 import styles from "./page.module.scss";
-import { HeaderDefault } from "@/components";
 
 export const metadata: Metadata = {
   title: "About | Rick y Morty | Thomas Barenghi",

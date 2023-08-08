@@ -1,6 +1,5 @@
 import { SimpleSelect } from "@/components";
-import { useEffect } from "react";
-import {DEFAULT} from "@/constants";
+import { DEFAULT } from "@/constants";
 type SimpleSelectProps = {
   renderType: "input" | "select";
   selectOptions?: any;
@@ -32,16 +31,11 @@ export default function Input({
   error,
   selectValue,
 }: SimpleSelectProps) {
-
-  //agregamos default al selectOptions
-
-  if (selectOptions && selectOptions.some((o: any) => o.value == DEFAULT) === true) {
-    console.log("hay def");
-    //selectOptions.unshift({ value: "Default", label: "Default" });
-  } else {
-    console.log("no hay def");
-  //  selectOptions = [{ value: "Default", label: "Default" }];
-  selectOptions.unshift({ value: DEFAULT, label: DEFAULT });
+  if (
+    selectOptions &&
+    selectOptions.some((o: any) => o.value == DEFAULT) === false
+  ) {
+    selectOptions.unshift({ value: DEFAULT, label: DEFAULT });
   }
 
   return (
@@ -61,18 +55,14 @@ export default function Input({
         />
       ) : (
         <SimpleSelect
-        value = {selectValue}
+          value={selectValue}
           customClass={customClass}
           options={selectOptions}
           handleChange={handleChange}
           name={name}
         />
       )}
-      {error && (
-        <p className="text-danger mb-0">
-          {error}
-        </p>
-      )}
+      {error && <p className="text-danger mb-0">{error}</p>}
     </label>
   );
 }
