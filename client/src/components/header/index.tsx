@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Routes } from "@/constants";
 import Hamburguer from "./hamburguer";
 import Nav from "./nav";
+import Image from "next/image";
 
 export default function HeaderDefault() {
   const [headerType, setHeaderType] = useState("default");
@@ -41,7 +42,7 @@ export default function HeaderDefault() {
       }
     >
       <Link href={Routes.HOME}>
-        <img
+        <Image
           id={style["header-logo"]}
           src="/img/Rectangle 1.svg"
           width={213}
@@ -63,7 +64,7 @@ export default function HeaderDefault() {
             alignItems: "center",
           }}
         >
-          <img
+          <Image
             className="d-inline d-sm-inline d-md-inline d-lg-inline d-xl-none d-xxl-none"
             src="/img/hamburger2.svg"
             alt="hamburguer"
@@ -73,7 +74,7 @@ export default function HeaderDefault() {
         </div>
       </div>
       {hamburguerStatus === true && (
-        <img
+        <Image
           id={style["closeMenu"]}
           className="d-lg-none d-xl-none d-xxl-none"
           src="/img/fi-rr-cross.svg"

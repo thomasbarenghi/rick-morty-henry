@@ -4,6 +4,7 @@ import { manageFavoriteCharacter } from "@/redux/slices/client/favorites";
 import { deleteCharacter } from "@/redux/slices/client/characters";
 import { useRouter } from "next/navigation";
 import { useState, useRef } from "react";
+import Image from "next/image";
 
 type CharacterItemProps = {
   data: any;
@@ -87,14 +88,24 @@ export default function Characters({ data }: CharacterItemProps) {
                 className="d-flex flex-row justify-content-start align-items-center"
                 style={{ gap: 8 }}
               >
-                <img src="/img/especie.svg" />
+                <Image
+                  src="/img/especie.svg"
+                  width={20}
+                  height={20}
+                  alt="especie"
+                />
                 <p className="smallText-regular margin-b-0">{data.species} </p>
               </div>
               <div
                 className="d-flex flex-row justify-content-start align-items-center"
                 style={{ gap: 8 }}
               >
-                <img src="/img/fi-br-gender.svg" />
+                <Image
+                  src="/img/fi-br-gender.svg"
+                  width={20}
+                  height={20}
+                  alt="especie"
+                />
                 <p className="smallText-regular margin-b-0">{data.gender} </p>
               </div>
             </div>

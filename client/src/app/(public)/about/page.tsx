@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Tecnologias } from "@/data";
 import styles from "./page.module.scss";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About | Rick y Morty | Thomas Barenghi",
@@ -102,8 +103,9 @@ function TecnologiasUtilizadas() {
               className="d-flex justify-content-start align-items-center"
               style={{ gap: 14 }}
             >
-              <img
+              <Image
                 src={tecnologia.imagen}
+                alt={tecnologia.titulo}
                 style={{ width: 50, height: 50 }}
                 width={50}
                 height={50}

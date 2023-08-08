@@ -44,7 +44,7 @@ export default function HeroSection() {
       });
       if (meta.requestStatus === "fulfilled") {
         router.push(
-          `/?id=${payload?.User?.userId}&status=ok&session=${payload?.SessionID}&loginMethod=local`
+          `/?id=${payload?.User?.userId}&status=ok&session=${payload?.SessionID}&loginMethod=local`,
         );
       }
       // router.push(

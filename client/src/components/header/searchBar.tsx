@@ -1,6 +1,7 @@
 import style from "./index.module.scss";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setSearch } from "@/redux/slices/client/filters";
+import Image from "next/image";
 
 export default function SearchBar() {
   const dispatch = useAppDispatch();
@@ -12,7 +13,7 @@ export default function SearchBar() {
 
   return (
     <div id={style["search-div"]} className="flex">
-      <img src="/img/fi-br-search.svg" alt="search" />
+      <Image src="/img/fi-br-search.svg" alt="search" width={20} height={20} />
       <input
         id={style["search-input"]}
         className="body-regular margin-b-0"

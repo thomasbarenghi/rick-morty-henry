@@ -2,6 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "@/redux/hooks";
 import style from "./page.module.scss";
+import { Metadata } from "next";
+import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Personaje | Rick y Morty | Thomas Barenghi",
+  description: "Personaje | Rick y Morty | Thomas Barenghi",
+  themeColor: "#379c35",
+};
 
 export default function CharacterDetail() {
   const state = useAppSelector(
@@ -92,7 +100,8 @@ function DetallesSection({ state }: any) {
                       className="d-flex flex-column justify-content-start align-items-start flex-sm-column align-items-sm-start flex-md-row align-items-md-start align-items-lg-center"
                       style={{ gap: 14 }}
                     >
-                      <img
+                      <Image
+                        alt="image"
                         id={style["item-icon"]}
                         src={item.icon}
                         width={50}

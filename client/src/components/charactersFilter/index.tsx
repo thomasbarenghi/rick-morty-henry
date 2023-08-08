@@ -8,6 +8,7 @@ import {
   setFilterSpecies,
   resetFilters,
 } from "@/redux/slices/client/filters";
+import Image from "next/image";
 
 type ModalProps = {
   handleVisibility: (data: boolean) => void;
@@ -44,9 +45,10 @@ const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
           >
             Filtros
           </h1>
-          <img
+          <Image
             onClick={() => handleVisibility(false)}
             id="close-button"
+            alt="close-button"
             src="/img/fi-br-cross-green.svg"
             style={{ width: 15, height: 15 }}
             width={15}

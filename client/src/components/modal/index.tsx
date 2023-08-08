@@ -1,3 +1,4 @@
+import Image from "next/image";
 import style from "./index.module.scss";
 
 type ModalProps = {
@@ -20,8 +21,9 @@ const Modal = ({ children }: ModalProps) => {
           >
             Filtros
           </h1>
-          <img
+          <Image
             id="close-button"
+            alt="close-button"
             src="/img/fi-br-cross-green.svg"
             style={{ width: 15, height: 15 }}
             width={15}

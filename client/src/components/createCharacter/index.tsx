@@ -9,6 +9,7 @@ import { changeManager, submitManager } from "@/utils/forms/validateAndSend";
 import { toast } from "sonner";
 import useValidate from "@/hooks/useValidate";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type CreateProps = {
   handleCreateVisibility: (e: boolean) => void;
@@ -218,7 +219,8 @@ export default function CreateCharacter({
             <Preview formData={formValues} />
           </div>
         </div>
-        <img
+        <Image
+          alt="close"
           id="closeMenu-1"
           className=""
           src="/img/fi-rr-cross.svg"

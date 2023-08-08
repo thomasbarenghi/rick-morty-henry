@@ -8,3 +8,4 @@ export {
   isValidOrigin,
   isValidStatus,
 } from "./characters";
+export { isValidProfileImage as isValidImage } from "./media";

@@ -42,12 +42,11 @@ export default function Hamburguer({ setHamburguerStatus }: HamburguerProps) {
               </li>
             </Link>
             <Link
-          href={auth.isLogged ? Routes.LOGOUT : Routes.LOGIN}
-
-          style={{ color: "#000000", textDecoration: "none" }}
-        >
-          {auth.isLogged ? "Cerrar sesion" : "Iniciar sesion"}
-        </Link>
+              href={auth.isLogged ? Routes.LOGOUT : Routes.LOGIN}
+              style={{ color: "#000000", textDecoration: "none" }}
+            >
+              {auth.isLogged ? "Cerrar sesion" : "Iniciar sesion"}
+            </Link>
           </ul>
         </div>
         <span className="color-body body-regular">Ponte en contacto</span>
