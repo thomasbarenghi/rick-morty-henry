@@ -8,6 +8,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { changeManager, submitManager } from "@/utils/forms/validateAndSend";
 import { login } from "@/redux/slices/authSession";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function HeroSection() {
   const router = useRouter();
@@ -41,6 +42,11 @@ export default function HeroSection() {
         actionToDispatch: login,
         setFormValues,
       });
+      if (meta.requestStatus === "fulfilled") {
+        router.push(
+          `/?id=${payload?.User?.userId}&status=ok&session=${payload?.SessionID}&loginMethod=local`
+        );
+      }
       // router.push(
       //   `/?id=${payload?.User?.userId}&status=ok&session=${payload?.SessionID}&loginMethod=local`
       // );
@@ -91,6 +97,12 @@ export default function HeroSection() {
         >
           Iniciar sesión
         </button>
+        <Link
+          className="body-regular color-body margin-b-40 text-center"
+          href="/auth/register"
+        >
+          ¿No tienes una cuenta? Registrate
+        </Link>
       </form>
     </>
   );

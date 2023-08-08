@@ -1,7 +1,7 @@
 "use client";
 import { Routes } from "@/constants";
 import style from "./index.module.scss";
-
+import { useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
 
 type HamburguerProps = {
@@ -9,6 +9,7 @@ type HamburguerProps = {
 };
 
 export default function Hamburguer({ setHamburguerStatus }: HamburguerProps) {
+  const auth = useAppSelector((state) => state.authSession.auth);
   return (
     <div id={style["hamburguer-menu"]}>
       <div
@@ -41,12 +42,12 @@ export default function Hamburguer({ setHamburguerStatus }: HamburguerProps) {
               </li>
             </Link>
             <Link
-              href={Routes.LOGOUT}
-              style={{ color: "#000000", textDecoration: "none" }}
-              onClick={() => setHamburguerStatus(false)}
-            >
-              Salir
-            </Link>
+          href={auth.isLogged ? Routes.LOGOUT : Routes.LOGIN}
+
+          style={{ color: "#000000", textDecoration: "none" }}
+        >
+          {auth.isLogged ? "Cerrar sesion" : "Iniciar sesion"}
+        </Link>
           </ul>
         </div>
         <span className="color-body body-regular">Ponte en contacto</span>

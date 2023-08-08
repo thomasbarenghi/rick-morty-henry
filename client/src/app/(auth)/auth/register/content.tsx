@@ -7,10 +7,13 @@ import useValidate from "@/hooks/useValidate";
 import { useAppDispatch } from "@/redux/hooks";
 import { changeManager, submitManager } from "@/utils/forms/validateAndSend";
 import { register } from "@/redux/slices/authSession";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function HeroSection() {
   const dispatch = useAppDispatch();
   const validate = useValidate();
+  const router = useRouter();
   const [visible, setVisible] = useState(false);
   const [formValues, setFormValues] = useState({
     firstName: null,
@@ -33,7 +36,7 @@ export default function HeroSection() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
-      await submitManager({
+      const { payload, meta } = await submitManager({
         e,
         formRef,
         formValues,
@@ -42,6 +45,9 @@ export default function HeroSection() {
         actionToDispatch: register,
         setFormValues,
       });
+      if (meta.requestStatus === "fulfilled") {
+        router.push(`/auth`);
+      }
     } catch (error) {
       console.error(error);
       toast.error("Verifica los campos del formulario");
@@ -105,6 +111,12 @@ export default function HeroSection() {
         >
           Registrarse
         </button>
+        <Link
+          className="body-regular color-body margin-b-40 text-center"
+          href="/auth"
+        >
+          ¿Ya tienes una cuenta? Ingresa
+        </Link>
       </form>
     </>
   );

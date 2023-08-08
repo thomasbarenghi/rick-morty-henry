@@ -11,7 +11,7 @@ export const Tecnologias = [
     titulo: "Typescript",
     imagen: "/img/tecnologias/typescript.svg",
     descripcion:
-      "TypeScript es un lenguaje de programación de código abierto desarrollado y mantenido por Microsoft. TypeScript es un lenguaje de programación de código abierto desarrollado y mantenido por Microsoft. TypeScript es un lenguaje de programación de código abierto desarrollado y mantenido por Microsoft. TypeScript es un lenguaje de programación de código abierto desarrollado y mantenido por Microsoft.",
+      "TypeScript es un lenguaje de programación de código abierto desarrollado y mantenido por Microsoft.",
   },
   {
     id: 4,
@@ -43,10 +43,10 @@ export const Tecnologias = [
   },
   {
     id: 8,
-    titulo: "Express.js",
-    imagen: "/img/tecnologias/express.svg",
+    titulo: "NestJS",
+    imagen: "/img/tecnologias/nest.svg",
     descripcion:
-      "Express.js es un framework de servidor web para Node.js que permite crear aplicaciones web y API REST de manera rápida y sencilla. Express.js se basa en el concepto de middleware, que es una función que se ejecuta entre la solicitud y la respuesta del servidor. Express.js proporciona una serie de middleware predefinidos que facilitan la creación de aplicaciones web y API REST.",
+      "NestJS es un framework de Node.js que permite a los desarrolladores crear aplicaciones web y API RESTful. NestJS proporciona una serie de características que facilitan el desarrollo de aplicaciones web y API RESTful, como el enrutamiento automático, la generación de páginas estáticas y la renderización del lado del servidor.",
   },
   {
     id: 9,

@@ -36,7 +36,7 @@ export default function HeaderDefault() {
       className="d-flex flex-row justify-content-between align-items-center padding-lr-t1 padding-tb-30 margin-b-0"
       style={
         headerType === "alternative"
-          ? { background: "rgba(55,156,53,0.2)" }
+          ? { background: "rgba(55,156,53,0.85)" }
           : {}
       }
     >

@@ -1,11 +1,13 @@
 import style from "./index.module.scss";
 import Link from "next/link";
 import { Routes } from "@/constants";
+import { useAppSelector } from "@/redux/hooks";
 
 type NavProps = {
   headerType: string;
 };
 export default function Nav({ headerType }: NavProps) {
+  const auth = useAppSelector((state) => state.authSession.auth);
   return (
     <>
       <div
@@ -19,8 +21,11 @@ export default function Nav({ headerType }: NavProps) {
         <Link href={Routes.ABOUT} className="list-inline-item body-regular">
           About
         </Link>
-        <Link href={Routes.LOGOUT} className="list-inline-item body-regular">
-          Cerrar sesión
+        <Link
+          href={auth.isLogged ? Routes.LOGOUT : Routes.LOGIN}
+          className="list-inline-item body-regular"
+        >
+          {auth.isLogged ? "Cerrar sesion" : "Iniciar sesion"}
         </Link>
       </div>
     </>
