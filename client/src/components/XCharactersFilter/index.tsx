@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { setFilterGender, setFilterOrder, setFilterSpecies, resetFilters } from '@/redux/slices/client/filters'
 import Image from 'next/image'
 
-type ModalProps = {
+interface ModalProps {
   handleVisibility: (data: boolean) => void
 }
 const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
@@ -28,14 +28,16 @@ const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
   }
 
   return (
-    <div id={style.modal} className={`${style['visible']} d-flex flex-column item-t1`}>
+    <div id={style.modal} className={`${style.visible} d-flex flex-column item-t1`}>
       <div id={style.modalInner} className='d-flex flex-column item-t1'>
         <div className='d-flex flex-row justify-content-between align-items-center align-content-center'>
           <h1 className='subtitulo-bold margin-b-0' style={{ fontSize: 18, color: 'black' }}>
             Filtros
           </h1>
           <Image
-            onClick={() => handleVisibility(false)}
+            onClick={() => {
+              handleVisibility(false)
+            }}
             id='close-button'
             alt='close-button'
             src='/img/fi-br-cross-green.svg'
@@ -56,7 +58,7 @@ const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
             label='Genero'
             selectValue={characterOptions.gender.find((e: any) => e.value === filters.gender)}
             customClass='mt-1'
-            error={''}
+            error=''
           />
           <Input
             renderType='select'
@@ -70,7 +72,7 @@ const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
             label='Especie'
             value='default'
             customClass='mt-1'
-            error={''}
+            error=''
           />
           <Input
             renderType='select'
@@ -84,7 +86,7 @@ const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
             label='Orden por nombre'
             value='default'
             customClass='mt-1'
-            error={''}
+            error=''
           />
 
           <button

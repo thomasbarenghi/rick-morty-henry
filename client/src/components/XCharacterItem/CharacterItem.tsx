@@ -3,14 +3,14 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { manageFavoriteCharacter } from '@/redux/slices/client/favorites'
 import { deleteCharacter } from '@/redux/slices/client/characters'
 import { useRouter } from 'next/navigation'
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import Image from 'next/image'
 
-type CharacterItemProps = {
+interface CharacterItemProps {
   data: any
 }
 
-export default function Characters({ data }: CharacterItemProps) {
+const CharacterItem = ({ data }: CharacterItemProps) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
   const favoritosList = useAppSelector((state) => state?.client?.favorites?.characters)
@@ -26,7 +26,7 @@ export default function Characters({ data }: CharacterItemProps) {
     dispatch(deleteCharacter(data))
   }
 
-  function handleClick() {
+  const handleClick = () => {
     router.push(`/personajes/${data.id}`)
   }
 
@@ -44,8 +44,8 @@ export default function Characters({ data }: CharacterItemProps) {
                 className={`d-flex justify-content-center align-items-center btn1  ${style['btn-blanco-verde']}`}
                 type='button'
               >
-                {idFavorito === true && <img width={20} height={20} src='/img/fi-br-heart-colored.svg' />}
-                {idFavorito === false && <img src='/img/fi-br-heart.svg' />}
+                {idFavorito && <img width={20} height={20} src='/img/fi-br-heart-colored.svg' />}
+                {!idFavorito && <img src='/img/fi-br-heart.svg' />}
               </button>
             )}
           </div>
@@ -76,8 +76,14 @@ export default function Characters({ data }: CharacterItemProps) {
               </div>
             </div>
           </div>
-          {data?.userId !== 1 && data?.userId == session?.current?.id && auth?.isLogged && (
-            <button className='btn btn-primary btn1 btn1-t1' type='button' onClick={() => handleDelete(data.id)}>
+          {data?.userId !== 1 && data?.userId === session?.current?.id && auth?.isLogged && (
+            <button
+              className='btn btn-primary btn1 btn1-t1'
+              type='button'
+              onClick={() => {
+                handleDelete(data.id)
+              }}
+            >
               Eliminar
             </button>
           )}
@@ -86,3 +92,5 @@ export default function Characters({ data }: CharacterItemProps) {
     </>
   )
 }
+
+export default CharacterItem

@@ -4,9 +4,13 @@ import { useState } from 'react'
 import { setIndex } from '@/redux/slices/client/characters'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { selectorIndexCharacters } from '@/redux/selectors/characters'
-import SearchBar from '../header/searchBar'
+import SearchBar from '../XHeader/searchBar'
 
-export default function CharactersGrid({ searchValue }: any) {
+interface CharactersGridProps {
+  searchValue: string
+}
+
+const CharactersGrid = ({ searchValue }: CharactersGridProps) => {
   const dispatch = useAppDispatch()
   const [createVisibility, setCreateVisibility] = useState(false)
   const [filterVisibility, setFilterVisibility] = useState(false)
@@ -25,12 +29,14 @@ export default function CharactersGrid({ searchValue }: any) {
       >
         <img src='/img/Frame 13.svg' style={{ width: 'auto', height: 45 }} />
 
-        <div id={style['optionsContainer']}>
+        <div id={style.optionsContainer}>
           <SwitcherButtons datos={['Todos', 'Favoritos', 'Propios']} onIndexChange={onIndexChange} />
           <button
             id='openModal'
             className={`${style.modalOpen} btn btn-primary btn1 btn1-t1`}
-            onClick={() => setFilterVisibility(true)}
+            onClick={() => {
+              setFilterVisibility(true)
+            }}
             type='button'
           >
             Filtrar
@@ -39,7 +45,9 @@ export default function CharactersGrid({ searchValue }: any) {
           {auth.isLogged && (
             <button
               id='openModal'
-              onClick={() => setCreateVisibility(true)}
+              onClick={() => {
+                setCreateVisibility(true)
+              }}
               className={`${style.modalOpen} btn btn-primary btn1 btn1-t1`}
               style={{ whiteSpace: 'nowrap' }}
               type='button'
@@ -51,9 +59,9 @@ export default function CharactersGrid({ searchValue }: any) {
           {filterVisibility && <ChatactersFilter handleVisibility={setFilterVisibility} />}
         </div>
       </div>
-      <div id={style['componentContainer']}>
+      <div id={style.componentContainer}>
         {Array.isArray(characters) &&
-          characters &&
+          Array.isArray(characters) &&
           characters?.map((character: any) => <CharacterItem data={character} key={character} />)}
       </div>
       {Array.isArray(characters) && characters?.length === 0 && (
@@ -68,3 +76,5 @@ export default function CharactersGrid({ searchValue }: any) {
     </section>
   )
 }
+
+export default CharactersGrid

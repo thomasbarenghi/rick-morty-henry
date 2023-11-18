@@ -11,7 +11,7 @@ import useValidate from '@/hooks/useValidate'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
-type CreateProps = {
+interface CreateProps {
   handleCreateVisibility: (e: boolean) => void
 }
 
@@ -73,8 +73,8 @@ export default function CreateCharacter({ handleCreateVisibility }: CreateProps)
       className='d-flex flex-row justify-content-start align-items-stretch padding-lr-t1 padding-tb-t1'
     >
       <div id={styles['crear-personaje_inner']} className='item-t1'>
-        <div id={styles['inner_grid']} className='d-xl-grid d-xxl-grid flex-row align-items-start item-t1'>
-          <div id={styles['grid_col1']}>
+        <div id={styles.inner_grid} className='d-xl-grid d-xxl-grid flex-row align-items-start item-t1'>
+          <div id={styles.grid_col1}>
             <h1 className='titulo3-bold margin-b-24'>Creemos un personaje 🚀</h1>
 
             <form
@@ -90,7 +90,7 @@ export default function CreateCharacter({ handleCreateVisibility }: CreateProps)
                   label='Nombre del personaje'
                   name='name'
                   handleChange={handleChange}
-                  required={true}
+                  required
                   type='text'
                   error={errors.name}
                 />
@@ -99,7 +99,7 @@ export default function CreateCharacter({ handleCreateVisibility }: CreateProps)
                   selectOptions={options.species}
                   label='Especie'
                   name='species'
-                  handleChange={(e: any) =>
+                  handleChange={(e: any) => {
                     handleChange({
                       target: {
                         name: 'species',
@@ -107,8 +107,8 @@ export default function CreateCharacter({ handleCreateVisibility }: CreateProps)
                         type: 'text'
                       }
                     })
-                  }
-                  required={true}
+                  }}
+                  required
                   type='text'
                   error={errors.species}
                 />
@@ -119,7 +119,7 @@ export default function CreateCharacter({ handleCreateVisibility }: CreateProps)
                   selectOptions={options.gender}
                   label='Genero'
                   name='gender'
-                  handleChange={(e: any) =>
+                  handleChange={(e: any) => {
                     handleChange({
                       target: {
                         name: 'gender',
@@ -127,8 +127,8 @@ export default function CreateCharacter({ handleCreateVisibility }: CreateProps)
                         type: 'text'
                       }
                     })
-                  }
-                  required={true}
+                  }}
+                  required
                   type='text'
                   error={errors.gender}
                 />
@@ -141,7 +141,7 @@ export default function CreateCharacter({ handleCreateVisibility }: CreateProps)
                     console.log(e)
                     setFormValues({ ...formValues, origin_name: e.value })
                   }}
-                  required={true}
+                  required
                   type='text'
                   error={errors.origin_name}
                 />
@@ -155,7 +155,7 @@ export default function CreateCharacter({ handleCreateVisibility }: CreateProps)
                   handleChange={(e: any) => {
                     setFormValues({ ...formValues, location_name: e.value })
                   }}
-                  required={true}
+                  required
                   type='text'
                   error={errors.location_name}
                 />
@@ -164,7 +164,7 @@ export default function CreateCharacter({ handleCreateVisibility }: CreateProps)
                   label='Link imagen'
                   name='image'
                   handleChange={handleChange}
-                  required={true}
+                  required
                   type='text'
                   error={errors.image}
                 />
@@ -178,7 +178,7 @@ export default function CreateCharacter({ handleCreateVisibility }: CreateProps)
                   handleChange={(e: any) => {
                     setFormValues({ ...formValues, status: e.value })
                   }}
-                  required={true}
+                  required
                   type='text'
                   error={errors.status}
                 />
@@ -190,7 +190,7 @@ export default function CreateCharacter({ handleCreateVisibility }: CreateProps)
             </form>
           </div>
           <div
-            id={styles['grid_col2']}
+            id={styles.grid_col2}
             className='d-none d-xl-flex d-xxl-flex justify-content-center align-items-center align-items-lg-center'
           >
             <Preview formData={formValues} />
@@ -209,7 +209,9 @@ export default function CreateCharacter({ handleCreateVisibility }: CreateProps)
             width: 15,
             height: 15
           }}
-          onClick={(e) => handleCreateVisibility(false)}
+          onClick={(e) => {
+            handleCreateVisibility(false)
+          }}
           width={24}
           height={24}
         />

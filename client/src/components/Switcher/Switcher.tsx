@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import styles from './index.module.scss'
+import styles from './switcher.module.scss'
 
-type SwitcherBotonesProps = {
-  datos: string[]
+interface SwitcherProps {
+  data: string[]
   onIndexChange: (index: number) => void
 }
-const SwitcherBotones = ({ datos, onIndexChange }: SwitcherBotonesProps) => {
+
+const Switcher = ({ data, onIndexChange }: SwitcherProps) => {
   const [activeIndex, setActiveIndex] = useState<number>(0)
 
   const handleClick = (index: number) => {
@@ -15,7 +16,7 @@ const SwitcherBotones = ({ datos, onIndexChange }: SwitcherBotonesProps) => {
 
   return (
     <div id={styles.switcherContainer} style={{ display: 'flex' }}>
-      {datos.map((dato, index) => (
+      {data.map((data, index) => (
         <button
           key={index}
           className={`${
@@ -23,13 +24,15 @@ const SwitcherBotones = ({ datos, onIndexChange }: SwitcherBotonesProps) => {
               ? `${styles.active} ${styles['tab-button']}`
               : `${styles.normal} ${styles['tab-button']}`
           }`}
-          onClick={() => handleClick(index)}
+          onClick={() => {
+            handleClick(index)
+          }}
         >
-          {dato}
+          {data}
         </button>
       ))}
     </div>
   )
 }
 
-export default SwitcherBotones
+export default Switcher
