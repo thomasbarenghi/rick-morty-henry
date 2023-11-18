@@ -1,7 +1,7 @@
-import React from "react";
-import { HeaderDefault, Footer } from "@/components";
-import Querier from "@/services/querier";
-import SecurityHOC from "@/services/securityHoc";
+import React from 'react'
+import { HeaderDefault, Footer } from '@/components'
+import Querier from '@/services/querier'
+import SecurityHOC from '@/services/securityHoc'
 
 export default function RootLayout(props: any) {
   return (
@@ -14,5 +14,5 @@ export default function RootLayout(props: any) {
         </Querier>
       </SecurityHOC>
     </>
-  );
+  )
 }

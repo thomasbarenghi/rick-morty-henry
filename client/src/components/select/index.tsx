@@ -1,30 +1,27 @@
 type SelectProps = {
-  name: string;
-  data: string[];
-  handleFilter: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-};
+  name: string
+  data: string[]
+  handleFilter: (e: React.ChangeEvent<HTMLSelectElement>) => void
+}
 
 export default function Select({ name, data, handleFilter }: SelectProps) {
   return (
-    <label
-      className="form-label d-flex flex-column margin-b-0"
-      style={{ gap: 4 }}
-    >
+    <label className='form-label d-flex flex-column margin-b-0' style={{ gap: 4 }}>
       {name}
       <select
-        defaultValue={"default"}
+        defaultValue={'default'}
         onChange={handleFilter}
         name={name}
         style={{
           padding: 12,
-          borderStyle: "solid",
+          borderStyle: 'solid',
           borderRadius: 10,
-          background: "#ffffff",
+          background: '#ffffff',
           fontFamily: '"outfit", sans-serif',
-          fontSize: 16,
+          fontSize: 16
         }}
       >
-        <option value={"default"}>Todos</option>
+        <option value={'default'}>Todos</option>
         {data.map((obj) => (
           <option key={obj} value={obj}>
             {obj.toUpperCase()}
@@ -32,5 +29,5 @@ export default function Select({ name, data, handleFilter }: SelectProps) {
         ))}
       </select>
     </label>
-  );
+  )
 }

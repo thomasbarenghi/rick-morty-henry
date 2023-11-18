@@ -6,19 +6,19 @@ import {
   isValidSpecie,
   isValidGender,
   isValidOrigin,
-  isValidStatus,
-} from "./validators";
+  isValidStatus
+} from './validators'
 
-type ValidationFunction = (value: string) => validResponse;
+type ValidationFunction = (value: string) => validResponse
 
 type ValidationRules = {
-  [key: string]: ValidationFunction;
-};
+  [key: string]: ValidationFunction
+}
 
 type validResponse = {
-  isValid: boolean;
-  error: string;
-};
+  isValid: boolean
+  error: string
+}
 
 export const validationRules: ValidationRules = {
   email: (value: string): validResponse => isValidEmail(value),
@@ -31,5 +31,5 @@ export const validationRules: ValidationRules = {
   gender: (value: string): validResponse => isValidGender(value),
   origin_name: (value: string): validResponse => isValidOrigin(value),
   location_name: (value: string): validResponse => isValidOrigin(value),
-  status: (value: string): validResponse => isValidStatus(value),
-};
+  status: (value: string): validResponse => isValidStatus(value)
+}

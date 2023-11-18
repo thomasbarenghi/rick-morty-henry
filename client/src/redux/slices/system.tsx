@@ -1,21 +1,21 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
-  currentRoute: "",
-};
+  currentRoute: ''
+}
 
 const postsSlice = createSlice({
-  name: "system",
+  name: 'system',
   initialState,
   reducers: {
     setCurrentRoute: (state, action: PayloadAction<string>) => {
-      console.log("setCurrentRoute", action.payload);
-      state.currentRoute = action.payload;
-    },
+      console.log('setCurrentRoute', action.payload)
+      state.currentRoute = action.payload
+    }
   },
-  extraReducers: (builder) => {},
-});
+  extraReducers: (builder) => {}
+})
 
-export const { setCurrentRoute } = postsSlice.actions;
+export const { setCurrentRoute } = postsSlice.actions
 
-export default postsSlice.reducer;
+export default postsSlice.reducer
