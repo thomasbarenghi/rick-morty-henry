@@ -37,6 +37,7 @@ export class CharactersService {
 
   async findAll(req: any): Promise<any> {
     try {
+      console.log('req', req);
       const userId = req.userid;
       let userCharacters = [];
       let favorites = [];
