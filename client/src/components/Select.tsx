@@ -1,12 +1,12 @@
-import Select, { type GroupBase, type ActionMeta, type SingleValue } from 'react-select'
+import Select, { type ActionMeta, type SingleValue } from 'react-select'
 
 interface SimpleSelectProps {
-  options: ReadonlyArray<string | GroupBase<string>>
-  handleChange: (newValue: SingleValue<string>, actionMeta: ActionMeta<string>) => void
+  options: any
+  handleChange?: (newValue: SingleValue<string>, actionMeta: ActionMeta<string>) => void
   name: string
   customClass?: string
   value?: string
-  error: string
+  error?: string
   label: string
 }
 

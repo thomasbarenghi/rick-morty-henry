@@ -1,4 +1,4 @@
-import { characterOptions } from '@/constants'
+import { characterOptions } from '@/utils/constants'
 
 type validResponse = {
   isValid: boolean

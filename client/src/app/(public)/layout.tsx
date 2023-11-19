@@ -3,16 +3,16 @@ import { HeaderDefault, Footer } from '@/components'
 import Querier from '@/services/querier'
 import SecurityHOC from '@/services/securityHoc'
 
-export default function RootLayout(props: any) {
-  return (
-    <>
-      <SecurityHOC>
-        <Querier>
-          <HeaderDefault />
-          <main>{props.children}</main>
-          <Footer />
-        </Querier>
-      </SecurityHOC>
-    </>
-  )
-}
+const GeneralLayout = (props: any) => (
+  <>
+    <SecurityHOC>
+      <Querier>
+        <HeaderDefault />
+        <main>{props.children}</main>
+        <Footer />
+      </Querier>
+    </SecurityHOC>
+  </>
+)
+
+export default GeneralLayout

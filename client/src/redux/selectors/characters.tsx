@@ -1,7 +1,7 @@
 'use client'
 import { createSelector } from 'reselect'
-import { RootState } from '../store/store'
-import { DEFAULT } from '@/constants'
+import { type RootState } from '../store/store'
+import { DEFAULT } from '@/utils/constants'
 
 const characters = (state: RootState) => state?.client?.characters.characters
 const ownedCharacters = (state: RootState) => state?.client?.characters?.ownedCharacters

@@ -4,9 +4,9 @@ import client from './slices/client'
 import authSession from './slices/authSession'
 
 const rootReducer = combineReducers({
-  system: system,
-  client: client,
-  authSession: authSession
+  system,
+  client,
+  authSession
 })
 
 export default rootReducer

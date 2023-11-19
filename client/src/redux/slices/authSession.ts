@@ -1,29 +1,29 @@
 'use client'
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'sonner'
-import { AuthClass, UserClass } from '@/types'
-import { axiosPoster, axiosGetter } from '@/utils/requests'
-import { sessionBuilder } from '@/utils/state'
-import { setCurrentRoute } from './system'
-// import Router from "next/router";
-import { useRouter } from 'next/navigation'
+import { type Auth, type User } from '@/interfaces'
+import { postRequest, getRequest } from '@/services/apiRequest.service'
 
-const initialState = {
-  auth: {} as AuthClass,
+interface State {
+  auth: Auth | any
   session: {
-    current: {} as UserClass
+    current: User | any
+  }
+}
+
+const initialState: State = {
+  auth: {},
+  session: {
+    current: {}
   }
 }
 
 export const verifySession = createAsyncThunk('auth/verifySession', async (SessionID: string) => {
   try {
     console.log('verifySession SessionID', SessionID)
-    const res = await axiosPoster({
-      url: '/auth/verify',
-      body: { SessionID: SessionID }
-    })
-    console.log('res verifySession', res)
-    return res
+    const { data } = await postRequest('/auth/verify', { SessionID })
+    console.log('res verifySession', data)
+    return data
   } catch (err: any) {
     throw new Error('Error al verificar la sesión', err)
   }
@@ -32,7 +32,7 @@ export const verifySession = createAsyncThunk('auth/verifySession', async (Sessi
 export const setSession = createAsyncThunk('auth/setSession', async (userId: string) => {
   try {
     console.log('setSession userId', userId)
-    const res = await axiosGetter({ url: `/users/${userId}` })
+    const res = await getRequest(`/users/${userId}`)
     console.log('res setSession', res)
     return res
   } catch (err: any) {
@@ -44,11 +44,11 @@ export const login = createAsyncThunk('auth/login', async (credentials: any, { d
   credentials.username = credentials.email
   console.log('credentials', credentials)
   try {
-    const res = await axiosPoster({ url: '/auth/login', body: credentials })
-    console.log('res login', res)
-    await dispatch(setSession(res.User.userId))
-    //Router.push(`/?id=${res.User.userId}&status=ok&session=${res.SessionID}&loginMethod=local`);
-    return res
+    const { data } = await postRequest('/auth/login', credentials)
+    console.log('res login', data)
+    await dispatch(setSession(data.User.userId))
+    // Router.push(`/?id=${res.User.userId}&status=ok&session=${res.SessionID}&loginMethod=local`);
+    return data
   } catch (err: any) {
     throw new Error('Error al loguear el usuario', err)
   }
@@ -56,8 +56,7 @@ export const login = createAsyncThunk('auth/login', async (credentials: any, { d
 
 export const register = createAsyncThunk('auth/register', async (userData: any, { dispatch }) => {
   try {
-    const res = await axiosPoster({ url: '/users', body: userData })
-    await dispatch(setCurrentRoute(`/auth`))
+    const res = await postRequest('/users', userData)
     return res
   } catch (err: any) {
     console.error('Error al crear el usuario', err)
@@ -69,7 +68,7 @@ const authSessionSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setAuth: (state, action: PayloadAction<AuthClass>) => {
+    setAuth: (state, action: PayloadAction<Auth>) => {
       console.log('setAuth', action.payload)
       state.auth = action.payload
     },
@@ -78,7 +77,7 @@ const authSessionSlice = createSlice({
       state.auth = initialState.auth
     },
     setSessionRed: (state, action: PayloadAction<any>) => {
-      state.session.current = sessionBuilder(action.payload)
+      state.session.current = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -99,12 +98,12 @@ const authSessionSlice = createSlice({
     })
     builder.addCase(setSession.pending, (state) => {})
     builder.addCase(setSession.fulfilled, (state, action) => {
-      state.session.current = action.payload as UserClass
+      state.session.current = action.payload
     })
     builder.addCase(setSession.rejected, (state) => {
       toast.error('Error al verificar el usuario')
       state.session = initialState.session
-      state.auth = {} as AuthClass
+      state.auth = {}
       console.log('setSession.rejected', state)
     })
     builder.addCase(verifySession.pending, (state) => {})

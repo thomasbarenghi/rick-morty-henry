@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
-import { axiosPoster, axiosDeleter } from '@/utils/requests'
+import { createSlice, type PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
+import { postRequest, deleteRequest } from '@/services/apiRequest.service'
 import { toast } from 'sonner'
-import { RootState } from '@/redux/store/store'
+import { type RootState } from '@/redux/store/store'
 
 const initialState = {
   characters: [] as any[],
@@ -20,15 +20,11 @@ export const manageFavoriteCharacter = createAsyncThunk(
       console.log('isAlreadyFavorite', isAlreadyFavorite, character)
       let response
       if (isAlreadyFavorite) {
-        response = await axiosDeleter({
-          url: `/users/${userId}/favorites`,
-          headers: { characterId: character?.id }
-        })
+        const { data } = await deleteRequest(`/users/${userId}/favorites`, { characterId: character?.id })
+        response = data
       } else {
-        response = await axiosPoster({
-          url: `/users/${userId}/favorites`,
-          body: { characterId: character?.id }
-        })
+        const { data } = await postRequest(`/users/${userId}/favorites`, { characterId: character?.id })
+        response = data
       }
       return {
         data: response,
@@ -55,7 +51,7 @@ const favoritesSlice = createSlice({
         const { data, operation } = action.payload
         console.log('data', data, 'operation', operation)
         if (operation === 'add') {
-          state.characters.push(data as any)
+          state.characters.push(data)
         } else {
           state.characters = state.characters.filter((c: any) => c?.id !== data?.id)
         }

@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
-import { axiosPoster, axiosDeleter, axiosGetter } from '@/utils/requests'
+import { createSlice, type PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
+import { getRequest, postRequest, deleteRequest } from '@/services/apiRequest.service'
 import { setCharacters } from './favorites'
 import { toast } from 'sonner'
-import { RootState } from '@/redux/store/store'
+import { type RootState } from '@/redux/store/store'
 
 const initialState = {
   characters: [] as any[],
@@ -18,17 +18,14 @@ export const getCharacters = createAsyncThunk('characters/getCharacters', async 
     const state = getState() as RootState
     console.log('state getCharacters', state)
     const userId = state?.authSession?.session?.current?.id
-    console.log('axiosGetter headers getCharacters', userId)
-    const res = await axiosGetter({
-      url: `/characters`,
-      headers: { userId: userId }
-    })
-    console.log('res', res)
-    await dispatch(setCharacters(res.userFavorites))
+    console.log('getRequest headers getCharacters', userId)
+    const { data } = await getRequest('/characters', { userId })
+    console.log('res', data)
+    dispatch(setCharacters(data.userFavorites))
 
     return {
-      characters: res.apiCharacters,
-      ownedCharacters: res.userCharacters
+      characters: data.apiCharacters,
+      ownedCharacters: data.userCharacters
     }
   } catch (error) {
     console.error(error)
@@ -42,10 +39,7 @@ export const getCharacterById = createAsyncThunk(
     try {
       const state = getState() as RootState
       const userId = state.authSession.session.current.id || null
-      const res = await axiosGetter({
-        url: `/characters/${characterId}`,
-        headers: { userId: userId }
-      })
+      const res = await getRequest(`/characters/${characterId}`, { userId })
 
       console.log('data redux', res)
       return {
@@ -65,11 +59,8 @@ export const createCharacter = createAsyncThunk(
       const state = getState() as RootState
       const userId = state.authSession.session.current.id || null
       character.userId = userId
-      //const userId = state.client.session.current.userId;
-      const res = await axiosPoster({
-        url: `/characters`,
-        body: character
-      })
+      // const userId = state.client.session.current.userId;
+      const res = await postRequest('/characters', character)
 
       console.log('data redux', res)
       return {
@@ -88,15 +79,12 @@ export const deleteCharacter = createAsyncThunk(
     try {
       const state = getState() as RootState
       const userId = state.authSession.session.current.id || null
-      const res = await axiosDeleter({
-        url: `/characters/${characterId}`,
-        headers: { userId: userId }
-      })
+      const res = await deleteRequest(`/characters/${characterId}`, { userId })
 
       console.log('data redux', res)
       return {
         character: res,
-        characterId: characterId
+        characterId
       }
     } catch (error) {
       console.error(error)

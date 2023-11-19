@@ -1,5 +1,5 @@
-import { Metadata } from 'next'
-import Content from './content'
+import { type Metadata } from 'next'
+import Content from './_components/Form'
 
 export const metadata: Metadata = {
   title: 'Registro | Rick y Morty | Thomas Barenghi',
@@ -7,6 +7,6 @@ export const metadata: Metadata = {
   themeColor: '#379c35'
 }
 
-export default function Register() {
-  return <Content />
-}
+const Register = () => <Content />
+
+export default Register

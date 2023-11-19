@@ -1,16 +1,26 @@
-'use client'
 import './globals.scss'
 import './bootstrap.min.css'
-import React from 'react'
-import Provider from '@/services/provider'
+import ReduxProvider from '@/context/providers/redux.provider'
+import { Toaster } from 'sonner'
 
-export default function RootLayout(props: any) {
-  return (
-    <html lang='es'>
-      <head></head>
-      <body className=''>
-        <Provider>{props.children}</Provider>
-      </body>
-    </html>
-  )
-}
+const RootLayout = (props: any) => (
+  <html lang='es'>
+    <head />
+    <body className=''>
+      <ReduxProvider>
+        <>
+          <Toaster
+            richColors
+            position='bottom-left'
+            toastOptions={{
+              className: 'max-w-[85vw] xs:max-w-none z-50 '
+            }}
+          />
+          {props.children}
+        </>
+      </ReduxProvider>
+    </body>
+  </html>
+)
+
+export default RootLayout
