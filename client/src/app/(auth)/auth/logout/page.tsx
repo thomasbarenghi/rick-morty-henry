@@ -1,12 +1,11 @@
-import { Metadata } from "next";
-import Content from "./content";
+import { type Metadata } from 'next'
+import Content from './_components/Logout'
 
 export const metadata: Metadata = {
-  title: "Saliendo | Rick y Morty | Thomas Barenghi",
-  description: "Saliendo | Rick y Morty | Thomas Barenghi",
-  themeColor: "#379c35",
-};
-
-export default function Logout() {
-  return <Content />;
+  title: 'Saliendo | Rick y Morty | Thomas Barenghi',
+  description: 'Saliendo | Rick y Morty | Thomas Barenghi'
 }
+
+const Logout = () => <Content />
+
+export default Logout

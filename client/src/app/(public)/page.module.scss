@@ -1,7 +1,7 @@
 @media (max-width: 768px) {
   #seccion-hero {
     min-height: 100vh;
-    background: url("../../../public/img/Rectangle\ 10.webp") center / cover;
+    background: url('../../../public/img/Rectangle\ 10.webp') center / cover;
     color: #ffffff;
     grid-template-columns: auto 55%;
     gap: var(--gap-t1);
@@ -19,7 +19,7 @@
 @media (min-width: 1024px) {
   #seccion-hero {
     min-height: 100vh;
-    background: url("../../../public/img/Rectangle\ 10.webp") center / cover;
+    background: url('../../../public/img/Rectangle\ 10.webp') center / cover;
     color: #ffffff;
     grid-template-columns: auto 55%;
     gap: var(--gap-t1);
@@ -36,7 +36,7 @@
 
 @media (min-width: 768px) and (max-width: 1024px) {
   #seccion-hero {
-    background: url("../../../public/img/Rectangle\ 10.webp") center / cover;
+    background: url('../../../public/img/Rectangle\ 10.webp') center / cover;
     color: #ffffff;
     grid-template-columns: auto 55%;
     gap: var(--gap-t1);

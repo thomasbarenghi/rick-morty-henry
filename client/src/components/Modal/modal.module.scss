@@ -1,0 +1,28 @@
+.visible {
+  display: flex !important;
+}
+
+.invisible {
+  display: none !important;
+}
+
+#modal {
+  font-family: 'outfit', sans-serif;
+  position: fixed;
+  background: #ffffff;
+  right: var(--padding-lr-t3);
+  box-shadow: 0px 0px 20px rgba(33, 37, 41, 0.15);
+  padding: 30px;
+  gap: 16px;
+  font-size: 14px;
+  min-width: 250px;
+  bottom: 40px;
+  z-index: 10;
+}
+
+#modalInner {
+  font-family: 'outfit', sans-serif;
+  gap: 16px;
+  font-size: 14px;
+  padding: 0px !important;
+}

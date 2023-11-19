@@ -9,7 +9,7 @@ async function bootstrap() {
 
   ConfigModule.forRoot();
   app.enableCors({
-    origin: process.env.URL_FRONT,
+    origin: '*',
   });
 
   app.use(

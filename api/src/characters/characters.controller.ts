@@ -3,14 +3,12 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   Req,
 } from '@nestjs/common';
 import { CharactersService } from './characters.service';
 import { CreateCharacterDto } from './dto/create-character.dto';
-import { UpdateCharacterDto } from './dto/update-character.dto';
 
 @Controller('characters')
 export class CharactersController {
@@ -22,7 +20,6 @@ export class CharactersController {
     return this.charactersService.create(body);
   }
 
-  //Recibimos el id del usuario
   @Get()
   findAll(@Req() req) {
     return this.charactersService.findAll(req.headers);

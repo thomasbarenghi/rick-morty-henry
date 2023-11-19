@@ -1,33 +1,33 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 //Fuentes y colores
 
-$font-titulo1-font-family: "Outfit", sans-serif;
+$font-titulo1-font-family: 'Outfit', sans-serif;
 $font-titulo1-line-height: 135%;
 
 $font-titulo2-line-height: 135%;
-$font-titulo2-font-family: "Outfit", sans-serif;
+$font-titulo2-font-family: 'Outfit', sans-serif;
 
 $font-titulo3-line-height: 135%;
-$font-titulo3-font-family: "Outfit", sans-serif;
+$font-titulo3-font-family: 'Outfit', sans-serif;
 
 $font-subtitulo-line-height: 135%;
-$font-subtitulo-font-family: "Outfit", sans-serif;
+$font-subtitulo-font-family: 'Outfit', sans-serif;
 
 $font-body-line-height: 165%;
-$font-body-font-family: "Outfit", sans-serif;
+$font-body-font-family: 'Outfit', sans-serif;
 
 $font-bodyHigh-line-height: 165%;
-$font-bodyHigh-font-family: "Outfit", sans-serif;
+$font-bodyHigh-font-family: 'Outfit', sans-serif;
 
 $font-boton-line-height: 135%;
-$font-boton-font-family: "Outfit", sans-serif;
+$font-boton-font-family: 'Outfit', sans-serif;
 
 $font-smallText-line-height: 135%;
-$font-smallText-font-family: "Outfit", sans-serif;
+$font-smallText-font-family: 'Outfit', sans-serif;
 
 $font-topText-line-height: 135%;
-$font-topText-font-family: "Outfit", sans-serif;
+$font-topText-font-family: 'Outfit', sans-serif;
 
 @media (min-width: 1025px) {
   :root {
@@ -395,7 +395,7 @@ a {
   text-decoration: none;
 }
 
-input[type="search"]:focus {
+input[type='search']:focus {
   outline: none;
 }
 
