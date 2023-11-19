@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { emailPattern, firstNamePattern, lastNamePattern, passwordPattern } from '@/utils/constants/pattern.const'
+import { type RegisterFormData } from '@/interfaces/forms.interfaces'
 
 const Form = () => {
   const dispatch = useAppDispatch()
@@ -16,11 +17,11 @@ const Form = () => {
     register,
     formState: { errors },
     handleSubmit
-  } = useForm<any>({
+  } = useForm<RegisterFormData>({
     mode: 'onChange'
   })
 
-  const onSubmit: SubmitHandler<any> = async (data) => {
+  const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
     try {
       const { meta } = await dispatch(registerAction({ email: data.email, password: data.password }))
       if (meta.requestStatus === 'fulfilled') {

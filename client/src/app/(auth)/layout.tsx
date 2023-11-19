@@ -4,7 +4,11 @@ import Querier from '@/services/querier'
 import SecurityHOC from '@/services/securityHoc'
 import style from './page.module.scss'
 
-const AuthLayout = (props: any) => (
+interface Props {
+  children: React.ReactNode
+}
+
+const AuthLayout = (props: Props) => (
   <>
     <SecurityHOC>
       <Querier>

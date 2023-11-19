@@ -3,13 +3,12 @@ import style from './index.module.scss'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Routes } from '@/utils/constants'
-import Hamburguer from './hamburguer'
-import Nav from './nav'
+import Hamburguer from './Menu'
+import Nav from './NavBar'
 import Image from 'next/image'
 
-export default function HeaderDefault() {
+const Header = () => {
   const [headerType, setHeaderType] = useState('default')
-  const [searchModalStatus, setSearchModalStatus] = useState(false)
   const [hamburguerStatus, setHamburguerStatus] = useState(false)
 
   useEffect(() => {
@@ -27,10 +26,6 @@ export default function HeaderDefault() {
     }
   }, [])
 
-  const handleSearchModal = () => {
-    setSearchModalStatus(!searchModalStatus)
-  }
-
   return (
     <header
       id={style.header}
@@ -41,10 +36,12 @@ export default function HeaderDefault() {
         <Image id={style['header-logo']} src='/img/Rectangle 1.svg' width={213} height={40} alt='logo' />
       </Link>
       <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-        <Nav headerType={headerType} />
+        <Nav />
         <div
           id={style.openSearchBtn}
-          onClick={() => setHamburguerStatus(true)}
+          onClick={() => {
+            setHamburguerStatus(true)
+          }}
           className='d-xl-none d-xxl-none'
           style={{
             width: '52px',
@@ -63,18 +60,22 @@ export default function HeaderDefault() {
           />
         </div>
       </div>
-      {hamburguerStatus === true && (
+      {hamburguerStatus && (
         <Image
-          id={style['closeMenu']}
+          id={style.closeMenu}
           className='d-lg-none d-xl-none d-xxl-none'
           src='/img/fi-rr-cross.svg'
           alt='close'
           width={24}
           height={24}
-          onClick={() => setHamburguerStatus(false)}
+          onClick={() => {
+            setHamburguerStatus(false)
+          }}
         />
       )}
-      {hamburguerStatus === true && <Hamburguer setHamburguerStatus={setHamburguerStatus} />}
+      {hamburguerStatus && <Hamburguer setHamburguerStatus={setHamburguerStatus} />}
     </header>
   )
 }
+
+export default Header

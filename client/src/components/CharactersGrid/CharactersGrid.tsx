@@ -5,6 +5,7 @@ import { setIndex } from '@/redux/slices/client/characters'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { selectorIndexCharacters } from '@/redux/selectors/characters'
 import SearchBar from '../Header/searchBar'
+import { type Character } from '@/interfaces/character.interface'
 
 const CharactersGrid = () => {
   const dispatch = useAppDispatch()
@@ -13,7 +14,7 @@ const CharactersGrid = () => {
   const characters = useAppSelector(selectorIndexCharacters)
   const auth = useAppSelector((state) => state?.authSession?.auth)
 
-  const onIndexChange = (index: number) => {
+  const onIndexChange = (index: 0 | 1 | 2 | 3) => {
     dispatch(setIndex(index))
   }
 
@@ -58,7 +59,7 @@ const CharactersGrid = () => {
       <div id={style.componentContainer}>
         {Array.isArray(characters) &&
           Array.isArray(characters) &&
-          characters?.map((character: any) => <CharacterItem data={character} key={character} />)}
+          characters?.map((character: Character) => <CharacterItem data={character} key={character.id} />)}
       </div>
       {Array.isArray(characters) && characters?.length === 0 && (
         <div>

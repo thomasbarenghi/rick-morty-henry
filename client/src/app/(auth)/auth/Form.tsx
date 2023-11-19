@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { emailPattern, passwordPattern } from '@/utils/constants/pattern.const'
 import { type SubmitHandler, useForm } from 'react-hook-form'
+import { type LoginFormData } from '@/interfaces/forms.interfaces'
 
 const Form = () => {
   const router = useRouter()
@@ -16,11 +17,11 @@ const Form = () => {
     register,
     formState: { errors },
     handleSubmit
-  } = useForm<any>({
+  } = useForm<LoginFormData>({
     mode: 'onChange'
   })
 
-  const onSubmit: SubmitHandler<any> = async (data) => {
+  const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
     try {
       const { payload, meta } = await dispatch(login({ email: data.email, password: data.password }))
       if (meta.requestStatus === 'fulfilled') {

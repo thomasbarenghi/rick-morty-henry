@@ -5,9 +5,10 @@ import { deleteCharacter } from '@/redux/slices/client/characters'
 import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 import Image from 'next/image'
+import { type Character } from '@/interfaces/character.interface'
 
 interface CharacterItemProps {
-  data: any
+  data: Character
 }
 
 const CharacterItem = ({ data }: CharacterItemProps) => {
@@ -18,12 +19,12 @@ const CharacterItem = ({ data }: CharacterItemProps) => {
   const idFavorito = favoritosList?.some((obj) => obj?.id === data?.id) || false
   const ref = useRef<HTMLDivElement>(null)
 
-  const handleFavorite = (data: any) => {
+  const handleFavorite = (data: Character) => {
     dispatch(manageFavoriteCharacter(data))
   }
 
-  const handleDelete = (id: any) => {
-    dispatch(deleteCharacter(data))
+  const handleDelete = () => {
+    dispatch(deleteCharacter(data.id))
   }
 
   const handleClick = () => {
@@ -81,7 +82,7 @@ const CharacterItem = ({ data }: CharacterItemProps) => {
               className='btn btn-primary btn1 btn1-t1'
               type='button'
               onClick={() => {
-                handleDelete(data.id)
+                handleDelete()
               }}
             >
               Eliminar

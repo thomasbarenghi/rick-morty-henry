@@ -2,22 +2,29 @@ import { createSlice, type PayloadAction, createAsyncThunk } from '@reduxjs/tool
 import { postRequest, deleteRequest } from '@/services/apiRequest.service'
 import { toast } from 'sonner'
 import { type RootState } from '@/redux/store/store'
+import { type Character } from '@/interfaces/character.interface'
 
-const initialState = {
-  characters: [] as any[],
+interface State {
+  characters: Character[]
+  isError: boolean
+  isLoading: boolean
+}
+
+const initialState: State = {
+  characters: [],
   isError: false,
   isLoading: false
 }
 
 export const manageFavoriteCharacter = createAsyncThunk(
   'favorites/manageFavoriteCharacter',
-  async (character: any, { dispatch, getState }) => {
+  async (character: Character, { getState }) => {
     try {
       const state = getState() as RootState
       const userId = state.authSession.session.current.id
-      const isAlreadyFavorite = Boolean(state?.client?.favorites?.characters?.find((c: any) => c.id === character?.id))
-
-      console.log('isAlreadyFavorite', isAlreadyFavorite, character)
+      const isAlreadyFavorite = Boolean(
+        state?.client?.favorites?.characters?.find((c: Character) => c.id === character?.id)
+      )
       let response
       if (isAlreadyFavorite) {
         const { data } = await deleteRequest(`/users/${userId}/favorites`, { characterId: character?.id })
@@ -41,7 +48,7 @@ const favoritesSlice = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
-    setCharacters: (state, action: PayloadAction<any>) => {
+    setCharacters: (state, action: PayloadAction<Character[]>) => {
       state.characters = action.payload
     }
   },
@@ -49,11 +56,10 @@ const favoritesSlice = createSlice({
     builder
       .addCase(manageFavoriteCharacter.fulfilled, (state, action) => {
         const { data, operation } = action.payload
-        console.log('data', data, 'operation', operation)
         if (operation === 'add') {
           state.characters.push(data)
         } else {
-          state.characters = state.characters.filter((c: any) => c?.id !== data?.id)
+          state.characters = state.characters.filter((c: Character) => c?.id !== data?.id)
         }
       })
       .addCase(manageFavoriteCharacter.rejected, (state, action) => {

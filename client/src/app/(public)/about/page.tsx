@@ -5,8 +5,7 @@ import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'About | Rick y Morty | Thomas Barenghi',
-  description: 'About | Rick y Morty | Thomas Barenghi',
-  themeColor: '#379c35'
+  description: 'About | Rick y Morty | Thomas Barenghi'
 }
 
 const About = () => (

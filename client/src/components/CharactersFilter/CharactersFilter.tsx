@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import style from './charactersFilter.module.scss'
-import { Input } from '@/components'
+import { SimpleSelect } from '@/components'
 import { characterOptions, orderOptions } from '@/utils/constants'
-import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+import { useAppDispatch } from '@/redux/hooks'
 import { setFilterGender, setFilterOrder, setFilterSpecies, resetFilters } from '@/redux/slices/client/filters'
 import Image from 'next/image'
 
@@ -10,7 +11,8 @@ interface ModalProps {
 }
 const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
   const dispatch = useAppDispatch()
-  const filters = useAppSelector((state) => state?.client?.filters)
+  // const filters = useAppSelector((state) => state?.client?.filters)
+
   const handleFilter = (event: any) => {
     const { name, value } = event
     name === 'species'
@@ -47,44 +49,37 @@ const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
           />
         </div>
         <div id='modalInner'>
-          <Input
-            renderType='select'
+          <SimpleSelect
             name='gender'
             handleChange={(e: any) => {
               e.name = 'gender'
               handleFilter(e)
             }}
-            selectOptions={characterOptions.gender}
+            options={characterOptions.gender}
             label='Genero'
-            selectValue={characterOptions.gender.find((e: any) => e.value === filters.gender)}
             customClass='mt-1'
             error=''
           />
-          <Input
-            renderType='select'
+          <SimpleSelect
             name='species'
             handleChange={(e: any) => {
               e.name = 'species'
               handleFilter(e)
             }}
-            selectOptions={characterOptions.species}
-            selectValue={characterOptions.species.find((e: any) => e.value === filters.species)}
+            options={characterOptions.species}
             label='Especie'
             value='default'
             customClass='mt-1'
             error=''
           />
-          <Input
-            renderType='select'
+          <SimpleSelect
             name='order'
-            selectValue={orderOptions.name.find((e: any) => e.value === filters.order)}
             handleChange={(e: any) => {
               e.name = 'order'
               handleFilter(e)
             }}
-            selectOptions={orderOptions.name}
+            options={orderOptions.name}
             label='Orden por nombre'
-            value='default'
             customClass='mt-1'
             error=''
           />

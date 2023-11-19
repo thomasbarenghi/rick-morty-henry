@@ -1,9 +1,10 @@
+'use client'
 import style from './index.module.scss'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { setSearch } from '@/redux/slices/client/filters'
 import Image from 'next/image'
 
-export default function SearchBar() {
+const Search = () => {
   const dispatch = useAppDispatch()
   const search = useAppSelector((state) => state?.client?.filters?.search)
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,3 +27,5 @@ export default function SearchBar() {
     </div>
   )
 }
+
+export default Search

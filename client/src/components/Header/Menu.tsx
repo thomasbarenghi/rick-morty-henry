@@ -4,11 +4,11 @@ import style from './index.module.scss'
 import { useAppSelector } from '@/redux/hooks'
 import Link from 'next/link'
 
-type HamburguerProps = {
+interface HamburguerProps {
   setHamburguerStatus: (status: boolean) => void
 }
 
-export default function Hamburguer({ setHamburguerStatus }: HamburguerProps) {
+const Hamburguer = ({ setHamburguerStatus }: HamburguerProps) => {
   const auth = useAppSelector((state) => state.authSession.auth)
   return (
     <div id={style['hamburguer-menu']}>
@@ -19,16 +19,25 @@ export default function Hamburguer({ setHamburguerStatus }: HamburguerProps) {
             <Link
               href={Routes.HOME}
               style={{ color: '#000000', textDecoration: 'none' }}
-              onClick={() => setHamburguerStatus(false)}
+              onClick={() => {
+                setHamburguerStatus(false)
+              }}
             >
               Inicio
             </Link>
             <Link
               href={Routes.ABOUT}
               style={{ color: '#000000', textDecoration: 'none' }}
-              onClick={() => setHamburguerStatus(false)}
+              onClick={() => {
+                setHamburguerStatus(false)
+              }}
             >
-              <li onClick={() => setHamburguerStatus(false)} style={{ color: '#000000', textDecoration: 'none' }}>
+              <li
+                onClick={() => {
+                  setHamburguerStatus(false)
+                }}
+                style={{ color: '#000000', textDecoration: 'none' }}
+              >
                 About
               </li>
             </Link>
@@ -48,3 +57,5 @@ export default function Hamburguer({ setHamburguerStatus }: HamburguerProps) {
     </div>
   )
 }
+
+export default Hamburguer

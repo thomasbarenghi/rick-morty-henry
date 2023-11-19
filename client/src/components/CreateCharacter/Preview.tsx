@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import styles from './createCharacter.module.scss'
+import { type Character } from '@/interfaces/character.interface'
 
 interface PreviewProps {
-  formData: any
+  formData: Partial<Character>
 }
 
 const Preview = ({ formData }: PreviewProps) => (
