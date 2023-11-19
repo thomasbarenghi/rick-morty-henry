@@ -1,12 +1,10 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import system from "./slices/system";
-import client from "./slices/client";
-import authSession from "./slices/authSession";
+import { combineReducers } from '@reduxjs/toolkit'
+import client from './slices/client'
+import authSession from './slices/authSession'
 
 const rootReducer = combineReducers({
-  system: system,
-  client: client,
-  authSession: authSession,
-});
+  client,
+  authSession
+})
 
-export default rootReducer;
+export default rootReducer

@@ -1,142 +1,88 @@
-"use client";
-import { ReactNode, useEffect, useMemo } from "react";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { debounce } from "lodash";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import {
-  setAuth,
-  setSession,
-  logout,
-  verifySession as verifySessionX,
-} from "@/redux/slices/authSession";
-import { AuthClass, UserClass } from "@/types";
+'use client'
+import { type ReactNode, useLayoutEffect } from 'react'
+import { useAppSelector, useAppDispatch } from '@/redux/hooks'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import { setAuth, setSession, logout, verifySession as verifySessionX } from '@/redux/slices/authSession'
+import { type Auth } from '@/interfaces'
 
-type Props = {
-  children: ReactNode;
-};
+interface Props {
+  children: ReactNode
+}
 
 const SecurityHOC: React.FC<Props> = ({ children }) => {
-  const dispatch = useAppDispatch();
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  console.log("searchParams", searchParams);
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
   const {
-    session: { current: sSession },
-    auth: sAuth,
-  } = useAppSelector((state) => state.authSession);
+    session: { current: session },
+    auth
+  } = useAppSelector((state) => state.authSession)
 
-  const loginMethodQy = searchParams.get("loginMethod") ?? "";
-  const userIdQy = searchParams.get("id") ?? "";
-  const statusQy = searchParams.get("status") ?? "";
-  const sessionQy = searchParams.get("session") ?? "";
+  const loginMethodQy = searchParams.get('loginMethod') ?? ''
+  const userIdQy = searchParams.get('id') ?? ''
+  const statusQy = searchParams.get('status') ?? ''
+  const sessionQy = searchParams.get('session') ?? ''
+  const userId = session?.id || (userIdQy ?? '')
+  const SessionID = auth?.sessionId || (sessionQy ?? '')
 
-  const session = UserClass.deserialize(sSession);
-  const auth = AuthClass.deserialize(sAuth);
-  const userId = session?.getId() || (userIdQy ?? "");
-  const SessionID = auth?.getSessionId() || (sessionQy ?? "");
-
-  const verifySession = async (data: AuthClass) => {
+  const verifySession = async (data: Auth) => {
     try {
       if (data.isLogged && userId) {
-        const verifData = await dispatch(verifySessionX(SessionID));
-        if (verifData.meta.requestStatus === "fulfilled") {
-          console.log("Sesión válida");
-          await setSessionFn();
-          return true;
+        const verifData = await dispatch(verifySessionX(SessionID))
+        if (verifData.meta.requestStatus === 'fulfilled') {
+          console.log('Sesión válida')
+          await setSessionFn()
+          return true
         } else {
-          console.log("Sesión no válida");
-          return false;
+          console.log('Sesión no válida')
+          dispatch(logout())
         }
       } else {
-        console.log("Debes iniciar sesión primero");
+        console.log('Debes iniciar sesión primero')
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const setSessionFn = async () => {
-    await dispatch(setSession(userId as string));
-  };
+    await dispatch(setSession(userId as string))
+  }
 
   const setAuthFn = async () => {
-    const authObj = new AuthClass(
-      statusQy === "ok" ? true : false,
-      loginMethodQy as string,
-      sessionQy as string,
-    );
-    await dispatch(setAuth(authObj));
-    return authObj;
-  };
+    const authObj: Auth = {
+      isLogged: true,
+      loginMethod: loginMethodQy,
+      sessionId: SessionID
+    }
+    dispatch(setAuth(authObj))
+    return authObj
+  }
 
   const systemHoc = async () => {
-    if (auth?.getIsLogged()) {
-      const sessionOk = await verifySession(auth);
-      if (!sessionOk) {
-        await dispatch(logout());
-      }
-    } else if (
-      !auth?.isLogged &&
-      loginMethodQy &&
-      userIdQy &&
-      statusQy &&
-      sessionQy
-    ) {
-      const authData = await setAuthFn();
-      const sessionOk = await verifySession(authData);
-      if (!sessionOk) {
-        if (!sessionOk) {
-          await dispatch(logout());
-        }
-      }
+    if (auth?.isLogged) {
+      await verifySession(auth)
+    } else if (!auth?.isLogged && loginMethodQy && userIdQy && statusQy && sessionQy) {
+      const authData = await setAuthFn()
+      await verifySession(authData)
     } else {
-      console.log("No hay datos de autenticación");
+      console.log('No hay datos de autenticación')
     }
-  };
+  }
 
-  const delayedSystemStart = useMemo(
-    () => debounce(() => systemHoc(), 500),
-    [
-      pathname,
-      userId,
-      //  auth?.getIsLogged() === true,
-      loginMethodQy,
-      userIdQy,
-      statusQy,
-      searchParams,
-      session?.getId(),
-    ],
-  );
+  useLayoutEffect(() => {
+    systemHoc()
+  }, [])
 
-  useEffect(() => {
-    const cancelDebounce = () => {
-      delayedSystemStart.cancel();
-    };
-    delayedSystemStart();
-    return cancelDebounce;
-  }, [delayedSystemStart]);
-
-  useEffect(() => {
-    console.log("pathname", pathname);
-    //Si estamos en la página de login y estamos logueados, redirigimos a la página de inicio
-    if (
-      (pathname === "/auth" || pathname === "/auth/register") &&
-      auth?.getIsLogged()
-    ) {
-      router.push("/");
+  useLayoutEffect(() => {
+    console.log('pathname', pathname)
+    if ((pathname === '/auth' || pathname === '/auth/register') && auth?.isLogged) {
+      router.push('/')
     }
-  }, [pathname, auth?.getIsLogged(), router]);
+  }, [pathname, auth?.isLogged, router])
 
-  // Rutas protegidas
-  //   console.log(auth?.getIsLogged(), userId, auth);
-  //   if (!auth?.getIsLogged() || auth?.getIsLogged() == undefined || !userId) {
-  //     return null;
-  //   } else {
-  //     return <main>{children}</main>;
-  //   }
+  return <>{children}</>
+}
 
-  return <main>{children}</main>;
-};
-
-export default SecurityHOC;
+export default SecurityHOC

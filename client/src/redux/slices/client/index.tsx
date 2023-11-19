@@ -1,12 +1,12 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import favorites from "./favorites";
-import characters from "./characters";
-import filters from "./filters";
+import { combineReducers } from '@reduxjs/toolkit'
+import favorites from './favorites'
+import characters from './characters'
+import filters from './filters'
 
 const rootReducer = combineReducers({
   favorites,
   characters,
-  filters,
-});
+  filters
+})
 
-export default rootReducer;
+export default rootReducer

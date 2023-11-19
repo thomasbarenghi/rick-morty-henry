@@ -1,12 +1,11 @@
-"use client";
-export { default as HeaderDefault } from "./header";
-export { default as Footer } from "./footer";
-export { default as CharacterItem } from "./characterItem";
-export { default as SwitcherButtons } from "./switcherButtons";
-export { default as Modal } from "./modal";
-export { default as Select } from "./select";
-export { default as CharactersGrid } from "./charactersGrid";
-export { default as CreateCharacter } from "./createCharacter";
-export { default as SimpleSelect } from "./simpleSelect";
-export { default as Input } from "./input";
-export { default as ChatactersFilter } from "./charactersFilter";
+'use client'
+export { default as HeaderDefault } from './Header/Header'
+export { default as Footer } from './Footer/Footer'
+export { default as CharacterItem } from './CharacterItem/CharacterItem'
+export { default as SwitcherButtons } from './Switcher/Switcher'
+export { default as Modal } from './Modal/Modal'
+export { default as CharactersGrid } from './CharactersGrid/CharactersGrid'
+export { default as CreateCharacter } from './CreateCharacter/CreateCharacter'
+export { default as SimpleSelect } from './Select'
+export { default as Input } from './Input'
+export { default as ChatactersFilter } from './CharactersFilter/CharactersFilter'
