@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import { Routes } from '@/utils/constants'
 import { useAppSelector } from '@/redux/hooks'

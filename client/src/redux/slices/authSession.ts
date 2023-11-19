@@ -68,8 +68,8 @@ const authSessionSlice = createSlice({
       state.auth = action.payload
     },
     logout: (state) => {
-      state.session = initialState.session
-      state.auth = initialState.auth
+      state.session.current = {}
+      state.auth = {}
     }
   },
   extraReducers: (builder) => {

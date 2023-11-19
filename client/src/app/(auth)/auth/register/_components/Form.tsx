@@ -1,5 +1,5 @@
 'use client'
-import style from '../../page.module.scss'
+import style from '../../../page.module.scss'
 import { Input } from '@/components'
 import { toast } from 'sonner'
 import { useAppDispatch } from '@/redux/hooks'
@@ -23,7 +23,8 @@ const Form = () => {
 
   const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
     try {
-      const { meta } = await dispatch(registerAction({ email: data.email, password: data.password }))
+      console.log('data', data)
+      const { meta } = await dispatch(registerAction(data))
       if (meta.requestStatus === 'fulfilled') {
         router.push('/auth')
       }
@@ -32,6 +33,8 @@ const Form = () => {
       toast.error('Verifica los campos del formulario')
     }
   }
+
+  console.log('Form', errors)
 
   return (
     <>

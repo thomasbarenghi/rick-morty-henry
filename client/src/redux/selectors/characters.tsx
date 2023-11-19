@@ -39,7 +39,8 @@ export const selectorIndexCharacters = createSelector(
       } else if (filters.order === 'Z-A') {
         return b.name.localeCompare(a.name)
       } else {
-        return filteredCharacters
+        // Default sorting order (e.g., ascending by name)
+        return a.name.localeCompare(b.name)
       }
     })
 

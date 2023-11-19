@@ -7,6 +7,7 @@ import { toast } from 'sonner'
 import Image from 'next/image'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { titlePattern, websitePattern } from '@/utils/constants/pattern.const'
+// import Preview from './Preview'
 
 interface CreateProps {
   handleCreateVisibility: (e: boolean) => void
@@ -43,7 +44,6 @@ const CreateCharacter = ({ handleCreateVisibility }: CreateProps) => {
         <div id={styles.inner_grid} className='d-xl-grid d-xxl-grid flex-row align-items-start item-t1'>
           <div id={styles.grid_col1}>
             <h1 className='titulo3-bold margin-b-24'>Creemos un personaje 🚀</h1>
-
             <form
               onSubmit={handleSubmit(onSubmit)}
               id='form'
@@ -131,7 +131,7 @@ const CreateCharacter = ({ handleCreateVisibility }: CreateProps) => {
             id={styles.grid_col2}
             className='d-none d-xl-flex d-xxl-flex justify-content-center align-items-center align-items-lg-center'
           >
-            {/* <Preview formData={formValues} /> */}
+            {/* <Preview watch={watch} /> */}
           </div>
         </div>
         <Image

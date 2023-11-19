@@ -8,16 +8,8 @@ const RootLayout = (props: any) => (
     <head />
     <body className=''>
       <ReduxProvider>
-        <>
-          <Toaster
-            richColors
-            position='bottom-left'
-            toastOptions={{
-              className: 'max-w-[85vw] xs:max-w-none z-50 '
-            }}
-          />
-          {props.children}
-        </>
+        <Toaster richColors style={{ zIndex: 40 }} />
+        {props.children}
       </ReduxProvider>
     </body>
   </html>

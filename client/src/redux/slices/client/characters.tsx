@@ -9,7 +9,7 @@ interface State {
   characters: Character[]
   ownedCharacters: Character[]
   currentCharacter: Character | null
-  index: 0 | 1 | 2 | 3
+  index: number
   isError: boolean
   isLoading: boolean
 }
@@ -95,7 +95,8 @@ const charactersSlice = createSlice({
     setCharacters: (state, action: PayloadAction<any>) => {
       state.characters = action.payload
     },
-    setIndex: (state, action: PayloadAction<0 | 1 | 2 | 3>) => {
+    setIndex: (state, action: PayloadAction<number>) => {
+      console.log('action.payload', action.payload)
       state.index = action.payload
     }
   },

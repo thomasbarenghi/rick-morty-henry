@@ -2,7 +2,7 @@
 import style from './charactersFilter.module.scss'
 import { SimpleSelect } from '@/components'
 import { characterOptions, orderOptions } from '@/utils/constants'
-import { useAppDispatch } from '@/redux/hooks'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { setFilterGender, setFilterOrder, setFilterSpecies, resetFilters } from '@/redux/slices/client/filters'
 import Image from 'next/image'
 
@@ -11,7 +11,7 @@ interface ModalProps {
 }
 const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
   const dispatch = useAppDispatch()
-  // const filters = useAppSelector((state) => state?.client?.filters)
+  const filters = useAppSelector((state) => state?.client?.filters)
 
   const handleFilter = (event: any) => {
     const { name, value } = event
@@ -55,6 +55,7 @@ const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
               e.name = 'gender'
               handleFilter(e)
             }}
+            value={filters.gender}
             options={characterOptions.gender}
             label='Genero'
             customClass='mt-1'
@@ -66,9 +67,9 @@ const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
               e.name = 'species'
               handleFilter(e)
             }}
+            value={filters.species}
             options={characterOptions.species}
             label='Especie'
-            value='default'
             customClass='mt-1'
             error=''
           />
@@ -79,6 +80,7 @@ const ChatactersFilter = ({ handleVisibility }: ModalProps) => {
               handleFilter(e)
             }}
             options={orderOptions.name}
+            value={filters.order}
             label='Orden por nombre'
             customClass='mt-1'
             error=''

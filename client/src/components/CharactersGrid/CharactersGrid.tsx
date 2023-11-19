@@ -1,10 +1,11 @@
+'use client'
 import style from './charactersGrid.module.scss'
 import { SwitcherButtons, CharacterItem, CreateCharacter, ChatactersFilter } from '@/components'
 import { useState } from 'react'
 import { setIndex } from '@/redux/slices/client/characters'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { selectorIndexCharacters } from '@/redux/selectors/characters'
-import SearchBar from '../Header/searchBar'
+import SearchBar from '../Header/Search'
 import { type Character } from '@/interfaces/character.interface'
 
 const CharactersGrid = () => {
@@ -14,7 +15,7 @@ const CharactersGrid = () => {
   const characters = useAppSelector(selectorIndexCharacters)
   const auth = useAppSelector((state) => state?.authSession?.auth)
 
-  const onIndexChange = (index: 0 | 1 | 2 | 3) => {
+  const onIndexChange = (index: number) => {
     dispatch(setIndex(index))
   }
 
@@ -43,7 +44,7 @@ const CharactersGrid = () => {
             <button
               id='openModal'
               onClick={() => {
-                setCreateVisibility(true)
+                alert('Esta funcionalidad está desactivada por seguridad')
               }}
               className={`${style.modalOpen} btn btn-primary btn1 btn1-t1`}
               style={{ whiteSpace: 'nowrap' }}

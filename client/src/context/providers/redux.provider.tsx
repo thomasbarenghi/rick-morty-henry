@@ -4,7 +4,7 @@ import store, { persistor } from '@/redux/store/store'
 import { PersistGate } from 'redux-persist/integration/react'
 
 interface Props {
-  children: JSX.Element
+  children: React.ReactNode
 }
 
 const ReduxProvider = ({ children }: Props) => (
