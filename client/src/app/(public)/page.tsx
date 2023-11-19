@@ -1,6 +1,7 @@
 import { type Metadata } from 'next'
 import style from './page.module.scss'
 import { CharactersGrid } from '@/components'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Rick y Morty | Thomas Barenghi',
@@ -31,10 +32,9 @@ const Hero = () => (
         te pierdas las aventuras de Rick y Morty.
         <br />
       </p>
-      <button className='btn btn-primary btn1 btn1-t1' type='button'>
-        Conoce a los personajes
-        <br />
-      </button>
+      <Link className='btn btn-primary btn1 btn1-t1' href='/about'>
+        Sobre el proyecto
+      </Link>
     </div>
     <div className='d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-end justify-content-xl-end justify-content-xxl-end'>
       <img id={style['hero-img']} src='/img/Group 3.svg' />
