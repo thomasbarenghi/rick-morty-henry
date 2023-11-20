@@ -76,7 +76,6 @@ export const deleteCharacter = createAsyncThunk(
       const state = getState() as RootState
       const userId = state.authSession.session.current.id || null
       const { data } = await deleteRequest(`/characters/${characterId}`, { userId })
-      console.log('data', data)
       return {
         character: data as Character,
         characterId
@@ -96,7 +95,6 @@ const charactersSlice = createSlice({
       state.characters = action.payload
     },
     setIndex: (state, action: PayloadAction<number>) => {
-      console.log('action.payload', action.payload)
       state.index = action.payload
     }
   },

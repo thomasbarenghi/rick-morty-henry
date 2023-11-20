@@ -18,8 +18,6 @@ const Querier = ({ children }: Props) => {
       dispatch(getCharacters())
     }
 
-    console.log('pathname', pathname, params.gameId, router)
-
     if (params?.characterId) {
       dispatch(getCharacterById(params?.characterId.toString()))
     }

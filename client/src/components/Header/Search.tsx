@@ -8,7 +8,6 @@ const Search = () => {
   const dispatch = useAppDispatch()
   const search = useAppSelector((state) => state?.client?.filters?.search)
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
     dispatch(setSearch(e.target.value))
   }
 
