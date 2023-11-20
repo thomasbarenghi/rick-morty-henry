@@ -31,15 +31,14 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
       if (data.isLogged && userId) {
         const verifData = await dispatch(verifySessionX(SessionID))
         if (verifData.meta.requestStatus === 'fulfilled') {
-          console.log('Sesión válida')
           await setSessionFn()
           return true
         } else {
-          console.log('Sesión no válida')
+          console.error('Sesión no válida')
           dispatch(logout())
         }
       } else {
-        console.log('Debes iniciar sesión primero')
+        console.error('Debes iniciar sesión primero')
       }
     } catch (error) {
       console.error(error)
@@ -67,7 +66,7 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
       const authData = await setAuthFn()
       await verifySession(authData)
     } else {
-      console.log('No hay datos de autenticación')
+      console.error('No hay datos de autenticación')
     }
   }
 
@@ -76,7 +75,6 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
   }, [])
 
   useLayoutEffect(() => {
-    console.log('pathname', pathname)
     if ((pathname === '/auth' || pathname === '/auth/register') && auth?.isLogged) {
       router.push('/')
     }

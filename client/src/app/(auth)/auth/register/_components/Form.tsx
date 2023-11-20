@@ -23,7 +23,6 @@ const Form = () => {
 
   const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
     try {
-      console.log('data', data)
       const { meta } = await dispatch(registerAction(data))
       if (meta.requestStatus === 'fulfilled') {
         router.push('/auth')
@@ -33,8 +32,6 @@ const Form = () => {
       toast.error('Verifica los campos del formulario')
     }
   }
-
-  console.log('Form', errors)
 
   return (
     <>
