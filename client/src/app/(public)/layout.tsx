@@ -1,7 +1,7 @@
 import React from 'react'
 import { HeaderDefault, Footer } from '@/components'
-import Querier from '@/services/querier'
-import SecurityHOC from '@/services/securityHoc'
+import Querier from '@/context/providers/querier.provider'
+import SecurityHOC from '@/context/providers/hoc.provider'
 
 interface Props {
   children: React.ReactNode
