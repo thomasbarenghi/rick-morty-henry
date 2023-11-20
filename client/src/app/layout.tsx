@@ -3,7 +3,11 @@ import './bootstrap.min.css'
 import ReduxProvider from '@/context/providers/redux.provider'
 import { Toaster } from 'sonner'
 
-const RootLayout = (props: any) => (
+interface Props {
+  children: React.ReactNode
+}
+
+const RootLayout = (props: Props) => (
   <html lang='es'>
     <head />
     <body className=''>
