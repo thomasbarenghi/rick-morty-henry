@@ -1,0 +1,28 @@
+#seccion-hero {
+  background: url('../../../public/img/dsds.webp') center / cover no-repeat;
+  min-height: 40vh;
+  color: #ffffff;
+}
+
+#seccion-descripcion-autor {
+  padding-left: var(--padding-lr-t4);
+  padding-right: var(--padding-lr-t4);
+}
+
+#seccion-descripcion-proyecto {
+  background: rgba(55, 156, 53, 0.2);
+  color: #0d8f0a;
+  padding-left: var(--padding-lr-t4);
+  padding-right: var(--padding-lr-t4);
+}
+
+#seccion-tecnologias {
+  padding-left: var(--padding-lr-t4);
+  padding-right: var(--padding-lr-t4);
+}
+
+#grid {
+  grid-template-columns: repeat(auto-fill, minmax(max(35vw, 250px), 1fr));
+  display: grid;
+  gap: var(--gap-t1);
+}

@@ -1,107 +1,52 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+import axios, { type AxiosResponse } from 'axios'
+import { type Response, type GetRequestParams, type MutationRequestParams } from '@/interfaces'
 import { serverUrl } from '@/utils/constants/config.const'
-import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios'
 
-interface Response {
-  data: any
-  error: boolean
-  success?: boolean
-}
-
-export const putRequest = async (url: string, data: object = {}, config?: AxiosRequestConfig): Promise<Response> => {
+export const getRequest = async <T>(params: GetRequestParams): Promise<Response<T>> => {
   try {
-    const response: AxiosResponse = await axios.put(`${serverUrl}${url}`, data, {
-      ...config
+    const axiosInstance = axios.create({
+      baseURL: params.customUrl && params.customUrl?.length > 1 ? params.customUrl : serverUrl
     })
 
-    return {
-      data: response.data,
-      error: false
-    }
-  } catch (error) {
-    console.error('Error putRequest:', error)
-    return {
-      data: error,
-      error: true
-    }
-  }
-}
+    const response = await fetch(`${axiosInstance.defaults.baseURL}${params.path}`, {
+      cache: params.cache,
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+      next: { revalidate: params.revalidate || undefined, tags: params.tags }
+    })
 
-export const postRequest = async (url: string, data: object = {}, config?: AxiosRequestConfig): Promise<Response> => {
-  try {
-    const response: AxiosResponse = await axios.post(`${serverUrl}${url}`, data, { ...config })
+    const responseData = await response.json()
 
-    return {
-      data: response.data,
-      error: false
-    }
-  } catch (error) {
-    console.error('Error postRequest:', error)
-    return {
-      data: error,
-      error: true
-    }
-  }
-}
-
-export const deleteRequest = async (url: string, headers: object = {}): Promise<Response> => {
-  try {
-    const response = await fetch(`${serverUrl}${url}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        ...headers
+    if (!response.ok) {
+      const errorResponse: Response<T> = {
+        data: null,
+        error: { message: `Error en la solicitud GET a ${params.path}`, code: response.status }
       }
-    })
+      return errorResponse
+    }
 
-    return {
-      data: await response.json(),
-      error: !response.ok,
-      success: response.ok
-    }
-  } catch (error) {
-    console.error('Error deleteRequest:', error)
-    return {
-      data: error,
-      error: true,
-      success: false
-    }
+    return { data: responseData, error: null }
+  } catch (error: any) {
+    return { data: null, error: { message: error.message, code: error.code || 500 } }
   }
 }
 
-export const getRequest = async (
-  url: string,
-  headers: object = {},
-  next?: {
-    revalidate?: false | 0 | number
-    tags?: string[]
-    cache?: 'force-cache' | 'no-store' | 'no-cache'
-  }
-): Promise<Response> => {
+export const mutationRequest = async <T>(params: MutationRequestParams): Promise<Response<T>> => {
   try {
-    const response = await fetch(`${serverUrl}${url}`, {
-      next: {
-        revalidate: next?.revalidate,
-        tags: next?.tags
-      },
-      cache: next?.cache,
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        ...headers
-      }
+    const axiosInstance = axios.create({
+      baseURL: params.customUrl && params.customUrl?.length > 1 ? params.customUrl : serverUrl
     })
-    const responsejson = await response.json()
-    return {
-      data: responsejson,
-      error: !response.ok,
-      success: response.ok
-    }
-  } catch (error) {
-    console.error('Error getRequest:', error)
-    return {
-      data: error,
-      error: true,
-      success: false
-    }
+
+    const axiosResponse: AxiosResponse<T> = await axiosInstance({
+      method: params.method,
+      url: params.path,
+      data: params.body,
+      headers: params.headers
+    })
+
+    return { data: axiosResponse.data, error: null }
+  } catch (error: any) {
+    console.error(error)
+    return { data: null, error: { message: error.message, code: error.response?.status || 500 } }
   }
 }
