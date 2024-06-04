@@ -1,0 +1,66 @@
+@media (max-width: 768px) {
+  #seccion-hero {
+    min-height: 100vh;
+    background: url('../../public/img/Rectangle\ 10.webp') center / cover;
+    color: #ffffff;
+    grid-template-columns: auto 55%;
+    gap: var(--gap-t1);
+    padding-left: var(--padding-lr-t4);
+    padding-right: var(--padding-lr-t4);
+    padding-top: max(120px, 8.82vw);
+
+    & #hero-img {
+      max-width: 80%;
+      height: 100%;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  #seccion-hero {
+    min-height: 100vh;
+    background: url('../../public/img/Rectangle\ 10.webp') center / cover;
+    color: #ffffff;
+    grid-template-columns: auto 55%;
+    gap: var(--gap-t1);
+    padding-left: var(--padding-lr-t4);
+    padding-right: var(--padding-lr-t4);
+    padding-top: max(120px, 8.82vw);
+
+    & #hero-img {
+      max-width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  #seccion-hero {
+    background: url('../../public/img/Rectangle\ 10.webp') center / cover;
+    color: #ffffff;
+    grid-template-columns: auto 55%;
+    gap: var(--gap-t1);
+    padding-left: var(--padding-lr-t4);
+    padding-right: var(--padding-lr-t4);
+    padding-top: max(120px, 8.82vw);
+
+    & #hero-img {
+      max-width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+#seccion-personajes {
+  & a {
+    color: #379c35;
+    text-decoration: none;
+  }
+
+  & #componentContainer {
+    gap: var(--gap-t1);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max(15vw, 250px), 1fr));
+    grid-auto-rows: auto;
+  }
+}

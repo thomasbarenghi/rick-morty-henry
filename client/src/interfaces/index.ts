@@ -1,2 +1,2 @@
-export type { User } from './user.interface'
-export type { Auth } from './auth.interface'
+export type { Character } from './character.interface'
+export type * from './api.interface'
